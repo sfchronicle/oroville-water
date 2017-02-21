@@ -1,0 +1,92 @@
+path {
+    // stroke: steelblue;
+    stroke-width: 2;
+    fill: none;
+}
+
+#inflow-chart, #outflow-chart {
+  path {
+    stroke-width: 2;
+    opacity: 0.8;
+  }
+  .line-hover {
+    opacity: 1;
+    stroke-width: 3;
+  }
+}
+
+body {
+  margin:auto !important;
+}
+
+svg {
+  margin: auto;
+}
+
+.axis path,
+.axis line {
+    fill: none;
+    stroke: grey;
+    stroke-width: 1;
+    shape-rendering: crispEdges;
+}
+
+body {
+  max-width: 900px;
+  margin: auto;
+}
+
+.voronoi {
+   path {
+    fill: none;
+    pointer-events: all;
+  }
+}
+
+.inflow-container, .outflow-container {
+  position: relative;
+}
+
+.inflow-info, .outflow-info {
+  text-align: center;
+  font-family: @bold-graphics;
+  position: absolute;
+  left: 70%;
+  top: 20px;
+}
+
+.mobile-instruction, .desktop-instruction {
+  font-size: 14px;
+  @media @mobile {
+    font-size: 13px;
+  }
+}
+
+.mobile-instruction {
+  display: none;
+  @media @mobile {
+    padding-top: 5px;
+    display: block;
+  }
+}
+.desktop-instruction {
+  padding-top: 10px;
+  display: block;
+  @media @mobile {
+    display: none;
+  }
+}
+
+.chatter {
+  @media @mobile {
+    margin-bottom: 0;
+  }
+}
+
+.source {
+  padding-top: 5px;
+}
+.credit {
+  padding-top: 20px;
+  padding-bottom: 0;
+}
