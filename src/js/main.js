@@ -349,6 +349,7 @@ function draw_chart(selectedData,flag) {
 
 // build reservoir chart
 function draw_reservoirs() {
+  margin.left = 100;
   // create SVG container for chart components
   var svgReservoir = d3.select("#reservoir-chart").append("svg")
       .attr("width", width + margin.left + margin.right)
@@ -369,7 +370,7 @@ function draw_reservoirs() {
       .range([height, 0]);
 
   xR.domain([parseFullDate('10/01/2016'), parseFullDate('09/31/2017')]);
-  yR.domain([0,400]);
+  yR.domain([0,4000]);
 
   var xMin = xR.domain()[0];
   var xMax = xR.domain()[1];
@@ -405,7 +406,7 @@ function draw_reservoirs() {
       })
       .y0(height)
       .y1(function(d) {
-        return yR(d.Storage/10000);
+        return yR(d.Storage/1000);
       });
 
   // Add the filled area
@@ -468,7 +469,7 @@ function draw_reservoirs() {
         .attr("dy", ".71em")
         .style("text-anchor", "end")
         // .style("fill","white")
-        .text("Storage (AF)")
+        .text("Storage (KAF)")
   } else {
     svgReservoir.append("g")
         .data(reservoirData)
@@ -477,11 +478,11 @@ function draw_reservoirs() {
         .append("text")
         .attr("class", "label")
         .attr("transform", "rotate(-90)")
-        .attr("y", -50)
+        .attr("y", -70)
         .attr("x", -10)
         .attr("dy", ".71em")
         .style("text-anchor", "end")
         // .style("fill","white")
-        .text("Storage (AF)")
+        .text("Storage (KAF)")
   }
 }
