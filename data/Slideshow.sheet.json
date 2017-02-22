@@ -25,7 +25,7 @@
     "type": "chart",
     "year": 2017,
     "flow_type": "Outflow",
-    "image_text": "<span class=\"bold\">2017:  </span>Continued low outflow of water despite high water levels.</div>"
+    "image_text": "<span class=\"bold\">2017:  </span>Continued low outflow of water for months despite high water levels.</div>"
   },
   {
     "slideID": 4,
@@ -37,31 +37,31 @@
     "slideID": 5,
     "type": "graphic",
     "image": "http://ww4.hdnux.com/photos/57/06/42/12347535/15/2000x0.jpg",
-    "image_text": "There are four ways that water can outflow from the reservoir, and none of them could keep up with the outflow required due to the storm and high reservoir levels."
+    "image_text": "<span class=\"bold\">Four ways to outflow water from the reservoir: </span>All were unequal to the outflow needed due to the storm and high reservoir levels. Let's look at each in more depth."
   },
   {
     "slideID": 6,
     "type": "graphic",
     "image": "http://ww4.hdnux.com/photos/57/06/42/12347535/15/2000x0.jpg",
-    "image_text": "<span class=\"bold\">The emergency spillway</span>: Used for the first time over the weekend but the hillside began dangerously eroding within a day after taking on releases that peaked at 12,600 cfs."
+    "image_text": "<span class=\"bold\">The emergency spillway</span>: Used for the first time during the storm but the hillside began dangerously eroding within a day."
   },
   {
     "slideID": 7,
     "type": "graphic",
     "image": "http://ww4.hdnux.com/photos/57/06/42/12347535/15/2000x0.jpg",
-    "image_text": "<span class=\"bold\">Main spillway</span>: Damaged February 7, can release up to 150,000 cfs of water but dam operators were releasing about 100,000 cfs in the days after the spillway was damaged."
+    "image_text": "<span class=\"bold\">Main spillway</span>: Damaged February 7 and releasing reduced flow to prevent further damage."
   },
   {
     "slideID": 8,
     "type": "graphic",
     "image": "http://ww4.hdnux.com/photos/57/06/42/12347535/15/2000x0.jpg",
-    "image_text": "<span class=\"bold\">Edward Hyatt Powerplant</span>: 14,000 cfs can push through the hydroelectric plan at the base of the dam when operational but it was turned off to prevent it from being damaged after the main spillway was damaged."
+    "image_text": "<span class=\"bold\">Edward Hyatt Powerplant</span>: Non-operational; turned off to prevent damage to it after the main spillway was damaged."
   },
   {
     "slideID": 9,
     "type": "graphic",
     "image": "http://ww4.hdnux.com/photos/57/06/42/12347535/15/2000x0.jpg",
-    "image_text": "<span class=\"bold\">River outlet</span>: Located lowest in the reservoir, regulates cold-water releases. It had an original capacity of 5,400 cfs but has largely not been used since it was involved in a 2009 accident that infured dam workers. Officials say it can now release up to 2,000 cfs."
+    "image_text": "<span class=\"bold\">River outlet</span>: Rarely used since a 2009 accident that injured dam workers. Now releasing up to 2,000 cfs."
   },
   {
     "slideID": 10,

@@ -80,12 +80,16 @@ var max_slide = 10;
 var legend = document.getElementById("legend-container");
 var element_2017 = document.getElementById("element2017");
 
+slide_lookup(0);
+
 // event listeners for the buttons
 document.querySelector('#back').addEventListener('click', function(){
   if (slide_id > 0) {
     d3.select("#chart").select("svg").remove();
     d3.select("#reservoir-chart").select("svg").remove();
+    document.getElementById("progress"+slide_id).classList.remove("active");
     slide_id = slide_id - 1;
+    document.getElementById("progress"+slide_id).classList.add("active");
     slide_lookup(slide_id);
   }
   console.log(slide_id);
@@ -95,22 +99,24 @@ document.querySelector('#forward').addEventListener('click', function(){
   if (slide_id < slideData.length-1) {
     d3.select("#chart").select("svg").remove();
     d3.select("#reservoir-chart").select("svg").remove();
+    document.getElementById("progress"+slide_id).classList.remove("active");
     slide_id = slide_id + 1;
+    document.getElementById("progress"+slide_id).classList.add("active");
     slide_lookup(slide_id);
   }
   console.log(slide_id);
 });
 
-// putting everything on a timer
-var loop = null;
-var tick = function() {
-  slide_lookup(slide_id);
-  slide_id = (slide_id + 1) % slideData.length;
-  loop = setTimeout(tick, slide_id == 0 ? 5000 : 3000);
-  // loop = setTimeout(tick, i == 0 ? 1700 : 1000);
-};
-
-tick();
+// // putting everything on a timer
+// var loop = null;
+// var tick = function() {
+//   slide_lookup(slide_id);
+//   slide_id = (slide_id + 1) % slideData.length;
+//   loop = setTimeout(tick, slide_id == 0 ? 5000 : 5000);
+//   // loop = setTimeout(tick, i == 0 ? 1700 : 1000);
+// };
+//
+// tick();
 
 // var selectedData_filter1 = waterData.filter(function(data) { return data.waterYear == "2017" });
 // var selectedData = selectedData_filter1.filter(function(data) { return data.type == "outflow" });
@@ -159,7 +165,7 @@ function slide_lookup(id) {
     }
   } else if (slideData[id]["type"] == "image") {
     document.querySelector(".chart-image").innerHTML = "<div class='inline-image'><img src='"+slideData[id]["image"]+"'></img></div>";
-    document.querySelector(".chart-info").innerHTML = "<div class='graphic-text'>"+slideData[id]["image_text"]+"</div>";
+    document.querySelector(".chart-top").innerHTML = "<div class='graphic-text'>"+slideData[id]["image_text"]+"</div>";
   }
 }
 
@@ -194,8 +200,6 @@ function draw_chart(selectedData,flag) {
   var FlowNested = d3.nest()
     .key(function(d){ return d.waterYear; })
     .entries(selectedData);
-
-  console.log(FlowNested);
 
   var lineFlow = d3.svg.line()
       // .interpolate("monotone")//linear, linear-closed,step-before, step-after, basis, basis-open,basis-closed,monotone

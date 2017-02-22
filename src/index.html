@@ -20,10 +20,22 @@
 
       <div class="outer">
         <div class="hed">What happened in Oroville?</div>
-        <div class="byline">By Emma O'Neill, Kurtis Alexander, and John Blanchard</div>
+        <div class="byline">By Emma O'Neill and John Blanchard</div>
 
         <div class="chatter">
           After years of drought, California is having extraordinary water and snow accumulation this winter. See how the Oroville dam came near the brink of crisis.
+        </div>
+
+        <div class="progress-bar">
+          <ol>
+            <% json.Slideshow.forEach(function(t,tdx) { %>
+              <% if (tdx == 0){ %>
+                 <li class="active" id="progress<%=tdx%>"></li>
+              <% } else { %>
+                 <li id="progress<%=tdx%>"></li>
+              <% } %>
+            <% }); %>
+          </ol>
         </div>
 
         <div class="controls">

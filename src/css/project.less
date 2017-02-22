@@ -9,8 +9,28 @@
 @yr2016: #b5cf6b;
 @yr2017: red;
 
-.controls {
-  display: none !important;
+// .controls {
+//   display: none !important;
+// }
+
+ol {
+  // width: 100%;
+  text-align: center;
+  padding: 0;
+  margin-bottom: 0;
+}
+li{
+  float: center;
+  list-style: circle;
+  border-radius: 50%;
+  display: inline-block;
+  width: 15px;
+  height:15px;
+  cursor: pointer;
+  border: 1px solid @dark-gray;
+  &.active {
+    background: @dark-gray;
+  }
 }
 
 .legend-container {
@@ -75,7 +95,7 @@
 .chart-top {
   height: 62px;
   line-height: 62px;
-  font-size: 16px;
+  font-size: 15px;
   text-align: center;
   .bold {
     font-family: @bold-graphics;
@@ -96,17 +116,18 @@
     top: 20px;
     right: 0;
     width: 50%;
-    font-size: 18px;
+    font-size: 15px;
     .bold {
       font-family: @bold-graphics;
-      font-size: 20px;
+      font-size: 17px;
     }
     .graphic-text {
       padding: 20px;
+      font-size: 15px;
       background: rgba(255,255,255,1.0);
       .bold {
         font-family: @bold-graphics;
-        font-size: 20px;
+        font-size: 17px;
       }
     }
   }
@@ -262,7 +283,6 @@ svg {
   padding-top: 10px;
   text-align: center;
   display: block;
-  padding-left: 20px;
 }
 #forward, #back {
   border-radius: 7px;
