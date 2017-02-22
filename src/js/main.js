@@ -78,6 +78,7 @@ var max_slide = 10;
 
 // tracking if we want to show the legend and which elements
 var legend = document.getElementById("legend-container");
+var legend_overlay = document.getElementById("legend-container-overlay");
 var element_2017 = document.getElementById("element2017");
 
 slide_lookup(0);
@@ -127,42 +128,42 @@ function slide_lookup(id) {
   // clear previous elements
   d3.select("#chart").select("svg").remove();
   d3.select("#reservoir-chart").select("svg").remove();
-  document.querySelector(".chart-text").innerHTML = "";
-  document.querySelector(".chart-image").innerHTML = "";
-  document.querySelector(".chart-info").innerHTML = "";
   document.querySelector(".chart-top").innerHTML = "";
   legend.classList.remove("active");
+  legend_overlay.classList.remove("active");
 
   if (slideData[id]["type"] == "text") {
     document.querySelector(".chart-text").innerHTML = slideData[id]["text"];
   } else if (slideData[id]["type"] == "chart") {
-    legend.classList.add("active");
-    if ((slideData[id]["year"]).length > 4) {
-      var selectedData_filter1 = [];
-      waterData.forEach(function(data) {
-        if ((data.waterYear >= slideData[id]["year"].split("-")[0]) && (data.waterYear <= slideData[id]["year"].split("-")[1])) {
-          selectedData_filter1.push(data);
-        }
-      });
-      var selectedData = selectedData_filter1.filter(function(data) { return data.type == slideData[id]["flow_type"] });
-      var flag = 0;
-      element_2017.classList.add("inactive");
-    } else {
-      // var selectedData_filter1 = waterData.filter(function(data) { return data.waterYear == slideData[id]["year"] });
-      var selectedData = waterData.filter(function(data) { return data.type == slideData[id]["flow_type"] });
-      var flag = 1;
-      element_2017.classList.remove("inactive");
-    }
-    draw_chart(selectedData,flag);
-    document.querySelector(".chart-info").innerHTML = slideData[id]["image_text"];
-  } else if (slideData[id]["type"] == "graphic"){
+    // special chart with 2 y-axes
     if (id == 4) {
-      document.querySelector(".chart-top").innerHTML = slideData[id]["image_text"];
-      draw_reservoirs();
+      legend_overlay.classList.add("active");
+      draw_overlay();
+    // other charts that just show inflow / outflow data
     } else {
-      document.querySelector(".chart-image").innerHTML = "<div class='inline-image'><img src='"+slideData[id]["image"]+"'></img></div>";
-      document.querySelector(".chart-info").innerHTML = "<div class='graphic-text'>"+slideData[id]["image_text"]+"</div>";
+      legend.classList.add("active");
+      if ((slideData[id]["year"]).length > 4) {
+        var selectedData_filter1 = [];
+        waterData.forEach(function(data) {
+          if ((data.waterYear >= slideData[id]["year"].split("-")[0]) && (data.waterYear <= slideData[id]["year"].split("-")[1])) {
+            selectedData_filter1.push(data);
+          }
+        });
+        var selectedData = selectedData_filter1.filter(function(data) { return data.type == slideData[id]["flow_type"] });
+        var flag = 0;
+        element_2017.classList.add("inactive");
+      } else {
+        // var selectedData_filter1 = waterData.filter(function(data) { return data.waterYear == slideData[id]["year"] });
+        var selectedData = waterData.filter(function(data) { return data.type == slideData[id]["flow_type"] });
+        var flag = 1;
+        element_2017.classList.remove("inactive");
+      }
+      draw_chart(selectedData,flag);
     }
+    document.querySelector(".chart-top").innerHTML = slideData[id]["image_text"];
+  } else if (slideData[id]["type"] == "graphic"){
+    document.querySelector(".chart-image").innerHTML = "<div class='inline-image'><img src='"+slideData[id]["image"]+"'></img></div>";
+    document.querySelector(".chart-top").innerHTML = "<div class='graphic-text'>"+slideData[id]["image_text"]+"</div>";
   } else if (slideData[id]["type"] == "image") {
     document.querySelector(".chart-image").innerHTML = "<div class='inline-image'><img src='"+slideData[id]["image"]+"'></img></div>";
     document.querySelector(".chart-top").innerHTML = "<div class='graphic-text'>"+slideData[id]["image_text"]+"</div>";
@@ -218,34 +219,6 @@ function draw_chart(selectedData,flag) {
         return y(d.Flow/1000);
       });
 
-  // var startLineFlow = d3.svg.line()
-  //     .x(function(d) {
-  //       return x(parseFullDate("10/01/2015"));
-  //       // // return x(parseFullDate(d.Date));
-  //       // var datetemp = d.Date.split("/");
-  //       // if (datetemp[0] >= 10) {
-  //       //   var datetemp2 = datetemp[0]+"/"+datetemp[1]+"/2015";
-  //       // } else {
-  //       //   var datetemp2 = datetemp[0]+"/"+datetemp[1]+"/2016";
-  //       // }
-  //       // // var datetemp2 = datetemp[0]+"/"+datetemp[1]+"/"+d.Year;
-  //       // return x(parseFullDate(datetemp2));
-  //     })
-  //     .y(function(d) {
-  //       return y(0);
-  //     });
-
-  // function pathTween(pathData) {
-  //   console.log(pathData);
-  //   var interpolate = d3.scale.quantile()
-  //     .domain([0,1])
-  //     .range(d3.range(1, pathData.length + 1));
-  //   console.log(interpolate);
-  //   return function(t) {
-  //     return lineFlow(pathData.slice(0, interpolate(t)));
-  //   };
-  // }
-
   FlowNested.forEach(function(d,ddx) {
     d.values.splice(0,1);
     var class_list = "line voronoi id_Flow"+d.key;
@@ -254,13 +227,6 @@ function draw_chart(selectedData,flag) {
       .style("opacity",opacity_by_year(d.key,flag))
       // .style("stroke-dasharray", stroke_by_dataset(d.values[0].type))
       .style("stroke", color_by_year(d.key))//cscale(d.key))//
-      // .transition()
-      //   .duration(200*12)
-      //   .attrTween('d', pathTween(d.values));
-      // .transition()
-      // .attr("d", startLineFlow(d.values)) // set starting position
-      // .transition()
-      //   .delay(ddx*1000)
       .attr("d", lineFlow(d.values));
   });
 
@@ -386,20 +352,20 @@ function draw_reservoirs() {
   var yR = d3.scale.linear()
       .range([height, 0]);
 
-  xR.domain([parseFullDate('10/01/2016'), parseFullDate('09/31/2017')]);
+  xR.domain([parseFullDate('10/01/2016'), parseFullDate('02/22/2017')]);
   yR.domain([0,1000]);
 
   // Define the axes
   var xAxisR = d3.svg.axis().scale(xR)
       .orient("bottom")
-      .tickFormat(d3.time.format("%b")); // tickFormat
+      .tickFormat(d3.time.format("%m/%d")); // tickFormat
 
   var yAxisR = d3.svg.axis().scale(yR)
       .orient("left");
 
   var line901 = [
     {Date: '10/01/2016', Height: 901},
-    {Date: '09/31/2017', Height: 901}
+    {Date: '02/22/2017', Height: 901}
   ];
   //
   var lineReservoirs = d3.svg.line()
@@ -451,7 +417,7 @@ function draw_reservoirs() {
       .style("font-size", "13px")
       .text("Maximum reservoir capacity");
 
-  if (screen.width <= 480) {
+  // if (screen.width <= 480) {
     svgReservoir.append("g")
         .attr("class", "x axis")
         .attr("transform", "translate(0," + height + ")")
@@ -467,18 +433,18 @@ function draw_reservoirs() {
         .attr("y", 35)
         .style("text-anchor", "end")
         .text("Month")
-  } else {
-    svgReservoir.append("g")
-        .attr("class", "x axis")
-        .attr("transform", "translate(0," + height + ")")
-        .call(xAxisR)
-        .append("text")
-        .attr("class", "label")
-        .attr("x", width)
-        .attr("y", 40)
-        .style("text-anchor", "end")
-        .text("Month");
-  }
+  // } else {
+  //   svgReservoir.append("g")
+  //       .attr("class", "x axis")
+  //       .attr("transform", "translate(0," + height + ")")
+  //       .call(xAxisR)
+  //       .append("text")
+  //       .attr("class", "label")
+  //       .attr("x", width)
+  //       .attr("y", 40)
+  //       .style("text-anchor", "end")
+  //       .text("Month");
+  // }
 
   if (screen.width <= 480) {
     svgReservoir.append("g")
@@ -509,4 +475,331 @@ function draw_reservoirs() {
         // .style("fill","white")
         .text("Elevation (Feet)")
   }
+}
+
+function draw_overlay() {
+  // create SVG container for chart components
+  margin.bottom = 100;
+  var svgOverlay = d3.select(".chart").append("svg")
+      .attr("width", width + margin.left + margin.right)
+      .attr("height", height + margin.top + margin.bottom)
+      .append("g")
+      .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+  // x-axis scale
+  var xMonth = d3.time.scale()
+      .range([0,width]);
+
+  // y-axis scale
+  var yInflow = d3.scale.linear()
+      .range([height, 0]);
+
+  var yRightHeight = d3.scale.linear()
+      .range([height, 0]);
+
+  // Define the axes
+  var xAxisMonth = d3.svg.axis().scale(xMonth)
+      .orient("bottom")
+      .tickFormat(d3.time.format("%m/%d")); // tickFormat
+
+  var yAxisInflow = d3.svg.axis().scale(yInflow)
+      .orient("left");
+
+  var yAxisRightHeight = d3.svg.axis().scale(yRightHeight)
+      .orient("right")
+
+  xMonth.domain([parseFullDate('10/01/2016'), parseFullDate('02/22/2017')]);
+  yInflow.domain([0,140]);
+  yRightHeight.domain([0,20]);
+
+  var areaReservoirs = d3.svg.area()
+      // .interpolate("monotone")//linear, linear-closed,step-before, step-after, basis, basis-open,basis-closed,monotone
+      .x(function(d) {
+        return xMonth(parseFullDate(d.Date));
+      })
+      .y0(height)
+      .y1(function(d) {
+        return yRightHeight((901-d.Height)/901*100);
+      });
+
+  // Add the filled area
+  svgOverlay.append("path")
+      .datum(reservoirData)
+      .attr("class", "area")
+      .style("fill","#6790B7")
+      .attr("d", areaReservoirs);
+
+  var lineFlow = d3.svg.line()
+      // .interpolate("monotone")//linear, linear-closed,step-before, step-after, basis, basis-open,basis-closed,monotone
+      .x(function(d) {
+        // return x(parseFullDate(d.Date));
+        var datetemp = d.Date.split("/");
+        if (datetemp[0] >= 10) {
+          var datetemp2 = datetemp[0]+"/"+datetemp[1]+"/2016";
+        } else {
+          var datetemp2 = datetemp[0]+"/"+datetemp[1]+"/2017";
+        }
+        // var datetemp2 = datetemp[0]+"/"+datetemp[1]+"/"+d.Year;
+        return xMonth(parseFullDate(datetemp2));
+      })
+      .y(function(d) {
+        return yInflow(d.Flow/1000);
+      });
+
+  var selectedData_filter1 = waterData.filter(function(data) { return data.waterYear == "2017" });
+  var selectedData = selectedData_filter1.filter(function(data) { return data.type == "Outflow" });
+
+  svgOverlay.append("path")
+    .attr("class", "path")
+    .style("stroke", "red")//cscale(d.key))//
+    .attr("d", lineFlow(selectedData));
+
+  // if (screen.width <= 480) {
+    svgOverlay.append("g")
+        .attr("class", "x axis")
+        .attr("transform", "translate(0," + height + ")")
+        .call(xAxisMonth)
+      .selectAll("text")
+          .style("text-anchor", "end")
+          .attr("dx", "-.8em")
+          .attr("dy", ".15em")
+          .attr("transform", "rotate(-65)" )
+        .append("text")
+        .attr("class", "label")
+        .attr("x", width)
+        .attr("y", -200)
+        .style("text-anchor", "end")
+        .text("Date (by rain season)")
+
+    if (screen.width <= 480) {
+      svgOverlay.append("g")
+          .attr("class", "y axis")
+          .call(yAxisInflow)
+          .append("text")
+          .attr("class", "label")
+          .attr("transform", "rotate(-90)")
+          .attr("y", 10)
+          .attr("x", 0)
+          .attr("dy", ".71em")
+          .style("text-anchor", "end")
+          // .style("fill","white")
+          .text("Outflow at Oroville reservoir (kcfs)")
+
+      svgOverlay.append("g")
+          .attr("class", "y axis")
+          .attr("transform", "translate(" + width + " ,0)")
+          .call(yAxisRightHeight)
+          .append("text")
+          .attr("class", "label")
+          .attr("transform", "rotate(-90)")
+          .attr("y", 10)
+          .attr("x", 0)
+          .attr("dy", ".71em")
+          .style("text-anchor", "end")
+          // .style("fill","white")
+          .text("Reservoir space (% available)")
+    } else {
+      svgOverlay.append("g")
+          .attr("class", "y axis")
+          .call(yAxisInflow)
+          .append("text")
+          .attr("class", "label")
+          .attr("transform", "rotate(-90)")
+          .attr("y", -55)
+          .attr("x", 0)
+          .attr("dy", ".71em")
+          .style("text-anchor", "end")
+          // .style("fill","white")
+          .text("Outflow at Oroville reservoir (kcfs)")
+
+      svgOverlay.append("g")
+          .attr("class", "y axis")
+          .attr("transform", "translate(" + width + " ,0)")
+          .call(yAxisRightHeight)
+          .append("text")
+          .attr("class", "label")
+          .attr("transform", "rotate(-90)")
+          .attr("y", -20)
+          .attr("x", 0)
+          .attr("dy", ".71em")
+          .style("text-anchor", "end")
+          // .style("fill","white")
+          .text("Reservoir space (% available)")
+    }
+    // } else {
+  //   svgOverlay.append("g")
+  //       .attr("class", "x axis")
+  //       .attr("transform", "translate(0," + height + ")")
+  //       .call(xAxisMonth)
+  //       .append("text")
+  //       .attr("class", "label")
+  //       .attr("x", width)
+  //       .attr("y", 40)
+  //       .style("text-anchor", "end")
+  //       .text("Date");
+  // }
+  // var lineElevationAvg = d3.svg.line()
+  //     .interpolate("monotone")
+  //     .x(function(d) {
+  //       return xMilePace(d.distance);
+  //     })
+  //     .y(function(d) {
+  //       return yRightMilePace(d.elevation);
+  //     });
+  //
+  // svgMilePace.append("path")
+  //   .attr("class","elevationprofile")
+  //   .attr("d",lineElevationAvg(elevationData));
+  //
+  // var lineMilePace = d3.svg.line()
+  //     .interpolate("monotone")
+  //     .x(function(d) {
+  //       return xMilePace(d.mile);
+  //     })
+  //     .y(function(d) {
+  //       return yMilePace(d.pace);
+  //     });
+  //
+  // // plotting histogram of ages for last 6 years
+  // pacePerGroup.forEach(function(d,idx) {
+  //   var class_list = "line voronoipath "+group_list_paces[idx];
+  //   svgMilePace.append("path")
+  //     .attr("class",class_list)
+  //     .style("stroke", color_by_group(group_list_paces[idx]))
+  //     .attr("d", lineMilePace(d));
+  // });
+  //
+  // var focusMilePace = svgMilePace.append("g")
+  //     .attr("transform", "translate(-100,-100)")
+  //     .attr("class", "focus");
+  //
+  // focusMilePace.append("circle")
+  //     .attr("r", 3.5);
+  //
+  // focusMilePace.append("rect")
+  //     .attr("x",-110)
+  //     .attr("y",-25)
+  //     .attr("width","150px")
+  //     .attr("height","20px")
+  //     .attr("opacity","0.8")
+  //     .attr("fill","white");
+  //
+  // focusMilePace.append("text")
+  //     .attr("x", -100)
+  //     .attr("y", -10);
+  //
+  // var voronoiGroupMilePace = svgMilePace.append("g")
+  //     .attr("class", "voronoiMilePace");
+  //
+  // // console.log(flatData);
+  // voronoiGroupMilePace.selectAll(".voronoiMilePace")
+  //   .data(voronoiMilePace(flatDataPerMile))
+  //   .enter().append("path")
+  //   .attr("d", function(d) {
+  //     // console.log(d);
+  //     if (d) {
+  //       return "M" + d.join("L") + "Z";
+  //     }
+  //   })
+  //   .datum(function(d) {
+  //     if (d) {
+  //       return d.point;
+  //     }
+  //   })
+  //   .on("mouseover", mouseoverMilePace)
+  //   .on("mouseout", mouseoutMilePace);
+  //
+  // function mouseoverMilePace(d) {
+  //   d3.select("."+d.key).classed("line-hover", true);
+  //   focusMilePace.attr("transform", "translate(" + xMilePace(d.mile) + "," + yMilePace(d.pace) + ")");
+  //   focusMilePace.select("text").text("Mile "+d.mile+", "+d.paceText+ " per mile");
+  // }
+  //
+  // function mouseoutMilePace(d) {
+  //   d3.select("."+d.key).classed("line-hover", false);
+  //   focusMilePace.attr("transform", "translate(-100,-100)");
+  // }
+  //
+  // if (screen.width <= 480) {
+  //   svgMilePace.append("g")
+  //       .attr("class", "x axis")
+  //       .attr("transform", "translate(0," + height + ")")
+  //       .call(xAxisMilePace)
+  //       .append("text")
+  //       .attr("class", "label")
+  //       .attr("x", width)
+  //       .attr("y", 35)
+  //       .style("text-anchor", "end")
+  //       .text("Mile");
+  // } else {
+  //   svgMilePace.append("g")
+  //       .attr("class", "x axis")
+  //       .attr("transform", "translate(0," + height + ")")
+  //       .call(xAxisMilePace)
+  //       .append("text")
+  //       .attr("class", "label")
+  //       .attr("x", width)
+  //       .attr("y", 40)
+  //       .style("text-anchor", "end")
+  //       .text("Mile");
+  // }
+  //
+  // if (screen.width <= 480) {
+  //   svgMilePace.append("g")
+  //       .attr("class", "y axis")
+  //       .call(yAxisMilePace)
+  //       .append("text")
+  //       .attr("class", "label")
+  //       .attr("transform", "rotate(-90)")
+  //       .attr("y", 10)
+  //       .attr("x", 0)
+  //       .attr("dy", ".71em")
+  //       .style("text-anchor", "end")
+  //       // .style("fill","white")
+  //       .text("Pace per mile (min/mi)")
+  //
+  //   svgMilePace.append("g")
+  //     .attr("class", "y axis")
+  //     .call(yAxisRightMilePace)
+  //     .attr("transform", "translate(" + width + " ,0)")
+  //     .append("text")
+  //       .attr("class", "label")
+  //       .attr("transform", "rotate(-90)")
+  //       .attr("y", -20)
+  //       .attr("x", 0)
+  //       .attr("dy", ".71em")
+  //       .style("text-anchor", "end")
+  //       .text("Elevation (ft)")
+  //
+  // } else {
+  //   svgMilePace.append("g")
+  //     .attr("class", "y axis")
+  //     .call(yAxisMilePace)
+  //     .append("text")
+  //       .attr("class", "label")
+  //       .attr("transform", "rotate(-90)")
+  //       .attr("y", -70)
+  //       .attr("x", -10)
+  //       .attr("dy", ".71em")
+  //       .style("text-anchor", "end")
+  //       // .style("fill","white")
+  //       .text("Pace per mile (min/mi)")
+  //
+  //   svgMilePace.append("g")
+  //     .attr("class", "y axis")
+  //     .call(yAxisRightMilePace)
+  //     .attr("transform", "translate(" + width + " ,0)")
+  //     .append("text")
+  //       .attr("class", "label")
+  //       .attr("transform", "rotate(-90)")
+  //       .attr("y", 60)
+  //       .attr("x", -10)
+  //       .attr("dy", ".71em")
+  //       .style("text-anchor", "end")
+  //       .text("Elevation (ft)")
+  //
+  // }
+
+
+
 }

@@ -59,6 +59,7 @@ li{
     }
 
     &.long {
+      .flex(0 0 20%);
       @media @mobile {
         .flex(0 0 50%);
       }
@@ -83,23 +84,29 @@ li{
   .swath2015 {background: @yr2015}
   .swath2016 {background: @yr2016}
   .swath2017 {background: @yr2017}
+  .swathreservoir {background: @blue}
+  .swathoutflow {background: @yr2017}
   .legend-text {
     text-align: left;
     width: 60px;
-    // width: 150px;
+    &.long {
+      width: 300px;
+    }
     padding-left: 20px;
     vertical-align: text-top;
   }
 }
 
 .chart-top {
-  height: 62px;
-  line-height: 62px;
-  font-size: 15px;
+  // height: 62px;
+  // line-height: 62px;
+  font-size: 20px;
   text-align: center;
-  .bold {
-    font-family: @bold-graphics;
-  }
+  font-family: @med-graphics;
+  padding-top: 10px;
+  // .bold {
+  //   font-family: @bold-graphics;
+  // }
   &:empty {
     display: none;
   }
