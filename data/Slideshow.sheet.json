@@ -11,7 +11,7 @@
     "type": "chart",
     "year": 2017,
     "flow_type": "Inflow",
-    "image_text": "<span class=\"bold\">2017:  </span>Big storms, and lots of rain bring big inflows to the reservoir."
+    "image_text": "<span class=\"bold\">2017:  </span>Big storms bring big inflows to the reservoir."
   },
   {
     "slideID": 2,
@@ -25,7 +25,7 @@
     "type": "chart",
     "year": 2017,
     "flow_type": "Outflow",
-    "image_text": "<span class=\"bold\">2017:  </span>Continued low outflow of water prior to February storm.</div>"
+    "image_text": "<span class=\"bold\">2017:  </span>Continued low outflow of water despite high water levels.</div>"
   },
   {
     "slideID": 4,
@@ -37,7 +37,7 @@
     "slideID": 5,
     "type": "graphic",
     "image": "http://ww4.hdnux.com/photos/57/06/42/12347535/15/2000x0.jpg",
-    "image_text": "There are four ways that water can outflow from the reservoir, and none of them could keep up with the outflow required during the storm."
+    "image_text": "There are four ways that water can outflow from the reservoir, and none of them could keep up with the outflow required due to the storm and high reservoir levels."
   },
   {
     "slideID": 6,

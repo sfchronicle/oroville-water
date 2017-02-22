@@ -101,17 +101,30 @@ document.querySelector('#forward').addEventListener('click', function(){
   console.log(slide_id);
 });
 
+// putting everything on a timer
+var loop = null;
+var tick = function() {
+  slide_lookup(slide_id);
+  slide_id = (slide_id + 1) % slideData.length;
+  loop = setTimeout(tick, slide_id == 0 ? 5000 : 3000);
+  // loop = setTimeout(tick, i == 0 ? 1700 : 1000);
+};
+
+tick();
+
 // var selectedData_filter1 = waterData.filter(function(data) { return data.waterYear == "2017" });
 // var selectedData = selectedData_filter1.filter(function(data) { return data.type == "outflow" });
 // draw_chart(selectedData);
-slide_lookup(0);
 
 function slide_lookup(id) {
 
   // clear previous elements
+  d3.select("#chart").select("svg").remove();
+  d3.select("#reservoir-chart").select("svg").remove();
   document.querySelector(".chart-text").innerHTML = "";
   document.querySelector(".chart-image").innerHTML = "";
   document.querySelector(".chart-info").innerHTML = "";
+  document.querySelector(".chart-top").innerHTML = "";
   legend.classList.remove("active");
 
   if (slideData[id]["type"] == "text") {
@@ -138,7 +151,7 @@ function slide_lookup(id) {
     document.querySelector(".chart-info").innerHTML = slideData[id]["image_text"];
   } else if (slideData[id]["type"] == "graphic"){
     if (id == 4) {
-      document.querySelector(".chart-info").innerHTML = slideData[id]["image_text"];
+      document.querySelector(".chart-top").innerHTML = slideData[id]["image_text"];
       draw_reservoirs();
     } else {
       document.querySelector(".chart-image").innerHTML = "<div class='inline-image'><img src='"+slideData[id]["image"]+"'></img></div>";
@@ -370,34 +383,29 @@ function draw_reservoirs() {
       .range([height, 0]);
 
   xR.domain([parseFullDate('10/01/2016'), parseFullDate('09/31/2017')]);
-  yR.domain([0,4000]);
-
-  var xMin = xR.domain()[0];
-  var xMax = xR.domain()[1];
+  yR.domain([0,1000]);
 
   // Define the axes
   var xAxisR = d3.svg.axis().scale(xR)
       .orient("bottom")
       .tickFormat(d3.time.format("%b")); // tickFormat
 
-  console.log(xAxisR);
-
   var yAxisR = d3.svg.axis().scale(yR)
       .orient("left");
 
   var line901 = [
-    {x: xMin, y: 901},
-    {x: xMax, y: 901}
+    {Date: '10/01/2016', Height: 901},
+    {Date: '09/31/2017', Height: 901}
   ];
   //
-  // var lineReservoirs = d3.svg.line()
-  //     // .interpolate("monotone")//linear, linear-closed,step-before, step-after, basis, basis-open,basis-closed,monotone
-  //     .x(function(d) {
-  //       return xR(parseFullDate(d.Date));
-  //     })
-  //     .y(function(d) {
-  //       return yR(d.Storage/10000);
-  //     });
+  var lineReservoirs = d3.svg.line()
+      // .interpolate("monotone")//linear, linear-closed,step-before, step-after, basis, basis-open,basis-closed,monotone
+      .x(function(d) {
+        return xR(parseFullDate(d.Date));
+      })
+      .y(function(d) {
+        return yR(d.Height);
+      });
 
   var areaReservoirs = d3.svg.area()
       // .interpolate("monotone")//linear, linear-closed,step-before, step-after, basis, basis-open,basis-closed,monotone
@@ -406,7 +414,7 @@ function draw_reservoirs() {
       })
       .y0(height)
       .y1(function(d) {
-        return yR(d.Storage/1000);
+        return yR(d.Height);
       });
 
   // Add the filled area
@@ -421,11 +429,23 @@ function draw_reservoirs() {
   //   .style("stroke","green")
   //   .attr("d", lineReservoirs(reservoirData));
 
-  // var path901 = svgReservoir.append("path")
-  //   .attr("d", lineReservoirs(line901))
-  //   .attr("stroke", "red")
-  //   .attr("stroke-width", "2")
-  //   .attr("fill", "none");
+  var path901 = svgReservoir.append("path")
+    .attr("d", lineReservoirs(line901))
+    .attr("class","annotation")
+    .attr("stroke", "#696969")
+    .attr("fill", "none")
+    .style("shape-rendering","crispEdges")
+
+  svgReservoir.append("text")
+      .attr("x", function(d) {
+        return xR(parseFullDate("08/01/2017"));
+      })
+      .attr("y", function(d) {
+        return yR(850);
+      })
+      .attr("text-anchor", "middle")
+      .style("font-size", "13px")
+      .text("Maximum reservoir capacity");
 
   if (screen.width <= 480) {
     svgReservoir.append("g")
@@ -469,7 +489,7 @@ function draw_reservoirs() {
         .attr("dy", ".71em")
         .style("text-anchor", "end")
         // .style("fill","white")
-        .text("Storage (KAF)")
+        .text("Elevation (Feet)")
   } else {
     svgReservoir.append("g")
         .data(reservoirData)
@@ -483,6 +503,6 @@ function draw_reservoirs() {
         .attr("dy", ".71em")
         .style("text-anchor", "end")
         // .style("fill","white")
-        .text("Storage (KAF)")
+        .text("Elevation (Feet)")
   }
 }

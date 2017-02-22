@@ -9,6 +9,10 @@
 @yr2016: #b5cf6b;
 @yr2017: red;
 
+.controls {
+  display: none !important;
+}
+
 .legend-container {
   display: none;
   &.active {
@@ -68,6 +72,19 @@
   }
 }
 
+.chart-top {
+  height: 62px;
+  line-height: 62px;
+  font-size: 16px;
+  text-align: center;
+  .bold {
+    font-family: @bold-graphics;
+  }
+  &:empty {
+    display: none;
+  }
+}
+
 .chart-container {
   height: 500px;
   .display-flex;
@@ -117,6 +134,9 @@
   }
 }
 
+.annotation {
+  stroke-width: 1 !important;
+}
 
 path {
     // stroke: steelblue;

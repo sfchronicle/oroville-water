@@ -41,6 +41,7 @@
           <div class="element"><div class="swath swath2016"><div class="legend-text">2016</div></div></div>
           <div class="element inactive" id="element2017"><div class="swath swath2017"><div class="legend-text">2017</div></div></div>
         </div>
+        <div class="chart-top"></div>
 
         <div class="chart-container">
           <div class="chart-text"></div>
@@ -55,9 +56,9 @@
     <%= t.include("partials/_footer.html") %>
 
     <script>
-      var waterData = <%= JSON.stringify(csv.combined) %>;
+      var waterData = <%= JSON.stringify(json.FlowData) %>;
       var slideData = <%= JSON.stringify(json.Slideshow) %>;
-      var reservoirData = <%= JSON.stringify(json.ReservoirData) %>;
+      var reservoirData = <%= JSON.stringify(json.ReservoirHeight) %>;
     </script>
 
     <script src="app.js" async></script>
