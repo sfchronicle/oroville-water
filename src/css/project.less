@@ -1,10 +1,75 @@
+@blue: #6790B7;
+
+.chart-container {
+  height: 500px;
+  .display-flex;
+  .flex-wrap(wrap);
+  justify-content: center;
+  position: relative;
+  .chart-info {
+    position: absolute;
+    top: 30px;
+    right: 0;
+    width: 50%;
+    font-size: 18px;
+    .graphic-text {
+      padding: 20px;
+      background: rgba(255,255,255,1.0);
+      .bold {
+        font-family: @bold-graphics;
+        font-size: 20px;
+      }
+    }
+  }
+  .chart-text {
+    width: 80%;
+    padding: 5%;
+    background: lighten(@blue,10%);
+    align-self: center;
+    .bold {
+      font-size: 50px;
+      font-family: @bold-graphics;
+      // color: @blue;
+    }
+    &:empty {
+      display: none;
+    }
+  }
+  .inline-image {
+    height: 500px;
+    img {
+      height: 100%;
+      // height: auto;
+      // overflow: auto;
+    }
+  }
+}
+
+
 path {
     // stroke: steelblue;
     stroke-width: 2;
     fill: none;
 }
 
-#inflow-chart, #outflow-chart {
+.logo-link {
+  padding-top: 9px;
+}
+
+.divider {
+  width: 80%;
+  margin: auto;
+  border-bottom: 2px @dark-gray solid;
+  height: 2px;
+  &.bottom {
+    margin-top: 50px;
+    border-bottom: 1px @dark-gray solid;
+  }
+}
+
+#chart {
+  max-width: 100%;
+  width: 90%;
   path {
     stroke-width: 2;
     opacity: 0.8;
@@ -17,6 +82,7 @@ path {
 
 body {
   margin:auto !important;
+  font-family: @block-graphics;
 }
 
 svg {
@@ -31,7 +97,7 @@ svg {
     shape-rendering: crispEdges;
 }
 
-body {
+.outer {
   max-width: 900px;
   margin: auto;
 }
@@ -43,7 +109,7 @@ body {
   }
 }
 
-.inflow-container, .outflow-container {
+.chart-container, .chart-container {
   position: relative;
 }
 
@@ -85,8 +151,46 @@ body {
 
 .source {
   padding-top: 5px;
+  text-align: center;
+  padding: 20px 0;
 }
-.credit {
-  padding-top: 20px;
-  padding-bottom: 0;
+
+
+.hed {
+  font-family: @med-graphics;
+  padding-top: 50px;
+  font-size: 30px;
+}
+
+.byline {
+  text-align: center;
+  font-style: normal;
+  font-size: 14px;
+}
+
+.controls {
+  padding-top: 10px;
+  text-align: center;
+  display: block;
+  padding-left: 20px;
+}
+#forward, #back {
+  border-radius: 7px;
+  display: inline-block;
+  font-size: 30px;
+  cursor: pointer;
+  color: @dark-gray;
+  background: @light-gray;
+  padding: 2px 10px;
+  line-height: 1;
+  &:hover {
+    background: @dark-gray;
+    color: white;
+  }
+
+  &.selected {
+    color: @black;
+    cursor: default;
+    background: @dark-gray;
+  }
 }

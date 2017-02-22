@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
     <link rel="stylesheet" type="text/css" href="style.css">
 
-    <%= !json.project.embedded ? t.include("partials/_paywall.html") : t.include("partials/_embedframe.html") %>
+    <!-- <%= !json.project.embedded ? t.include("partials/_paywall.html") : t.include("partials/_embedframe.html") %> -->
 
     <%= t.include("partials/_head.html") %>
 
@@ -16,35 +16,35 @@
 
   <%= !json.project.embedded ? "<body>" : "<body is='responsive-body'>" %>
 
+      <%= t.include("partials/_nav.html") %>
+
       <div class="outer">
-        <div class="hed">Oroville dam inflow and outflow</div>
+        <div class="hed">What happened in Oroville?</div>
+        <div class="byline">By Emma O'Neill, Kurtis Alexander, and John Blanchard</div>
 
         <div class="chatter">
-          There has been record rain and snow this year and the Oroville dam exemplifies the extraordinary water levels which have resulted in the catastrophic spillway failure. Here's what inflow and outflow mean. The data goes back to 2010.
-          <p class="mobile-instruction">Click on the lines to see which water year they represent.</p>
-          <p class="desktop-instruction">Hover over the lines to see the dates and levels.</p>
+          After years of drought, California is having extraordinary water and snow accumulation this winter. See how the Oroville dam came near the brink of crisis.
         </div>
 
-        <div class="inflow-container">
-          <div class="inflow-info"></div>
-          <div id="inflow-chart" class="inflow-chart"></div>
+        <div class="controls">
+          <div id="back"><i class="fa fa-caret-left"></i></div>
+          <div id="forward"><i class="fa fa-caret-right"></i></div>
         </div>
 
-        <div class="outflow-container">
-          <div class="outflow-info"></div>
-          <div id="outflow-chart" class="outflow-chart"></div>
+        <div class="chart-container">
+          <div class="chart-text"></div>
+          <div class="chart-image"></div>
+          <div class="chart-info"></div>
+          <div id="chart" class="chart"></div>
         </div>
 
-        <div class="credit">
-          <div class="entry">Emma O'Neill  &bull; <a href="mailto:eoneill@sfchronicle.com">eoneill@sfchronicle.com</a>   &bull; <a href = "https://twitter.com/emmaruthoneill" target="_blank">@emmaruthoneill</a></div>
-        </div>
-        <div class="source">
-          <em>Data is from <a href="http://cdec.water.ca.gov/" target="_blank">California Department of Water Resources</a></em>
-        </div>
     </div>
+
+    <%= t.include("partials/_footer.html") %>
 
     <script>
       var waterData = <%= JSON.stringify(csv.combined) %>;
+      var slideData = <%= JSON.stringify(json.Slideshow) %>;
     </script>
 
     <script src="app.js" async></script>
