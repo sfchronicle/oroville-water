@@ -1,106 +1,81 @@
 [
   {
-    "slideID": 0,
-    "type": "text",
-    "text": "<span class=\"bold\">Inflow</span> to a reservoir is all of the water that flows into the reservoir from rain and snow melt. It is measured in \"cfs\" which stands for \"cubic feet per second\" and is the average rate of water flow into the reservoir. It is equal to a volume of water one foot high and one foot wide flowing a distance of one foot in one second, so one \"cfs\" is equal to 7.48 gallons of water flowing each second."
-  },
-  {
     "slideID": 1,
     "type": "chart",
-    "year": 2011,
+    "year": "2010-2016",
     "flow_type": "inflow",
-    "image_text": "For instance, in 2011, there was a big rainstorm in the end of December that contributed to substantial reservoir inflow, and then the reservoir had steady inflow from melting snow from mid-March all the way through June."
+    "image_text": "<span class=\"bold\">Inflow</span> into a reservoir is all of the water that flows into the reservoir. It is measured in cfs, or cubic feet per second, which is the average rate of water flow into the reservoir. One cfs is equal to 7.48 gallons of water flowing each second. During the drought years, from 2010 to 2016, there was very little inflow into the Oroville reservoir."
   },
   {
     "slideID": 2,
-    "type": "text",
-    "text": "<span class=\"bold\">Outflow</span> from a reservoir is all of the water that flows out of a reservoir. It is measured in cfs, just like inflow. Outflow is controlled by reservoir operators who balance reserving adequate water in the reservoir with keeping space in the reservoir for future storms or melted snow."
+    "type": "chart",
+    "year": "2010-2016",
+    "flow_type": "outflow",
+    "image_text": "<span class=\"bold\">Outflow</span> from a reservoir is all of the water that flows out of a reservoir. During the drought years, there was also little outflow from the Oroville reservoir because California was hoarding all of the water Oroville could store."
   },
   {
     "slideID": 3,
-    "type": "chart",
-    "year": 2011,
-    "flow_type": "outflow",
-    "flow_supplement": "inflow",
-    "image_text": "For instance, a lot of water was outflowed from the reservoir in mid-March of 2011 to make room for all of the snowmelt."
-  },
-  {
-    "slideID": 4,
-    "type": "chart",
-    "year": "2010-2016",
-    "flow_type": "inflow",
-    "image_text": "During the drought years, from 2010 to 2016, there was very little inflow into the reservoir."
-  },
-  {
-    "slideID": 5,
-    "type": "chart",
-    "year": "2010-2016",
-    "flow_type": "outflow",
-    "image_text": "Likewise, there was very little outflow from the reservoir because California was hoarding all of the water Oroville could store."
-  },
-  {
-    "slideID": 6,
     "type": "chart",
     "year": 2017,
     "flow_type": "inflow",
     "image_text": "This year, we have had some very big storms and all of that water has been filling up the Oroville reservoir."
   },
   {
-    "slideID": 7,
+    "slideID": 4,
     "type": "graphic",
     "image": "http://ww2.hdnux.com/photos/57/11/63/12360937/19/1200x0.jpg",
     "image_text": "The reservoir was nearly full by mid-February."
   },
   {
-    "slideID": 8,
+    "slideID": 5,
     "type": "graphic",
     "image": "http://ww4.hdnux.com/photos/57/06/42/12347535/15/2000x0.jpg",
     "image_text": "There are four ways that water can outflow from the reservoir."
   },
   {
-    "slideID": 9,
+    "slideID": 6,
     "type": "graphic",
     "image": "http://ww4.hdnux.com/photos/57/06/42/12347535/15/2000x0.jpg",
     "image_text": "<span class=\"bold\">The emergency spillway</span>: Used for the first time over the weekend but the hillside began dangerously eroding within a day after taking on releases that peaked at 12,600 cfs."
   },
   {
-    "slideID": 10,
+    "slideID": 7,
     "type": "graphic",
     "image": "http://ww4.hdnux.com/photos/57/06/42/12347535/15/2000x0.jpg",
     "image_text": "<span class=\"bold\">Main spillway</span>: Damaged February 7, can release up to 150,000 cfs of water but dam operators were releasing about 100,000 cfs in the days after the spillway was damaged."
   },
   {
-    "slideID": 11,
+    "slideID": 8,
     "type": "graphic",
     "image": "http://ww4.hdnux.com/photos/57/06/42/12347535/15/2000x0.jpg",
     "image_text": "<span class=\"bold\">Edward Hyatt Powerplant</span>: 14,000 cfs can push through the hydroelectric plan at the base of the dam when operational but it was turned off to prevent it from being damaged after the main spillway was damaged."
   },
   {
-    "slideID": 12,
+    "slideID": 9,
     "type": "graphic",
     "image": "http://ww4.hdnux.com/photos/57/06/42/12347535/15/2000x0.jpg",
     "image_text": "<span class=\"bold\">River outlet</span>: Located lowest in the reservoir, regulates cold-water releases. It had an original capacity of 5,400 cfs but has largely not been used since it was involved in a 2009 accident that infured dam workers. Officials say it can now release up to 2,000 cfs."
   },
   {
-    "slideID": 13,
+    "slideID": 10,
     "type": "chart",
     "year": 2017,
     "flow_type": "outflow",
-    "image_text": "All of the ways that water can outflow from the reservoir were nearly unequal to the overflowing water."
+    "image_text": "Despite the very high accumulation of water in the reservoir, the Oroville reservoir operators did not outflow water because they were accustomed to conserving all water during the drought. Therefore, all of the ways that water can outflow from the reservoir were nearly unequal to the overflowing water during the February storm."
   },
   {
-    "slideID": 14,
+    "slideID": 11,
     "type": "image",
     "image": "http://ww2.hdnux.com/photos/57/16/05/12378481/5/1200x0.jpg",
     "image_text": "This caused quite a bit of damage."
   },
   {
-    "slideID": 15,
+    "slideID": 12,
     "type": "text",
     "text": "Nonetheless, we avoided disaster. Here's how."
   },
   {
-    "slideID": 16,
+    "slideID": 13,
     "type": "text",
     "text": "Here's what we need to do next."
   }

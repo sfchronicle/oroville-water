@@ -12,7 +12,21 @@ function color_by_year(year) {
   if (year == "2017") {
     return "red";
   } else {
+    console.log(year);
+    console.log(cscale(year));
     return cscale(year);
+  }
+}
+
+function opacity_by_year(year,flag) {
+  if (flag == 0) {
+    return 1;
+  } else {
+    if (year == "2017") {
+      return 1;
+    } else {
+      return 0.6;
+    }
   }
 }
 
@@ -106,11 +120,13 @@ function slide_lookup(id) {
         }
       });
       var selectedData = selectedData_filter1.filter(function(data) { return data.type == slideData[id]["flow_type"] });
+      var flag = 0;
     } else {
-      var selectedData_filter1 = waterData.filter(function(data) { return data.waterYear == slideData[id]["year"] });
-      var selectedData = selectedData_filter1.filter(function(data) { return data.type == slideData[id]["flow_type"] });
+      // var selectedData_filter1 = waterData.filter(function(data) { return data.waterYear == slideData[id]["year"] });
+      var selectedData = waterData.filter(function(data) { return data.type == slideData[id]["flow_type"] });
+      var flag = 1;
     }
-    draw_chart(selectedData);
+    draw_chart(selectedData,flag);
     document.querySelector(".chart-info").innerHTML = slideData[id]["image_text"];
   } else if (slideData[id]["type"] == "graphic"){
     document.querySelector(".chart-image").innerHTML = "<div class='inline-image'><img src='"+slideData[id]["image"]+"'></img></div>";
@@ -121,7 +137,7 @@ function slide_lookup(id) {
   }
 }
 
-function draw_chart(selectedData) {
+function draw_chart(selectedData,flag) {
 
   // create SVG container for chart components
   var svgFlow = d3.select(".chart").append("svg")
@@ -174,6 +190,7 @@ function draw_chart(selectedData) {
     var class_list = "line voronoi id_Flow"+d.key;
     svgFlow.append("path")
       .attr("class", class_list)
+      .style("opacity",opacity_by_year(d.key,flag))
       // .style("stroke-dasharray", stroke_by_dataset(d.values[0].type))
       .style("stroke", color_by_year(d.key))//cscale(d.key))//
       .attr("d", lineFlow(d.values));
