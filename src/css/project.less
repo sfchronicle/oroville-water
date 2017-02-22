@@ -1,5 +1,73 @@
 @blue: #6790B7;
 
+@yr2010: #393b79;
+@yr2011: #5254a3;
+@yr2012: #6b6ecf;
+@yr2013: #9c9ede;
+@yr2014: #637939;
+@yr2015: #8ca252;
+@yr2016: #b5cf6b;
+@yr2017: red;
+
+.legend-container {
+  display: none;
+  &.active {
+    .display-flex;
+    .flex-wrap(wrap);
+    justify-content: center;
+  }
+  padding: 20px 0;
+  padding-left: 7%;
+  font-size: 12px;
+  font-family: @block-graphics;
+  width: 100%;
+  margin: auto;
+  text-align: center;
+  margin-bottom: 10px;
+  .element {
+    // width: 16%;
+    .flex(0 0 10%);
+    @media @mobile {
+      .flex(0 0 48%);
+    }
+    &.inactive {
+      display: none;
+    }
+
+    &.long {
+      @media @mobile {
+        .flex(0 0 50%);
+      }
+    }
+    // width: 16%;
+  }
+  @media @mobile {
+    margin: 15px auto;
+    margin-top: 0;
+  }
+  .swath  {
+    height: 14px;
+    width: 14px;
+    margin: 4px;
+    border-radius: 2px;
+  }
+  .swath2010 {background: @yr2010}
+  .swath2011 {background: @yr2011}
+  .swath2012 {background: @yr2012}
+  .swath2013 {background: @yr2013}
+  .swath2014 {background: @yr2014}
+  .swath2015 {background: @yr2015}
+  .swath2016 {background: @yr2016}
+  .swath2017 {background: @yr2017}
+  .legend-text {
+    text-align: left;
+    width: 60px;
+    // width: 150px;
+    padding-left: 20px;
+    vertical-align: text-top;
+  }
+}
+
 .chart-container {
   height: 500px;
   .display-flex;
@@ -8,7 +76,7 @@
   position: relative;
   .chart-info {
     position: absolute;
-    top: 30px;
+    top: 20px;
     right: 0;
     width: 50%;
     font-size: 18px;

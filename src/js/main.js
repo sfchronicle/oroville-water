@@ -78,6 +78,10 @@ if (screen.width > 768) {
 var slide_id = 0;
 var max_slide = 10;
 
+// tracking if we want to show the legend and which elements
+var legend = document.getElementById("legend-container");
+var element_2017 = document.getElementById("element2017");
+
 // event listeners for the buttons
 document.querySelector('#back').addEventListener('click', function(){
   if (slide_id > 0) {
@@ -108,10 +112,12 @@ function slide_lookup(id) {
   document.querySelector(".chart-text").innerHTML = "";
   document.querySelector(".chart-image").innerHTML = "";
   document.querySelector(".chart-info").innerHTML = "";
+  legend.classList.add("active");
 
   if (slideData[id]["type"] == "text") {
     document.querySelector(".chart-text").innerHTML = slideData[id]["text"];
   } else if (slideData[id]["type"] == "chart") {
+    legend.classList.add("active");
     if ((slideData[id]["year"]).length > 4) {
       var selectedData_filter1 = [];
       waterData.forEach(function(data) {
@@ -121,10 +127,12 @@ function slide_lookup(id) {
       });
       var selectedData = selectedData_filter1.filter(function(data) { return data.type == slideData[id]["flow_type"] });
       var flag = 0;
+      element_2017.classList.add("inactive");
     } else {
       // var selectedData_filter1 = waterData.filter(function(data) { return data.waterYear == slideData[id]["year"] });
       var selectedData = waterData.filter(function(data) { return data.type == slideData[id]["flow_type"] });
       var flag = 1;
+      element_2017.classList.remove("inactive");
     }
     draw_chart(selectedData,flag);
     document.querySelector(".chart-info").innerHTML = slideData[id]["image_text"];
@@ -186,13 +194,48 @@ function draw_chart(selectedData,flag) {
         return y(d.Flow/1000);
       });
 
-  FlowNested.forEach(function(d) {
+  var startLineFlow = d3.svg.line()
+      .x(function(d) {
+        return x(parseFullDate("10/01/2015"));
+        // // return x(parseFullDate(d.Date));
+        // var datetemp = d.Date.split("/");
+        // if (datetemp[0] >= 10) {
+        //   var datetemp2 = datetemp[0]+"/"+datetemp[1]+"/2015";
+        // } else {
+        //   var datetemp2 = datetemp[0]+"/"+datetemp[1]+"/2016";
+        // }
+        // // var datetemp2 = datetemp[0]+"/"+datetemp[1]+"/"+d.Year;
+        // return x(parseFullDate(datetemp2));
+      })
+      .y(function(d) {
+        return y(0);
+      });
+
+  function pathTween(pathData) {
+    console.log(pathData);
+    var interpolate = d3.scale.quantile()
+      .domain([0,1])
+      .range(d3.range(1, pathData.length + 1));
+    console.log(interpolate);
+    return function(t) {
+      return lineFlow(pathData.slice(0, interpolate(t)));
+    };
+  }
+
+  FlowNested.forEach(function(d,ddx) {
     var class_list = "line voronoi id_Flow"+d.key;
     svgFlow.append("path")
       .attr("class", class_list)
       .style("opacity",opacity_by_year(d.key,flag))
       // .style("stroke-dasharray", stroke_by_dataset(d.values[0].type))
       .style("stroke", color_by_year(d.key))//cscale(d.key))//
+      // .transition()
+      //   .duration(200*12)
+      //   .attrTween('d', pathTween(d.values));
+      // .transition()
+      // .attr("d", startLineFlow(d.values)) // set starting position
+      // .transition()
+      //   .delay(ddx*1000)
       .attr("d", lineFlow(d.values));
   });
 
@@ -266,6 +309,7 @@ function draw_chart(selectedData,flag) {
 
       if (screen.width <= 480) {
         svgFlow.append("g")
+            .data(flatDataFlow)
             .attr("class", "y axis")
             .call(yAxis)
             .append("text")
@@ -279,6 +323,7 @@ function draw_chart(selectedData,flag) {
             .text("Flow at Oroville reservoir (kcfs)")
       } else {
         svgFlow.append("g")
+            .data(flatDataFlow)
             .attr("class", "y axis")
             .call(yAxis)
             .append("text")
@@ -289,7 +334,7 @@ function draw_chart(selectedData,flag) {
             .attr("dy", ".71em")
             .style("text-anchor", "end")
             // .style("fill","white")
-            .text("Flow at Oroville reservoir (kcfs)")
+            .text(slideData[slide_id]["flow_type"]+" (kcfs)")
       }
 
 }

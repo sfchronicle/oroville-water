@@ -1,36 +1,43 @@
 [
   {
-    "slideID": 1,
+    "slideID": 0,
     "type": "chart",
     "year": "2010-2016",
-    "flow_type": "inflow",
-    "image_text": "<span class=\"bold\">Inflow</span> into a reservoir is all of the water that flows into the reservoir. It is measured in cfs, or cubic feet per second, which is the average rate of water flow into the reservoir. One cfs is equal to 7.48 gallons of water flowing each second. During the drought years, from 2010 to 2016, there was very little inflow into the Oroville reservoir."
+    "flow_type": "Inflow",
+    "image_text": "<span class=\"bold\">Drought years:  </span>Very little rain or snow flowing into the Oroville reservoir.  "
+  },
+  {
+    "slideID": 1,
+    "type": "chart",
+    "year": 2017,
+    "flow_type": "Inflow",
+    "image_text": "<span class=\"bold\">2017:  </span>Big storms, and lots of rain."
   },
   {
     "slideID": 2,
     "type": "chart",
     "year": "2010-2016",
-    "flow_type": "outflow",
-    "image_text": "<span class=\"bold\">Outflow</span> from a reservoir is all of the water that flows out of a reservoir. During the drought years, there was also little outflow from the Oroville reservoir because California was hoarding all of the water Oroville could store."
+    "flow_type": "Outflow",
+    "image_text": "<span class=\"bold\">Drought years:  </span>Low outflow because California was hoarding all of the water Oroville could store.</span>"
   },
   {
     "slideID": 3,
     "type": "chart",
     "year": 2017,
-    "flow_type": "inflow",
-    "image_text": "This year, we have had some very big storms and all of that water has been filling up the Oroville reservoir."
+    "flow_type": "Outflow",
+    "image_text": "<span class=\"bold\">2017:  </span>Continued low outflow of water prior to February storm.</div>"
   },
   {
     "slideID": 4,
     "type": "graphic",
     "image": "http://ww2.hdnux.com/photos/57/11/63/12360937/19/1200x0.jpg",
-    "image_text": "The reservoir was nearly full by mid-February."
+    "image_text": "<span class=\"bold\">Reservoir levels:  </span>The reservoir was nearly full in mid-February, when the storm broke."
   },
   {
     "slideID": 5,
     "type": "graphic",
     "image": "http://ww4.hdnux.com/photos/57/06/42/12347535/15/2000x0.jpg",
-    "image_text": "There are four ways that water can outflow from the reservoir."
+    "image_text": "There are four ways that water can outflow from the reservoir, and none of them could keep up with the outflow required during the storm."
   },
   {
     "slideID": 6,
@@ -58,24 +65,17 @@
   },
   {
     "slideID": 10,
-    "type": "chart",
-    "year": 2017,
-    "flow_type": "outflow",
-    "image_text": "Despite the very high accumulation of water in the reservoir, the Oroville reservoir operators did not outflow water because they were accustomed to conserving all water during the drought. Therefore, all of the ways that water can outflow from the reservoir were nearly unequal to the overflowing water during the February storm."
-  },
-  {
-    "slideID": 11,
     "type": "image",
     "image": "http://ww2.hdnux.com/photos/57/16/05/12378481/5/1200x0.jpg",
     "image_text": "This caused quite a bit of damage."
   },
   {
-    "slideID": 12,
+    "slideID": 11,
     "type": "text",
     "text": "Nonetheless, we avoided disaster. Here's how."
   },
   {
-    "slideID": 13,
+    "slideID": 12,
     "type": "text",
     "text": "Here's what we need to do next."
   }
