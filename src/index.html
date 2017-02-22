@@ -47,6 +47,7 @@
           <div class="chart-image"></div>
           <div class="chart-info"></div>
           <div id="chart" class="chart"></div>
+          <div id="reservoir-chart"></div>
         </div>
 
     </div>
@@ -56,6 +57,7 @@
     <script>
       var waterData = <%= JSON.stringify(csv.combined) %>;
       var slideData = <%= JSON.stringify(json.Slideshow) %>;
+      var reservoirData = <%= JSON.stringify(json.ReservoirData) %>;
     </script>
 
     <script src="app.js" async></script>
