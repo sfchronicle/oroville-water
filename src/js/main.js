@@ -56,7 +56,7 @@ if (screen.width > 768) {
   console.log("big phone");
   var margin = {
     top: 20,
-    right: 45,
+    right: 20,
     bottom: 35,
     left: 30
   };
@@ -66,9 +66,9 @@ if (screen.width > 768) {
   console.log("mini iphone")
   var margin = {
     top: 20,
-    right: 55,
+    right: 20,
     bottom: 35,
-    left: 30
+    left: 40
   };
   var width = 310 - margin.left - margin.right;
   var height = 350 - margin.top - margin.bottom;
@@ -210,7 +210,41 @@ function slide_lookup(id) {
 
 function draw_chart(selectedData,flag) {
 
-  margin.bottom = 40;
+  // setting sizes of interactive
+  var margin = {
+    top: 15,
+    right: 100,
+    bottom: 40,
+    left: 70
+  };
+  if (screen.width > 768) {
+    var width = 1000 - margin.left - margin.right;
+    var height = 500 - margin.top - margin.bottom;
+  } else if (screen.width <= 768 && screen.width > 480) {
+    var width = 650 - margin.left - margin.right;
+    var height = 500 - margin.top - margin.bottom;
+  } else if (screen.width <= 480 && screen.width > 340) {
+    console.log("big phone");
+    var margin = {
+      top: 20,
+      right: 20,
+      bottom: 35,
+      left: 30
+    };
+    var width = 340 - margin.left - margin.right;
+    var height = 350 - margin.top - margin.bottom;
+  } else if (screen.width <= 340) {
+    console.log("mini iphone")
+    var margin = {
+      top: 20,
+      right: 20,
+      bottom: 35,
+      left: 40
+    };
+    var width = 310 - margin.left - margin.right;
+    var height = 350 - margin.top - margin.bottom;
+  }
+
   // create SVG container for chart components
   var svgFlow = d3.select(".chart").append("svg")
       .attr("width", width + margin.left + margin.right)
@@ -371,7 +405,8 @@ function draw_chart(selectedData,flag) {
 
 // build reservoir chart
 function draw_reservoirs() {
-  margin.left = 100;
+  // setting sizes of interactive
+
   // create SVG container for chart components
   var svgReservoir = d3.select("#reservoir-chart").append("svg")
       .attr("width", width + margin.left + margin.right)
@@ -518,8 +553,40 @@ function draw_reservoirs() {
 
 function draw_overlay() {
   // create SVG container for chart components
-  margin.bottom = 100;
-  margin.right = 100;
+  var margin = {
+    top: 15,
+    right: 100,
+    bottom: 50,
+    left: 100
+  };
+  if (screen.width > 768) {
+    var width = 1000 - margin.left - margin.right;
+    var height = 500 - margin.top - margin.bottom;
+  } else if (screen.width <= 768 && screen.width > 480) {
+    var width = 650 - margin.left - margin.right;
+    var height = 500 - margin.top - margin.bottom;
+  } else if (screen.width <= 480 && screen.width > 340) {
+    console.log("big phone");
+    var margin = {
+      top: 20,
+      right: 60,
+      bottom: 50,
+      left: 30
+    };
+    var width = 340 - margin.left - margin.right;
+    var height = 350 - margin.top - margin.bottom;
+  } else if (screen.width <= 340) {
+    console.log("mini iphone")
+    var margin = {
+      top: 20,
+      right: 60,
+      bottom: 50,
+      left: 30
+    };
+    var width = 310 - margin.left - margin.right;
+    var height = 350 - margin.top - margin.bottom;
+  }
+  console.log(margin);
   var svgOverlay = d3.select(".chart").append("svg")
       .attr("width", width + margin.left + margin.right)
       .attr("height", height + margin.top + margin.bottom)
@@ -576,16 +643,30 @@ function draw_overlay() {
         return yRightHeight(d.Height/901*100);
       });
 
-  svgOverlay.append("text")
-      .attr("x", function(d) {
-        return xMonth(parseFullDate("02/01/2017"));
-      })
-      .attr("y", function(d) {
-        return yRightHeight(102);
-      })
-      .attr("text-anchor", "middle")
-      .style("font-size", "13px")
-      .text("Oroville reservoir capacity");
+  if (screen.width <= 480) {
+    svgOverlay.append("text")
+        .attr("x", function(d) {
+          return xMonth(parseFullDate("12/20/2016"));
+        })
+        .attr("y", function(d) {
+          return yRightHeight(102);
+        })
+        .attr("text-anchor", "middle")
+        .style("font-size", "13px")
+        .text("Oroville reservoir capacity");
+  } else {
+    svgOverlay.append("text")
+        .attr("x", function(d) {
+          return xMonth(parseFullDate("02/01/2017"));
+        })
+        .attr("y", function(d) {
+          return yRightHeight(102);
+        })
+        .attr("text-anchor", "middle")
+        .style("font-size", "13px")
+        .text("Oroville reservoir capacity");
+  }
+
 
   var path100 = svgOverlay.append("path")
     .attr("d", lineReservoirs(line100))
