@@ -191,7 +191,6 @@ function slide_lookup(id) {
         draw_chart(selectedData,flag);
       }
     }
-    console.log("did we get here");
     document.querySelector(".chart-top").innerHTML = slideData[id]["image_text"];
   } else if (slideData[id]["type"] == "graphic"){
     document.querySelector(".chart-image").innerHTML = "<div class='inline-image'><img src='"+slideData[id]["image"]+"'></img></div>";
@@ -775,7 +774,6 @@ function draw_future() {
 
   });
   d3.json("http://extras.sfgate.com/editorial/droughtwatch/snowwatercontent.json", function(snowData){
-    console.log(snowData);
     document.querySelector("#snowpack-num").innerHTML = "<span class='bold'>"+snowData.data[0]["pctofnormal"]+"</span><span class='unbold'> percent of normal</span>";
   });
 
