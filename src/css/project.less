@@ -13,6 +13,20 @@
 //   display: none !important;
 // }
 
+.inline-image {
+  position: relative;
+  // opacity: 0.5;
+  .overlay {
+    opacity: 1.0;
+    position: absolute;
+    top: 0;
+    left: 0;
+    // &:empty {
+    //   display: none;
+    // }
+  }
+}
+
 .reservoir-info, .snow-info {
   display: none;
   font-family: @med-graphics;
@@ -146,6 +160,14 @@ li{
   }
 }
 
+.graphic-text {
+  padding: 30px 0;
+  font-family: @block-graphics;
+  .bold {
+    font-family: @bold-graphics;
+  }
+}
+
 .chart-container {
   // height: 650px;
   .display-flex;
@@ -161,15 +183,6 @@ li{
     .bold {
       font-family: @bold-graphics;
       font-size: 17px;
-    }
-    .graphic-text {
-      padding: 20px;
-      font-size: 15px;
-      background: rgba(255,255,255,1.0);
-      .bold {
-        font-family: @bold-graphics;
-        font-size: 17px;
-      }
     }
   }
   .chart-text {

@@ -193,7 +193,14 @@ function slide_lookup(id) {
     }
     document.querySelector(".chart-top").innerHTML = slideData[id]["image_text"];
   } else if (slideData[id]["type"] == "graphic"){
-    document.querySelector(".chart-image").innerHTML = "<div class='inline-image'><img src='"+slideData[id]["image"]+"'></img></div>";
+    console.log(slideData[id]["overlay"]);
+    if (typeof(slideData[id]["overlay"]) != "undefined"){
+      document.querySelector(".chart-image").innerHTML = "<div class='inline-image'><img src='./assets/graphics/"+slideData[id]["image"]+"'></img><img class='overlay' id='overlay' src='./assets/graphics/"+slideData[id]["overlay"]+"'></img></div>";
+    } else {
+      console.log("var not exist");
+      document.querySelector(".chart-image").innerHTML = "<div class='inline-image'><img src='./assets/graphics/"+slideData[id]["image"]+"'></img><img class='overlay' id='overlay'></img></div>";
+    }
+    document.querySelector(".chart-image").innerHTML = "<div class='inline-image'><img src='./assets/graphics/"+slideData[id]["image"]+"'></img><img class='overlay' id='overlay' src='./assets/graphics/"+slideData[id]["overlay"]+"'></div>";
     document.querySelector(".chart-top").innerHTML = "<div class='graphic-text'>"+slideData[id]["image_text"]+"</div>";
   } else if (slideData[id]["type"] == "image") {
     document.querySelector(".chart-image").innerHTML = "<div class='inline-image'><img src='"+slideData[id]["image"]+"'></img></div>";
@@ -571,7 +578,7 @@ function draw_overlay() {
 
   svgOverlay.append("text")
       .attr("x", function(d) {
-        return xMonth(parseFullDate("10/30/2016"));
+        return xMonth(parseFullDate("02/01/2017"));
       })
       .attr("y", function(d) {
         return yRightHeight(102);

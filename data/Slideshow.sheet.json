@@ -25,53 +25,59 @@
     "type": "chart",
     "year": 2017,
     "flow_type": "Outflow",
-    "image_text": "Officials underestimated the rising reservoir level and only began to increase outflow when there was no room left in the reservoir."
+    "image_text": "Officials increased outflow during the storm when the reservoir levels were near to overflowing."
   },
   {
     "slideID": 5,
     "type": "graphic",
-    "image": "http://ww4.hdnux.com/photos/57/06/42/12347535/15/2000x0.jpg",
-    "image_text": "Four ways water can flow out of the reservoir:"
+    "image": "reservoirs_slideshow_outflow.png",
+    "overlay": "reservoirs_slideshow_outflow.png",
+    "image_text": "There are four ways water can flow out of the reservoir, each experiencing unforeseen failures."
   },
   {
     "slideID": 6,
     "type": "graphic",
-    "image": "http://ww4.hdnux.com/photos/57/06/42/12347535/15/2000x0.jpg",
-    "image_text": "<span class=\"bold\">The emergency spillway</span>: Used for the first time during the storm but the hillside began dangerously eroding within a day."
+    "image": "reservoirs_slideshow_outflow.png",
+    "overlay": "reservoirs_slideshow_outflow_text.png",
+    "image_text": "<span class=\"bold\">Main spillway</span>: Damaged February 7 and releasing reduced flow to prevent further damage."
   },
   {
     "slideID": 7,
     "type": "graphic",
-    "image": "http://ww4.hdnux.com/photos/57/06/42/12347535/15/2000x0.jpg",
-    "image_text": "<span class=\"bold\">Main spillway</span>: Damaged February 7 and releasing reduced flow to prevent further damage."
+    "image": "reservoirs_slideshow_outflow.png",
+    "overlay": "reservoirs_slideshow_outflow_hyatt.png",
+    "image_text": "<span class=\"bold\">Edward Hyatt Powerplant</span>: Non-operational; turned off to prevent damage to it after the main spillway was damaged."
   },
   {
     "slideID": 8,
     "type": "graphic",
-    "image": "http://ww4.hdnux.com/photos/57/06/42/12347535/15/2000x0.jpg",
-    "image_text": "<span class=\"bold\">Edward Hyatt Powerplant</span>: Non-operational; turned off to prevent damage to it after the main spillway was damaged."
+    "image": "reservoirs_slideshow_outflow.png",
+    "overlay": "reservoirs_slideshow_outflow_emergency.png",
+    "image_text": "<span class=\"bold\">The emergency spillway</span>: Used for the first time during the storm but the hillside began dangerously eroding within a day."
   },
   {
     "slideID": 9,
     "type": "graphic",
-    "image": "http://ww4.hdnux.com/photos/57/06/42/12347535/15/2000x0.jpg",
+    "image": "reservoirs_slideshow_outflow.png",
+    "overlay": "reservoirs_slideshow_outflow_riveroutlet.png",
     "image_text": "<span class=\"bold\">River outlet</span>: Rarely used since a 2009 accident that injured dam workers. Now releasing up to 2,000 cfs."
   },
   {
     "slideID": 10,
-    "type": "image",
-    "image": "http://ww2.hdnux.com/photos/57/16/05/12378481/5/1200x0.jpg",
-    "image_text": "Using the emergency spillway eroded the hillside."
+    "type": "graphic",
+    "image": "reservoirs_slideshow_erosion.png",
+    "overlay": "reservoirs_slideshow_erosion_text.png",
+    "image_text": "<span class=\"bold\">Use of the emergency spillway eroded the hillside.</span>"
   },
   {
     "slideID": 11,
     "type": "image",
-    "image_text": "Many residents were displaced due to fears of flooding."
+    "image_text": "<span class=\"bold\">Many residents were displaced due to fears of flooding.</span>"
   },
   {
     "slideID": 12,
     "type": "chart",
     "year": "future",
-    "image_text": "We might be through the rainy season, but what is going to happen when the snow starts to melt? Check the current status of the reservoirs and the snowpack."
+    "image_text": "We might be through the rainy season, but what is going to happen when the snow starts to melt and that water flows into the reservoirs if the spillways are not repaired? Check the current status of the reservoirs and the snowpack."
   }
 ]
