@@ -13,6 +13,30 @@
 //   display: none !important;
 // }
 
+.reservoir-info, .snow-info {
+  display: none;
+  font-family: @med-graphics;
+  font-size: 18px;
+  color: @dark-gray;
+  &.active {
+    display: block;
+    text-align: center;
+  }
+}
+.reservoir-info {
+  padding-top: 20px;
+}
+.snow-info {
+  padding-top: 30px;
+  .bold {
+    font-size: 30px;
+    font-family: @bold-graphics;
+  }
+  .unbold {
+    font-family: @block-graphics;
+  }
+}
+
 ol {
   // width: 100%;
   text-align: center;
@@ -51,6 +75,10 @@ li{
   .element {
     // width: 16%;
     .flex(0 0 10%);
+    &.bold {
+      font-size: 15px;
+      font-family: @med-graphics;
+    }
     @media @mobile {
       .flex(0 0 48%);
     }
@@ -59,7 +87,8 @@ li{
     }
 
     &.long {
-      .flex(0 0 20%);
+      .flex(0 0 25%);
+      font-size: 16px;
       @media @mobile {
         .flex(0 0 50%);
       }
@@ -70,11 +99,14 @@ li{
     margin: 15px auto;
     margin-top: 0;
   }
-  .swath  {
+  .swath {
     height: 14px;
     width: 14px;
     margin: 4px;
     border-radius: 2px;
+    &.long {
+      height: 18px;
+    }
   }
   .swath2010 {background: @yr2010}
   .swath2011 {background: @yr2011}
@@ -86,11 +118,13 @@ li{
   .swath2017 {background: @yr2017}
   .swathreservoir {background: @blue}
   .swathoutflow {background: @yr2017}
+  .swathtotal {background: @dark-gray}
+  .swathfilled {background: @blue}
   .legend-text {
     text-align: left;
     width: 60px;
     &.long {
-      width: 300px;
+      width: 320px;
     }
     padding-left: 20px;
     vertical-align: text-top;
@@ -113,7 +147,7 @@ li{
 }
 
 .chart-container {
-  height: 500px;
+  // height: 650px;
   .display-flex;
   .flex-wrap(wrap);
   justify-content: center;

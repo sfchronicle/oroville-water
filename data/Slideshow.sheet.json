@@ -31,7 +31,7 @@
     "slideID": 5,
     "type": "graphic",
     "image": "http://ww4.hdnux.com/photos/57/06/42/12347535/15/2000x0.jpg",
-    "image_text": "<span class=\"bold\">Four ways to outflow water from the reservoir: </span>All were unequal to the outflow needed due to the storm and high reservoir levels. Let's look at each in more depth."
+    "image_text": "Four ways water can flow out of the reservoir:"
   },
   {
     "slideID": 6,
@@ -71,6 +71,7 @@
   {
     "slideID": 12,
     "type": "chart",
+    "year": "future",
     "image_text": "We might be through the rainy season, but what is going to happen when the snow starts to melt? Check the current status of the reservoirs and the snowpack."
   }
 ]

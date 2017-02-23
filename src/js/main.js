@@ -28,14 +28,16 @@ function opacity_by_year(year,flag) {
   }
 }
 
-// function stroke_by_dataset(dataset) {
-//   console.log(dataset);
-//   if (dataset == "outflow") {
-//     return ("3,0");
-//   } else {
-//     return ("10,2");
-//   }
-// }
+function titleCase(str) {
+  console.log(str);
+    return str
+        .toLowerCase()
+        .split(' ')
+        .map(function(word) {
+            return word[0].toUpperCase() + word.substr(1);
+        })
+        .join(' ');
+}
 
 // setting sizes of interactive
 var margin = {
@@ -79,7 +81,10 @@ var max_slide = 10;
 // tracking if we want to show the legend and which elements
 var legend = document.getElementById("legend-container");
 var legend_overlay = document.getElementById("legend-container-overlay");
+var legend_final = document.getElementById("legend-container-final");
 var element_2017 = document.getElementById("element2017");
+var snow_text = document.getElementById("snow-info");
+var reservoir_text = document.getElementById("reservoir-info");
 
 slide_lookup(0);
 
@@ -108,6 +113,21 @@ document.querySelector('#forward').addEventListener('click', function(){
   console.log(slide_id);
 });
 
+// event listener for each brewery that highlights the brewery on the map and calls the function to fill in the info at the top
+var qsa = s => Array.prototype.slice.call(document.querySelectorAll(s));
+qsa(".progress").forEach(function(group,index) {
+  group.addEventListener("click", function(e) {
+
+    d3.select("#chart").select("svg").remove();
+    d3.select("#reservoir-chart").select("svg").remove();
+    document.getElementById("progress"+slide_id).classList.remove("active");
+    slide_id = index;
+    document.getElementById("progress"+slide_id).classList.add("active");
+    slide_lookup(slide_id);
+
+  });
+});
+
 // // putting everything on a timer
 // var loop = null;
 // var tick = function() {
@@ -129,20 +149,30 @@ function slide_lookup(id) {
   d3.select("#chart").select("svg").remove();
   d3.select("#reservoir-chart").select("svg").remove();
   document.querySelector(".chart-top").innerHTML = "";
+  document.querySelector(".chart-image").innerHTML = "";
   legend.classList.remove("active");
   legend_overlay.classList.remove("active");
+  legend_final.classList.remove("active");
+  reservoir_text.classList.remove("active");
+  snow_text.classList.remove("active");
 
   if (slideData[id]["type"] == "text") {
     document.querySelector(".chart-text").innerHTML = slideData[id]["text"];
   } else if (slideData[id]["type"] == "chart") {
     // special chart with 2 y-axes
-    if (id == 4) {
+    if (id == 3) {
       legend_overlay.classList.add("active");
       draw_overlay();
     // other charts that just show inflow / outflow data
     } else {
-      legend.classList.add("active");
-      if ((slideData[id]["year"]).length > 4) {
+      if (slideData[id]["year"] == "future") {
+        console.log("drawing the future");
+        draw_future();
+        legend_final.classList.add("active");
+        reservoir_text.classList.add("active");
+        snow_text.classList.add("active");
+      } else if ((slideData[id]["year"]).length > 4) {
+        legend.classList.add("active");
         var selectedData_filter1 = [];
         waterData.forEach(function(data) {
           if ((data.waterYear >= slideData[id]["year"].split("-")[0]) && (data.waterYear <= slideData[id]["year"].split("-")[1])) {
@@ -152,14 +182,16 @@ function slide_lookup(id) {
         var selectedData = selectedData_filter1.filter(function(data) { return data.type == slideData[id]["flow_type"] });
         var flag = 0;
         element_2017.classList.add("inactive");
+        draw_chart(selectedData,flag);
       } else {
-        // var selectedData_filter1 = waterData.filter(function(data) { return data.waterYear == slideData[id]["year"] });
+        legend.classList.add("active");
         var selectedData = waterData.filter(function(data) { return data.type == slideData[id]["flow_type"] });
         var flag = 1;
         element_2017.classList.remove("inactive");
+        draw_chart(selectedData,flag);
       }
-      draw_chart(selectedData,flag);
     }
+    console.log("did we get here");
     document.querySelector(".chart-top").innerHTML = slideData[id]["image_text"];
   } else if (slideData[id]["type"] == "graphic"){
     document.querySelector(".chart-image").innerHTML = "<div class='inline-image'><img src='"+slideData[id]["image"]+"'></img></div>";
@@ -172,6 +204,7 @@ function slide_lookup(id) {
 
 function draw_chart(selectedData,flag) {
 
+  margin.bottom = 40;
   // create SVG container for chart components
   var svgFlow = d3.select(".chart").append("svg")
       .attr("width", width + margin.left + margin.right)
@@ -480,6 +513,7 @@ function draw_reservoirs() {
 function draw_overlay() {
   // create SVG container for chart components
   margin.bottom = 100;
+  margin.right = 100;
   var svgOverlay = d3.select(".chart").append("svg")
       .attr("width", width + margin.left + margin.right)
       .attr("height", height + margin.top + margin.bottom)
@@ -510,7 +544,7 @@ function draw_overlay() {
 
   xMonth.domain([parseFullDate('10/01/2016'), parseFullDate('02/22/2017')]);
   yInflow.domain([0,140]);
-  yRightHeight.domain([0,20]);
+  yRightHeight.domain([50,110]);
 
   var areaReservoirs = d3.svg.area()
       // .interpolate("monotone")//linear, linear-closed,step-before, step-after, basis, basis-open,basis-closed,monotone
@@ -519,8 +553,40 @@ function draw_overlay() {
       })
       .y0(height)
       .y1(function(d) {
-        return yRightHeight((901-d.Height)/901*100);
+        return yRightHeight(d.Height/901*100);
       });
+
+  var line100 = [
+    {Date: '10/01/2016', Height: 901},
+    {Date: '02/22/2017', Height: 901}
+  ];
+
+  var lineReservoirs = d3.svg.line()
+      // .interpolate("monotone")//linear, linear-closed,step-before, step-after, basis, basis-open,basis-closed,monotone
+      .x(function(d) {
+        return xMonth(parseFullDate(d.Date));
+      })
+      .y(function(d) {
+        return yRightHeight(d.Height/901*100);
+      });
+
+  svgOverlay.append("text")
+      .attr("x", function(d) {
+        return xMonth(parseFullDate("10/30/2016"));
+      })
+      .attr("y", function(d) {
+        return yRightHeight(102);
+      })
+      .attr("text-anchor", "middle")
+      .style("font-size", "13px")
+      .text("Oroville reservoir capacity");
+
+  var path100 = svgOverlay.append("path")
+    .attr("d", lineReservoirs(line100))
+    .attr("class","annotation")
+    .attr("stroke", "#696969")
+    .attr("fill", "none")
+    .style("shape-rendering","crispEdges")
 
   // Add the filled area
   svgOverlay.append("path")
@@ -592,12 +658,12 @@ function draw_overlay() {
           .append("text")
           .attr("class", "label")
           .attr("transform", "rotate(-90)")
-          .attr("y", 10)
+          .attr("y", 40)
           .attr("x", 0)
           .attr("dy", ".71em")
           .style("text-anchor", "end")
           // .style("fill","white")
-          .text("Reservoir space (% available)")
+          .text("Reservoir level (% full)")
     } else {
       svgOverlay.append("g")
           .attr("class", "y axis")
@@ -619,187 +685,99 @@ function draw_overlay() {
           .append("text")
           .attr("class", "label")
           .attr("transform", "rotate(-90)")
-          .attr("y", -20)
+          .attr("y", 45)
           .attr("x", 0)
           .attr("dy", ".71em")
           .style("text-anchor", "end")
           // .style("fill","white")
-          .text("Reservoir space (% available)")
+          .text("Reservoir level (% full)")
     }
-    // } else {
-  //   svgOverlay.append("g")
-  //       .attr("class", "x axis")
-  //       .attr("transform", "translate(0," + height + ")")
-  //       .call(xAxisMonth)
-  //       .append("text")
-  //       .attr("class", "label")
-  //       .attr("x", width)
-  //       .attr("y", 40)
-  //       .style("text-anchor", "end")
-  //       .text("Date");
-  // }
-  // var lineElevationAvg = d3.svg.line()
-  //     .interpolate("monotone")
-  //     .x(function(d) {
-  //       return xMilePace(d.distance);
-  //     })
-  //     .y(function(d) {
-  //       return yRightMilePace(d.elevation);
-  //     });
-  //
-  // svgMilePace.append("path")
-  //   .attr("class","elevationprofile")
-  //   .attr("d",lineElevationAvg(elevationData));
-  //
-  // var lineMilePace = d3.svg.line()
-  //     .interpolate("monotone")
-  //     .x(function(d) {
-  //       return xMilePace(d.mile);
-  //     })
-  //     .y(function(d) {
-  //       return yMilePace(d.pace);
-  //     });
-  //
-  // // plotting histogram of ages for last 6 years
-  // pacePerGroup.forEach(function(d,idx) {
-  //   var class_list = "line voronoipath "+group_list_paces[idx];
-  //   svgMilePace.append("path")
-  //     .attr("class",class_list)
-  //     .style("stroke", color_by_group(group_list_paces[idx]))
-  //     .attr("d", lineMilePace(d));
-  // });
-  //
-  // var focusMilePace = svgMilePace.append("g")
-  //     .attr("transform", "translate(-100,-100)")
-  //     .attr("class", "focus");
-  //
-  // focusMilePace.append("circle")
-  //     .attr("r", 3.5);
-  //
-  // focusMilePace.append("rect")
-  //     .attr("x",-110)
-  //     .attr("y",-25)
-  //     .attr("width","150px")
-  //     .attr("height","20px")
-  //     .attr("opacity","0.8")
-  //     .attr("fill","white");
-  //
-  // focusMilePace.append("text")
-  //     .attr("x", -100)
-  //     .attr("y", -10);
-  //
-  // var voronoiGroupMilePace = svgMilePace.append("g")
-  //     .attr("class", "voronoiMilePace");
-  //
-  // // console.log(flatData);
-  // voronoiGroupMilePace.selectAll(".voronoiMilePace")
-  //   .data(voronoiMilePace(flatDataPerMile))
-  //   .enter().append("path")
-  //   .attr("d", function(d) {
-  //     // console.log(d);
-  //     if (d) {
-  //       return "M" + d.join("L") + "Z";
-  //     }
-  //   })
-  //   .datum(function(d) {
-  //     if (d) {
-  //       return d.point;
-  //     }
-  //   })
-  //   .on("mouseover", mouseoverMilePace)
-  //   .on("mouseout", mouseoutMilePace);
-  //
-  // function mouseoverMilePace(d) {
-  //   d3.select("."+d.key).classed("line-hover", true);
-  //   focusMilePace.attr("transform", "translate(" + xMilePace(d.mile) + "," + yMilePace(d.pace) + ")");
-  //   focusMilePace.select("text").text("Mile "+d.mile+", "+d.paceText+ " per mile");
-  // }
-  //
-  // function mouseoutMilePace(d) {
-  //   d3.select("."+d.key).classed("line-hover", false);
-  //   focusMilePace.attr("transform", "translate(-100,-100)");
-  // }
-  //
-  // if (screen.width <= 480) {
-  //   svgMilePace.append("g")
-  //       .attr("class", "x axis")
-  //       .attr("transform", "translate(0," + height + ")")
-  //       .call(xAxisMilePace)
-  //       .append("text")
-  //       .attr("class", "label")
-  //       .attr("x", width)
-  //       .attr("y", 35)
-  //       .style("text-anchor", "end")
-  //       .text("Mile");
-  // } else {
-  //   svgMilePace.append("g")
-  //       .attr("class", "x axis")
-  //       .attr("transform", "translate(0," + height + ")")
-  //       .call(xAxisMilePace)
-  //       .append("text")
-  //       .attr("class", "label")
-  //       .attr("x", width)
-  //       .attr("y", 40)
-  //       .style("text-anchor", "end")
-  //       .text("Mile");
-  // }
-  //
-  // if (screen.width <= 480) {
-  //   svgMilePace.append("g")
-  //       .attr("class", "y axis")
-  //       .call(yAxisMilePace)
-  //       .append("text")
-  //       .attr("class", "label")
-  //       .attr("transform", "rotate(-90)")
-  //       .attr("y", 10)
-  //       .attr("x", 0)
-  //       .attr("dy", ".71em")
-  //       .style("text-anchor", "end")
-  //       // .style("fill","white")
-  //       .text("Pace per mile (min/mi)")
-  //
-  //   svgMilePace.append("g")
-  //     .attr("class", "y axis")
-  //     .call(yAxisRightMilePace)
-  //     .attr("transform", "translate(" + width + " ,0)")
-  //     .append("text")
-  //       .attr("class", "label")
-  //       .attr("transform", "rotate(-90)")
-  //       .attr("y", -20)
-  //       .attr("x", 0)
-  //       .attr("dy", ".71em")
-  //       .style("text-anchor", "end")
-  //       .text("Elevation (ft)")
-  //
-  // } else {
-  //   svgMilePace.append("g")
-  //     .attr("class", "y axis")
-  //     .call(yAxisMilePace)
-  //     .append("text")
-  //       .attr("class", "label")
-  //       .attr("transform", "rotate(-90)")
-  //       .attr("y", -70)
-  //       .attr("x", -10)
-  //       .attr("dy", ".71em")
-  //       .style("text-anchor", "end")
-  //       // .style("fill","white")
-  //       .text("Pace per mile (min/mi)")
-  //
-  //   svgMilePace.append("g")
-  //     .attr("class", "y axis")
-  //     .call(yAxisRightMilePace)
-  //     .attr("transform", "translate(" + width + " ,0)")
-  //     .append("text")
-  //       .attr("class", "label")
-  //       .attr("transform", "rotate(-90)")
-  //       .attr("y", 60)
-  //       .attr("x", -10)
-  //       .attr("dy", ".71em")
-  //       .style("text-anchor", "end")
-  //       .text("Elevation (ft)")
-  //
-  // }
-
-
-
 }
+
+function draw_future() {
+  d3.json("http://extras.sfgate.com/editorial/droughtwatch/reservoirs.json", function(barData){
+
+    barData.data.forEach(function(d){
+      d.name = titleCase(d.name);
+    });
+
+    // x-axis scale
+    var x = d3.scale.ordinal()
+        .rangeRoundBands([0, width], 0.2);
+
+    // y-axis scale
+    var y = d3.scale.linear()
+        .rangeRound([height, 0]);
+
+    x.domain(barData.data.map(function(d) { return d.name; }));
+    y.domain([0, 5000000]);
+
+    var xAxis = d3.svg.axis()
+        .scale(x)
+        .orient("bottom");
+
+    // use y-axis scale to set y-axis
+  	var yAxis = d3.svg.axis()
+  			.scale(y)
+  			.orient("left")
+  			.tickFormat(d3.format(".2s"));
+
+    // create SVG container for chart components
+    margin.bottom = 150;
+  	var svgBars = d3.select("#chart").append("svg")
+  			.attr("width", width + margin.left + margin.right)
+  			.attr("height", height + margin.top + margin.bottom)
+  			.append("g")
+  			.attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+
+    svgBars.selectAll("bar")
+        .data(barData.data)
+      .enter().append("rect")
+        .style("fill", "#696969")
+        .attr("x", function(d) { return x(d.name); })
+        .attr("width", x.rangeBand())
+        .attr("y", function(d) { return y(+d.capacity); })
+        .attr("height", function(d) {
+          return height - y(+d.capacity);
+        });
+
+    svgBars.selectAll("bar")
+        .data(barData.data)
+      .enter().append("rect")
+        .style("fill", "#6790B7")
+        .attr("x", function(d) { return x(d.name); })
+        .attr("width", x.rangeBand())
+        .attr("y", function(d) { return y(+d.storage); })
+        .attr("height", function(d) {
+          return height - y(+d.storage);
+        });
+
+    svgBars.append("g")
+        .attr("class", "x axis")
+        .attr("transform", "translate(0," + height + ")")
+        .call(xAxis)
+      .selectAll("text")
+        .style("text-anchor", "end")
+        .attr("dx", "-.8em")
+        .attr("dy", "-.55em")
+        .attr("transform", "rotate(-65)" );
+
+    svgBars.append("g")
+        .attr("class", "y axis")
+        .call(yAxis)
+      .append("text")
+        .attr("transform", "rotate(-90)")
+        .attr("y", 6)
+        .attr("dy", ".71em")
+        .style("text-anchor", "end")
+        .text("Reservoir levels");
+
+  });
+  d3.json("http://extras.sfgate.com/editorial/droughtwatch/snowwatercontent.json", function(snowData){
+    console.log(snowData);
+    document.querySelector("#snowpack-num").innerHTML = "<span class='bold'>"+snowData.data[0]["pctofnormal"]+"</span><span class='unbold'> percent of normal</span>";
+  });
+
+
+};
