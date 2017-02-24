@@ -203,7 +203,7 @@ function slide_lookup(id) {
     document.querySelector(".chart-image").innerHTML = "<div class='inline-image'><img src='./assets/graphics/"+slideData[id]["image"]+"'></img><img class='overlay' id='overlay' src='./assets/graphics/"+slideData[id]["overlay"]+"'></div>";
     document.querySelector(".chart-top").innerHTML = "<div class='graphic-text'>"+slideData[id]["image_text"]+"</div>";
   } else if (slideData[id]["type"] == "image") {
-    document.querySelector(".chart-image").innerHTML = "<div class='inline-image'><img src='"+slideData[id]["image"]+"'></img></div>";
+    document.querySelector(".chart-image").innerHTML = "<div class='inline-image'><img src='"+slideData[id]["image"]+"'></img></div><div class='caption'>"+slideData[id]["caption"]+"<span class='byline'>  "+slideData[id]["credit"]+"</span></div>";
     document.querySelector(".chart-top").innerHTML = "<div class='graphic-text'>"+slideData[id]["image_text"]+"</div>";
   }
 }

@@ -66,28 +66,30 @@
     "slideID": 10,
     "type": "graphic",
     "image": "reservoirs_slideshow_erosion_base.png",
-    "overlay": "reservoirs_slideshow_erosion_mainlabel.png",
+    "overlay": "reservoirs_slideshow_erosion_2.png",
     "image_text": "<span class=\"bold\">Use of the emergency spillway eroded the hillside.</span>"
   },
   {
     "slideID": 10,
     "type": "graphic",
     "image": "reservoirs_slideshow_erosion_base.png",
-    "overlay": "reservoirs_slideshow_erosion_secondlabel.png",
+    "overlay": "reservoirs_slideshow_erosion_2a.png",
     "image_text": "<span class=\"bold\">Use of the emergency spillway eroded the hillside.</span>"
   },
   {
     "slideID": 10,
     "type": "graphic",
     "image": "reservoirs_slideshow_erosion_base.png",
-    "overlay": "reservoirs_slideshow_erosion_thirdlabel.png",
+    "overlay": "reservoirs_slideshow_erosion2b.png",
     "image_text": "<span class=\"bold\">Use of the emergency spillway eroded the hillside.</span>"
   },
   {
     "slideID": 11,
     "type": "image",
     "image": "http://ww2.hdnux.com/photos/57/13/07/12366309/3/1024x1024.jpg",
-    "image_text": "<span class=\"bold\">Many residents were displaced due to fears of flooding.</span>"
+    "image_text": "<span class=\"bold\">Many residents were displaced due to fears of flooding.</span>",
+    "caption": "Gerldeen Trammell, right, sits in her family's car with her daughter, grandaughter, and grandkids from Oroville at the evacuation center at Silver Dollar Fairgrounds in Chico, Calif., on Monday, February 13, 2017. Several hundred thousand area residents were evacuated down river from the Oroville Dam spillways after officials began to worry there might be an imminent collapse on Sunday. The California Department of Water Resources increased the release from the main spillway to 100,000 cubic feet per second to lower the level of the lake and prevent further damage to the auxiliary spillway.",
+    "credit": "Carlos Avila Gonzalez, The Chronicle"
   },
   {
     "slideID": 12,
