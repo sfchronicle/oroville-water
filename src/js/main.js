@@ -3,6 +3,9 @@ var d3 = require('d3');
 // Parse the date / time
 var parseDate = d3.time.format("%m/%d").parse;
 
+// Parse the year
+var	parseYr = d3.time.format("%Y").parse;
+
 // Parse the date / time
 var parseFullDate = d3.time.format("%m/%d/%Y").parse;
 
@@ -29,7 +32,6 @@ function opacity_by_year(year,flag) {
 }
 
 function titleCase(str) {
-  console.log(str);
     return str
         .toLowerCase()
         .split(' ')
@@ -159,14 +161,16 @@ function slide_lookup(id) {
   if (slideData[id]["type"] == "text") {
     document.querySelector(".chart-text").innerHTML = slideData[id]["text"];
   } else if (slideData[id]["type"] == "chart") {
+    // bar chart for beginning
+    if (slideData[id]["year"] == "setup") {
+      draw_intro();
     // special chart with 2 y-axes
-    if (id == 3) {
+   } else if (slideData[id]["year"] == "overlay") {
       legend_overlay.classList.add("active");
       draw_overlay();
     // other charts that just show inflow / outflow data
     } else {
       if (slideData[id]["year"] == "future") {
-        console.log("drawing the future");
         draw_future();
         legend_final.classList.add("active");
         reservoir_text.classList.add("active");
@@ -865,5 +869,112 @@ function draw_future() {
     document.querySelector("#snowpack-num").innerHTML = "<span class='bold'>"+snowData.data[0]["pctofnormal"]+"</span><span class='unbold'> percent of normal</span>";
   });
 
+
+};
+
+function draw_intro() {
+
+  // setting sizes of interactive
+  var margin = {
+    top: 15,
+    right: 100,
+    bottom: 50,
+    left: 70
+  };
+  if (screen.width > 768) {
+    var width = 1000 - margin.left - margin.right;
+    var height = 600 - margin.top - margin.bottom;
+  } else if (screen.width <= 768 && screen.width > 480) {
+    var width = 650 - margin.left - margin.right;
+    var height = 500 - margin.top - margin.bottom;
+  } else if (screen.width <= 480 && screen.width > 340) {
+    console.log("big phone");
+    var margin = {
+      top: 20,
+      right: 20,
+      bottom: 35,
+      left: 30
+    };
+    var width = 340 - margin.left - margin.right;
+    var height = 350 - margin.top - margin.bottom;
+  } else if (screen.width <= 340) {
+    console.log("mini iphone")
+    var margin = {
+      top: 20,
+      right: 20,
+      bottom: 35,
+      left: 40
+    };
+    var width = 310 - margin.left - margin.right;
+    var height = 350 - margin.top - margin.bottom;
+  }
+
+  // x-axis scale
+  var x = d3.scale.ordinal()
+      .rangeRoundBands([0, width], 0.2);
+
+  // y-axis scale
+  var y = d3.scale.linear()
+      .rangeRound([height, 0]);
+
+  x.domain(rainData.map(function(d) {
+    return parseYr(String(d.year));
+  }));
+  y.domain([0, 50]);
+
+  var xAxis = d3.svg.axis()
+      .scale(x)
+      .orient("bottom")
+      .tickFormat(d3.time.format("%Y"));
+
+  // use y-axis scale to set y-axis
+	var yAxis = d3.svg.axis()
+			.scale(y)
+			.orient("left")
+			.tickFormat(d3.format(".2s"));
+
+  // create SVG container for chart components
+	var svgRain = d3.select("#chart").append("svg")
+			.attr("width", width + margin.left + margin.right)
+			.attr("height", height + margin.top + margin.bottom)
+			.append("g")
+			.attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+  svgRain.selectAll("bar")
+      .data(rainData)
+    .enter().append("rect")
+      .style("fill", "#6790B7")
+      .attr("x", function(d) { return x(parseYr(String(d.year))); })
+      .attr("width", x.rangeBand())
+      .attr("y", function(d) { return y(+d.rainfall); })
+      .attr("height", function(d) {
+        return height - y(+d.rainfall);
+      });
+
+  svgRain.append("g")
+      .attr("class", "x axis")
+      .attr("transform", "translate(0," + height + ")")
+      .call(xAxis)
+      // .selectAll("text")
+      //     .style("text-anchor", "end")
+      //     .attr("dx", "1em")
+      //     .attr("dy", "1em")
+        // .attr("transform", "rotate(-65)" )
+      .append("text")
+        .attr("class", "label")
+        .attr("x", width)
+        .attr("y", 40)
+        .style("text-anchor", "end")
+        .text("Rain year")
+
+  svgRain.append("g")
+      .attr("class", "y axis")
+      .call(yAxis)
+    .append("text")
+      .attr("transform", "rotate(-90)")
+      .attr("y", 0)
+      .attr("dy", "-45px")
+      .style("text-anchor", "end")
+      .text("Cumulative February rainfall");
 
 };

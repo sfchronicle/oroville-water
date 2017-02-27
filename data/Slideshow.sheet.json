@@ -2,28 +2,34 @@
   {
     "slideID": 0,
     "type": "chart",
-    "year": "2010-2016",
-    "flow_type": "Inflow",
-    "image_text": "2010 - 2016: Little water flowed into the Oroville reservoir during the drought years."
+    "year": "setup",
+    "image_text": "California has been getting a lot of rain this year and Oroville is no exception. <div class=\"sub-hed\">Cumulative February rainfall this year is much higher than that in previous years.</div>"
   },
   {
     "slideID": 1,
     "type": "chart",
+    "year": "2010-2016",
+    "flow_type": "Inflow",
+    "image_text": "Little water flowed into the Oroville reservoir during the drought years."
+  },
+  {
+    "slideID": 2,
+    "type": "chart",
     "year": 2017,
     "flow_type": "Inflow",
-    "image_text": "2017: Big storms produce tremendous water inflow."
+    "image_text": "This year, big storms produce tremendous water inflow."
   },
   {
     "slideID": 3,
     "type": "chart",
     "year": 2017,
     "flow_type": "Outflow",
-    "image_text": "February 2017: Winter storms filled Oroville and outflow began to increase."
+    "image_text": "In February, winter storms filled Oroville and outflow began to increase."
   },
   {
     "slideID": 4,
     "type": "chart",
-    "year": 2017,
+    "year": "overlay",
     "flow_type": "Outflow",
     "image_text": "Officials increased outflow during the storm when the reservoir levels were near to overflowing."
   },
@@ -32,7 +38,7 @@
     "type": "graphic",
     "image": "reservoirs_slideshow_outflow_1.png",
     "overlay": "reservoirs_slideshow_outflow_1.png",
-    "image_text": "There are four ways water can flow out of the reservoir, each experiencing unforeseen failures."
+    "image_text": "There are four ways water can flow out of Lake Oroville, and together they were inadequate to the outflow required in February."
   },
   {
     "slideID": 6,
@@ -70,29 +76,29 @@
     "image_text": "<span class=\"bold\">Use of the emergency spillway eroded the hillside.</span>"
   },
   {
-    "slideID": 10,
+    "slideID": 11,
     "type": "graphic",
     "image": "reservoirs_slideshow_erosion_base.png",
     "overlay": "reservoirs_slideshow_erosion_2a.png",
     "image_text": "<span class=\"bold\">Use of the emergency spillway eroded the hillside.</span>"
   },
   {
-    "slideID": 10,
+    "slideID": 12,
     "type": "graphic",
     "image": "reservoirs_slideshow_erosion_base.png",
     "overlay": "reservoirs_slideshow_erosion2b.png",
     "image_text": "<span class=\"bold\">Use of the emergency spillway eroded the hillside.</span>"
   },
   {
-    "slideID": 11,
+    "slideID": 13,
     "type": "image",
     "image": "http://ww2.hdnux.com/photos/57/13/07/12366309/3/1024x1024.jpg",
     "image_text": "<span class=\"bold\">Many residents were displaced due to fears of flooding.</span>",
-    "caption": "Gerldeen Trammell, right, sits in her family's car with her daughter, grandaughter, and grandkids from Oroville at the evacuation center at Silver Dollar Fairgrounds in Chico, Calif., on Monday, February 13, 2017. Several hundred thousand area residents were evacuated down river from the Oroville Dam spillways after officials began to worry there might be an imminent collapse on Sunday. The California Department of Water Resources increased the release from the main spillway to 100,000 cubic feet per second to lower the level of the lake and prevent further damage to the auxiliary spillway.",
+    "caption": "Gerldeen Trammell, seen in her family's car with her daughter and grandchildren, was among several hundred thousand area residents evacuated down river from the Oroville Dam spillways after officials began to worry about an imminent collapse.",
     "credit": "Carlos Avila Gonzalez, The Chronicle"
   },
   {
-    "slideID": 12,
+    "slideID": 14,
     "type": "chart",
     "year": "future",
     "image_text": "We might be through the rainy season, but what is going to happen when the snow starts to melt and that water flows into the reservoirs if the spillways are not repaired? Check the current status of the reservoirs and the snowpack."
