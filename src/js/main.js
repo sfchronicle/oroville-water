@@ -321,30 +321,42 @@ function draw_chart(selectedData,flag) {
       .attr("d", lineFlow(d.values));
   });
 
-  // var nodesFlow = svgFlow.selectAll(".voronoipath")
-  //     .data(flatDataFlow)
-  //     .enter().append("g")
-  //     .attr("class","node");
-  //
-  // nodesFlow.append("text")
-  //     .attr("x", function(d) {
-  //       return (x(d.Date)-10);
-  //     })
-  //     .attr("y", function(d) {
-  //       return y(d.Flow/1000)-30;
-  //     })
-  //     .attr("class","dottextslope")
-  //     .style("fill","black")//"#3F3F3F")
-  //     .style("font-size","14px")
-  //     .style("font-family","AntennaMedium")
-  //     .style("font-style","italic")
-  //     .text(function(d) {
-  //         if (d.DateString == "2/6/17"){
-  //             return "Emergency spillway breaks";
-  //         } else {
-  //             return "";
-  //         }
-  //     });
+  var nodesFlow = svgFlow.selectAll(".voronoipath")
+      .data(flatDataFlow)
+      .enter().append("g")
+      .attr("class","node");
+
+  nodesFlow.append("text")
+      .attr("x", function(d) {
+        if(slideData[slide_id]["flow_type"] == "Inflow") {
+          return (x(d.Date)+20);
+        } else {
+          return (x(d.Date)-50);
+        }
+      })
+      .attr("y", function(d) {
+        if (slideData[slide_id]["flow_type"] == "Inflow") {
+          return y(d.Flow/1000)+10;
+        } else {
+          return y(d.Flow/1000)-30;
+        }
+      })
+      .attr("class","dottextslope")
+      .style("fill","black")//"#3F3F3F")
+      .style("font-size","14px")
+      .style("font-family","AntennaExtraLight")
+      // .style("font-style","italic")
+      .text(function(d) {
+          if ((d.DateString == "3/20/11") && (slideData[slide_id]["flow_type"] == "Outflow")){
+              return "Snow melt in the spring requires outflow";
+          } else if ((d.DateString == "2/13/17") && (slideData[slide_id]["flow_type"] == "Outflow")){
+              return "Storms cause increased outflow this February";
+          } else if ((d.DateString == "2/9/17") && (slideData[slide_id]["flow_type"] == "Inflow")){
+              return "Big storms bring lots of water to the reservoir this year";
+          } else {
+              return "";
+          }
+      });
 
   var focusFlow = svgFlow.append("g")
     .attr("transform", "translate(-100,-100)")
@@ -675,6 +687,8 @@ function draw_overlay() {
       .text(function(d) {
           if (d.DateString == "2/6/17"){
               return "Main spillway damaged";
+          } else if (d.DateString == "2/10/17"){
+              return "Emergency spillway put in use";
           } else {
               return "";
           }
