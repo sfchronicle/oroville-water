@@ -78,7 +78,6 @@ if (screen.width > 768) {
 
 // tracking which slide the reader is on
 var slide_id = 0;
-var max_slide = 10;
 
 // tracking if we want to show the legend and which elements
 var legend = document.getElementById("legend-container");
