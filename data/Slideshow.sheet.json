@@ -58,14 +58,14 @@
     "slideID": 8,
     "type": "graphic",
     "image": "reservoirs_slideshow_erosion_base.png",
-    "overlay": "reservoirs_slideshow_erosion_2a.png",
+    "overlay": "reservoirs_slideshow_erosion_secondlabel.png",
     "image_text": "Concern that the hillside would fully erode and send water uncontrollably downstream prompted the evacuation of nearly 200,000 people."
   },
   {
     "slideID": 9,
     "type": "graphic",
     "image": "reservoirs_slideshow_erosion_base.png",
-    "overlay": "reservoirs_slideshow_erosion2b.png",
+    "overlay": "reservoirs_slideshow_erosion_thirdlabel.png",
     "image_text": "Although the main spillway was damaged, dam operators increased outflows there to try to stop water from running down the emergency spillway. On the evening of Feb. 12, the lake level dropped enough so that the emergency channel was no longer needed. Construction crews immediately started working to fix the emergency spillway."
   },
   {
