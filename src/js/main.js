@@ -388,6 +388,15 @@ function draw_chart(selectedData,flag) {
     d3.select(".id"+d.key).classed("line-hover", true);
     focusFlow.attr("transform", "translate(" + x(d.Date) + "," + y(d.Flow/1000) + ")");
     focusFlow.select("text").text("Date: "+d.DateString+", Flow: "+formatthousands(Math.round(d.Flow))+" cfs");
+    if (d.DateString.split("/")[0] < 10) {
+      focusFlow.select("text").attr("x","-180px");
+      focusFlow.select("rect").attr("x","-190px");
+      // focusOverlay.select("rect").attr("width","80px");
+    } else {
+      focusFlow.select("text").attr("x","10px");
+      focusFlow.select("rect").attr("x","0px");
+      // focusOverlay.select("rect").attr("width","80px");
+    }
   }
 
   function mouseoutlines(d) {
@@ -693,19 +702,15 @@ function draw_overlay() {
     focusOverlay.attr("transform", "translate(" + xMonth(d.Date) + "," + yInflow(d.Flow/1000) + ")");
     focusOverlay.select("text").text(d.DateString+": "+formatthousands(Math.round(d.Flow))+ " cfs");
     // if (screen.width <= 480) {
-      if (d.DateString.split("/")[0] < 10) {
-        console.log(d.DateString.split("/")[0]);
-        console.log("this should be right side");
-        focusOverlay.select("text").attr("x","-130px");
-        focusOverlay.select("rect").attr("x","-140px");
-        // focusOverlay.select("rect").attr("width","80px");
-      } else {
-        console.log("this should be left side");
-        focusOverlay.select("text").attr("x","10px");
-        focusOverlay.select("rect").attr("x","0px");
-        // focusOverlay.select("rect").attr("width","80px");
-      }
-    // }
+    if (d.DateString.split("/")[0] < 10) {
+      focusOverlay.select("text").attr("x","-130px");
+      focusOverlay.select("rect").attr("x","-140px");
+      // focusOverlay.select("rect").attr("width","80px");
+    } else {
+      focusOverlay.select("text").attr("x","10px");
+      focusOverlay.select("rect").attr("x","0px");
+      // focusOverlay.select("rect").attr("width","80px");
+    }
   }
 
   function mouseout(d) {
