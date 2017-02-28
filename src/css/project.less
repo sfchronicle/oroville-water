@@ -20,11 +20,21 @@
   &:empty {
     display: none;
   }
+  @media @mobile {
+    font-size: 12px;
+  }
 }
 
 // .controls {
 //   display: none !important;
 // }
+
+.credits {
+  @media @mobile {
+    width: 90%;
+    margin: auto;
+  }
+}
 
 .dont-miss {
   max-width: 1000px;
@@ -396,6 +406,10 @@ svg {
   text-align: center;
   font-style: normal;
   font-size: 14px;
+  @media @mobile {
+    width: 90%;
+    margin: auto;
+  }
 }
 
 .controls {

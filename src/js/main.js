@@ -326,37 +326,84 @@ function draw_chart(selectedData,flag) {
       .enter().append("g")
       .attr("class","node");
 
-  nodesFlow.append("text")
-      .attr("x", function(d) {
-        if(slideData[slide_id]["flow_type"] == "Inflow") {
-          return (x(d.Date)+20);
-        } else {
-          return (x(d.Date)-50);
-        }
-      })
-      .attr("y", function(d) {
-        if (slideData[slide_id]["flow_type"] == "Inflow") {
-          return y(d.Flow/1000)+10;
-        } else {
-          return y(d.Flow/1000)-30;
-        }
-      })
-      .attr("class","dottextslope")
-      .style("fill","black")//"#3F3F3F")
-      .style("font-size","14px")
-      .style("font-family","AntennaExtraLight")
-      // .style("font-style","italic")
-      .text(function(d) {
-          if ((d.DateString == "3/20/11") && (slideData[slide_id]["flow_type"] == "Outflow")){
-              return "Snow melt in the spring requires outflow";
-          } else if ((d.DateString == "2/13/17") && (slideData[slide_id]["flow_type"] == "Outflow")){
-              return "Storms cause increased outflow this February";
-          } else if ((d.DateString == "2/9/17") && (slideData[slide_id]["flow_type"] == "Inflow")){
-              return "Big storms bring lots of water to the reservoir this year";
+  if (screen.width <= 480) {
+    nodesFlow.append("text")
+        .attr("x", function(d) {
+          if(slideData[slide_id]["flow_type"] == "Inflow") {
+            if (screen.width <= 480) {
+              return (x(d.Date)-50);;
+            } else {
+              rreturn (x(d.Date)+20);
+            }
           } else {
-              return "";
+            return (x(d.Date)-50);
           }
-      });
+        })
+        .attr("y", function(d) {
+          if (slideData[slide_id]["flow_type"] == "Inflow") {
+            if (screen.width <= 480) {
+              return y(d.Flow/1000)-10;
+            } else {
+              return y(d.Flow/1000)+10;
+            }
+          } else {
+            if (screen.width <= 480) {
+              return y(d.Flow/1000)-10;
+            } else {
+              return y(d.Flow/1000)-30;
+            }
+
+          }
+        })
+        .attr("class","dottextslope")
+        .style("fill","black")//"#3F3F3F")
+        .style("font-size","12px")
+        .style("font-family","AntennaExtraLight")
+        // .style("font-style","italic")
+        .text(function(d) {
+            if ((d.DateString == "3/20/11") && (slideData[slide_id]["flow_type"] == "Outflow")){
+                return "Snow melt requires outflow";
+            } else if ((d.DateString == "2/13/17") && (slideData[slide_id]["flow_type"] == "Outflow")){
+                return "Storms cause outflow this February";
+            } else if ((d.DateString == "2/9/17") && (slideData[slide_id]["flow_type"] == "Inflow")){
+                return "Big storms bring lots of water this year";
+            } else {
+                return "";
+            }
+        });
+  } else {
+    nodesFlow.append("text")
+        .attr("x", function(d) {
+          if(slideData[slide_id]["flow_type"] == "Inflow") {
+            return (x(d.Date)+20);
+          } else {
+            return (x(d.Date)-50);
+          }
+        })
+        .attr("y", function(d) {
+          if (slideData[slide_id]["flow_type"] == "Inflow") {
+            return y(d.Flow/1000)+10;
+          } else {
+            return y(d.Flow/1000)-30;
+          }
+        })
+        .attr("class","dottextslope")
+        .style("fill","black")//"#3F3F3F")
+        .style("font-size","14px")
+        .style("font-family","AntennaExtraLight")
+        // .style("font-style","italic")
+        .text(function(d) {
+            if ((d.DateString == "3/20/11") && (slideData[slide_id]["flow_type"] == "Outflow")){
+                return "Snow melt in the spring requires outflow";
+            } else if ((d.DateString == "2/13/17") && (slideData[slide_id]["flow_type"] == "Outflow")){
+                return "Storms cause increased outflow this February";
+            } else if ((d.DateString == "2/9/17") && (slideData[slide_id]["flow_type"] == "Inflow")){
+                return "Big storms bring lots of water to the reservoir this year";
+            } else {
+                return "";
+            }
+        });
+  }
 
   var focusFlow = svgFlow.append("g")
     .attr("transform", "translate(-100,-100)")
@@ -368,7 +415,7 @@ function draw_chart(selectedData,flag) {
   focusFlow.append("rect")
     .attr("x",-110)
     .attr("y",-25)
-    .attr("width","220px")
+    .attr("width","140px")
     .attr("height","20px")
     .attr("opacity","0.8")
     .attr("fill","white");
@@ -399,10 +446,15 @@ function draw_chart(selectedData,flag) {
   function mouseoverlines(d) {
     d3.select(".id"+d.key).classed("line-hover", true);
     focusFlow.attr("transform", "translate(" + x(d.Date) + "," + y(d.Flow/1000) + ")");
-    focusFlow.select("text").text("Date: "+d.DateString+", Flow: "+formatthousands(Math.round(d.Flow))+" cfs");
+    focusFlow.select("text").text(d.DateString+": "+formatthousands(Math.round(d.Flow))+" cfs");
     if (d.DateString.split("/")[0] < 10) {
-      focusFlow.select("text").attr("x","-180px");
-      focusFlow.select("rect").attr("x","-190px");
+      if (screen.width <= 480) {
+        focusFlow.select("text").attr("x","-90px");
+        focusFlow.select("rect").attr("x","-100px");
+      } else {
+        focusFlow.select("text").attr("x","-120px");
+        focusFlow.select("rect").attr("x","-130px");
+      }
       // focusOverlay.select("rect").attr("width","80px");
     } else {
       focusFlow.select("text").attr("x","10px");
@@ -672,27 +724,55 @@ function draw_overlay() {
       .enter().append("g")
       .attr("class","node");
 
-  nodesOverlay.append("text")
-      .attr("x", function(d) {
-        return (xMonth(d.Date)-150);
-      })
-      .attr("y", function(d) {
-        return yInflow(d.Flow/1000)-30;
-      })
-      .attr("class","dottextslope")
-      .style("fill","black")//"#3F3F3F")
-      .style("font-size","14px")
-      .style("font-family","AntennaExtraLight")
-      // .style("font-style","italic")
-      .text(function(d) {
-          if (d.DateString == "2/6/17"){
-              return "Main spillway damaged";
-          } else if (d.DateString == "2/10/17"){
-              return "Emergency spillway put in use";
+  if (screen.width <= 480) {
+    nodesOverlay.append("text")
+        .attr("x", function(d) {
+          if (d.DateString == "2/10/17") {
+            return (xMonth(d.Date)-175);
           } else {
-              return "";
+            return (xMonth(d.Date)-135);
           }
-      });
+        })
+        .attr("y", function(d) {
+          return yInflow(d.Flow/1000);
+        })
+        .attr("class","dottextslope")
+        .style("fill","black")//"#3F3F3F")
+        .style("font-size","12px")
+        .style("font-family","AntennaExtraLight")
+        // .style("font-style","italic")
+        .text(function(d) {
+            if (d.DateString == "2/6/17"){
+                return "Main spillway damaged";
+            } else if (d.DateString == "2/10/17"){
+                return "Emergency spillway put to use";
+            } else {
+                return "";
+            }
+        });
+  } else {
+    nodesOverlay.append("text")
+        .attr("x", function(d) {
+          return (xMonth(d.Date)-150);
+        })
+        .attr("y", function(d) {
+          return yInflow(d.Flow/1000)-30;
+        })
+        .attr("class","dottextslope")
+        .style("fill","black")//"#3F3F3F")
+        .style("font-size","14px")
+        .style("font-family","AntennaExtraLight")
+        // .style("font-style","italic")
+        .text(function(d) {
+            if (d.DateString == "2/6/17"){
+                return "Main spillway damaged";
+            } else if (d.DateString == "2/10/17"){
+                return "Emergency spillway put in use";
+            } else {
+                return "";
+            }
+        });
+    }
 
   var focusOverlay = svgOverlay.append("g")
       .attr("transform", "translate(-100,-100)")
@@ -947,21 +1027,21 @@ function draw_intro() {
     var margin = {
       top: 20,
       right: 20,
-      bottom: 35,
+      bottom: 70,
       left: 30
     };
     var width = 340 - margin.left - margin.right;
-    var height = 350 - margin.top - margin.bottom;
+    var height = 360 - margin.top - margin.bottom;
   } else if (screen.width <= 340) {
     console.log("mini iphone")
     var margin = {
       top: 20,
       right: 20,
-      bottom: 35,
+      bottom: 70,
       left: 40
     };
     var width = 310 - margin.left - margin.right;
-    var height = 350 - margin.top - margin.bottom;
+    var height = 360 - margin.top - margin.bottom;
   }
 
   // x-axis scale
@@ -1013,43 +1093,74 @@ function draw_intro() {
       	bar_tooltip.style("visibility", "visible");
       })
       .on("mousemove", function(d) {
-      	// if (screen.width <= 480) {
-      	// 	return bar_tooltip
-      	// 		.style("top", (d3.event.pageY+20)+"px")
-      	// 		.style("left",10+"px");
-      	// } else {
+      	if (screen.width <= 480) {
+      		return bar_tooltip
+      			.style("top", (d3.event.pageY+20)+"px")
+      			.style("left",d3.event.pageX/2+20+"px");
+      	} else {
       		return bar_tooltip
       			.style("top", (d3.event.pageY+20)+"px")
       			.style("left",(d3.event.pageX-80)+"px");
-      	// }
+      	}
       })
       .on("mouseout", function(){return bar_tooltip.style("visibility", "hidden");});
 
-
-  svgRain.append("g")
-      .attr("class", "x axis")
-      .attr("transform", "translate(0," + height + ")")
-      .call(xAxis)
-      // .selectAll("text")
-      //     .style("text-anchor", "end")
-      //     .attr("dx", "1em")
-      //     .attr("dy", "1em")
-        // .attr("transform", "rotate(-65)" )
-      .append("text")
+  if (screen.width <= 480) {
+    svgRain.append("g")
+        .attr("class", "x axis")
+        .attr("transform", "translate(0," + height + ")")
+        .call(xAxis)
+      .selectAll("text")
+          .style("text-anchor", "end")
+          .attr("dx", "-.8em")
+          .attr("dy", ".15em")
+          .attr("transform", "rotate(-65)" );
+      svgRain.append("g")
+        .attr("transform", "translate(0," + height + ")")
+        .append("text")
         .attr("class", "label")
         .attr("x", width)
-        .attr("y", 40)
+        .attr("y", 60)
         .style("text-anchor", "end")
         .text("Rain year through February (Oct. 1 - Feb. 28)")
+  } else {
+    svgRain.append("g")
+        .attr("class", "x axis")
+        .attr("transform", "translate(0," + height + ")")
+        .call(xAxis)
+        // .selectAll("text")
+        //     .style("text-anchor", "end")
+        //     .attr("dx", "1em")
+        //     .attr("dy", "1em")
+          // .attr("transform", "rotate(-65)" )
+        .append("text")
+          .attr("class", "label")
+          .attr("x", width)
+          .attr("y", 40)
+          .style("text-anchor", "end")
+          .text("Rain year through February (Oct. 1 - Feb. 28)")
+  }
 
-  svgRain.append("g")
-      .attr("class", "y axis")
-      .call(yAxis)
-    .append("text")
-      .attr("transform", "rotate(-90)")
-      .attr("y", 0)
-      .attr("dy", "-45px")
-      .style("text-anchor", "end")
-      .text("Cumulative rainfall (inches)");
+  if (screen.width <= 480){
+    svgRain.append("g")
+        .attr("class", "y axis")
+        .call(yAxis)
+      .append("text")
+        .attr("transform", "rotate(-90)")
+        .attr("y", 0)
+        .attr("dy", "20px")
+        .style("text-anchor", "end")
+        .text("Cumulative rain (in)");
+  } else {
+    svgRain.append("g")
+        .attr("class", "y axis")
+        .call(yAxis)
+      .append("text")
+        .attr("transform", "rotate(-90)")
+        .attr("y", 0)
+        .attr("dy", "-45px")
+        .style("text-anchor", "end")
+        .text("Cumulative rainfall (inches)");
+  }
 
 };
