@@ -339,8 +339,8 @@ function draw_chart(selectedData,flag) {
   //     .style("font-family","AntennaMedium")
   //     .style("font-style","italic")
   //     .text(function(d) {
-  //         if (d.DateString == "2/9/17"){
-  //             return "Feb 9, 2017: "+Math.round(d.Flow/1000)+ " kfcs";
+  //         if (d.DateString == "2/6/17"){
+  //             return "Emergency spillway breaks";
   //         } else {
   //             return "";
   //         }
@@ -614,7 +614,7 @@ function draw_overlay() {
           return yRightHeight(102);
         })
         .attr("text-anchor", "middle")
-        .style("font-size", "13px")
+        .style("font-size", "14px")
         .text("Oroville reservoir capacity");
   }
 
@@ -654,6 +654,31 @@ function draw_overlay() {
     .attr("class", "path voronoi")
     .style("stroke", "red")//cscale(d.key))//
     .attr("d", lineFlow(selectedData));
+
+  var nodesOverlay = svgOverlay.selectAll(".voronoi")
+      .data(flatDataO)
+      .enter().append("g")
+      .attr("class","node");
+
+  nodesOverlay.append("text")
+      .attr("x", function(d) {
+        return (xMonth(d.Date)-150);
+      })
+      .attr("y", function(d) {
+        return yInflow(d.Flow/1000)-30;
+      })
+      .attr("class","dottextslope")
+      .style("fill","black")//"#3F3F3F")
+      .style("font-size","14px")
+      .style("font-family","AntennaExtraLight")
+      // .style("font-style","italic")
+      .text(function(d) {
+          if (d.DateString == "2/6/17"){
+              return "Main spillway damaged";
+          } else {
+              return "";
+          }
+      });
 
   var focusOverlay = svgOverlay.append("g")
       .attr("transform", "translate(-100,-100)")
