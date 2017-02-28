@@ -310,6 +310,60 @@ function draw_chart(selectedData,flag) {
         return y(d.Flow/1000);
       });
 
+  if (slideData[slide_id]["flow_type"] == "Outflow") {
+  var areaOK = d3.svg.area()
+      // .interpolate("monotone")//linear, linear-closed,step-before, step-after, basis, basis-open,basis-closed,monotone
+      .x(function(d) {
+        return x(parseFullDate(d.Date));
+      })
+      .y0(height)
+      .y1(function(d) {
+        return y(d.Flow/1000);
+      });
+
+  var areaDanger = d3.svg.area()
+      // .interpolate("monotone")//linear, linear-closed,step-before, step-after, basis, basis-open,basis-closed,monotone
+      .x(function(d) {
+        return x(parseFullDate(d.Date));
+      })
+      .y0(0)
+      .y1(function(d) {
+        return y(d.Flow/1000);
+      });
+
+  var dangerData = [
+    {Date: '10/01/2015', Flow: 150000},
+    {Date: '09/31/2016', Flow: 150000}
+  ];
+
+  // Add the filled area
+  svgFlow.append("path")
+      .datum(dangerData)
+      .attr("class", "area")
+      .style("opacity",0.5)
+      .style("fill","DE8383")
+      .attr("d", areaDanger);
+
+  // Add the filled area
+  svgFlow.append("path")
+      .datum(dangerData)
+      .attr("class", "area")
+      .style("opacity",0.5)
+      .style("fill","#E5E5E5")
+      .attr("d", areaOK);
+
+  svgFlow.append("text")
+      .attr("x", function(d) {
+        return x(parseFullDate("07/31/2016"));
+      })
+      .attr("y", function(d) {
+        return y(152);
+      })
+      .attr("text-anchor", "middle")
+      .style("font-size", "13px")
+      .text("This is the dangerous zone.");
+  }
+
   FlowNested.forEach(function(d,ddx) {
     d.values.splice(0,1);
     var class_list = "line voronoipath id"+d.key;
@@ -362,7 +416,7 @@ function draw_chart(selectedData,flag) {
         // .style("font-style","italic")
         .text(function(d) {
             if ((d.DateString == "3/20/11") && (slideData[slide_id]["flow_type"] == "Outflow")){
-                return "In 2011, snow melt requires outflow";
+                return "2011 snow melt requires outflow";
             } else if ((d.DateString == "2/13/17") && (slideData[slide_id]["flow_type"] == "Outflow")){
                 return "Storms cause outflow this February";
             } else if ((d.DateString == "2/9/17") && (slideData[slide_id]["flow_type"] == "Inflow")){
@@ -394,7 +448,7 @@ function draw_chart(selectedData,flag) {
         // .style("font-style","italic")
         .text(function(d) {
             if ((d.DateString == "3/20/11") && (slideData[slide_id]["flow_type"] == "Outflow")){
-                return "Snow melt in the spring requires outflow";
+                return "In 2011, snow melt requires outflow";
             } else if ((d.DateString == "2/13/17") && (slideData[slide_id]["flow_type"] == "Outflow")){
                 return "Storms cause increased outflow this February";
             } else if ((d.DateString == "2/9/17") && (slideData[slide_id]["flow_type"] == "Inflow")){
