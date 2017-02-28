@@ -4,7 +4,7 @@
     "Month": 2,
     "Day": 21,
     "YearShort": 17,
-    "Flow": 59999.1,
+    "Flow": 59999,
     "type": "Outflow",
     "Year": 2017,
     "waterYear": 2017
@@ -26088,6 +26088,16 @@
     "type": "Outflow",
     "Year": 2010,
     "waterYear": 2010
+  },
+  {
+    "Date": "2/21/17",
+    "Month": 2,
+    "Day": 21,
+    "YearShort": 17,
+    "Flow": 76938,
+    "type": "Inflow",
+    "Year": 2017,
+    "waterYear": 2017
   },
   {
     "Date": "2/21/17",

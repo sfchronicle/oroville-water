@@ -48,16 +48,16 @@ function titleCase(str) {
 // setting sizes of interactive
 var margin = {
   top: 15,
-  right: 100,
+  right: 50,
   bottom: 50,
   left: 70
 };
 if (screen.width > 768) {
   var width = 1000 - margin.left - margin.right;
-  var height = 500 - margin.top - margin.bottom;
+  var height = 600 - margin.top - margin.bottom;
 } else if (screen.width <= 768 && screen.width > 480) {
-  var width = 650 - margin.left - margin.right;
-  var height = 500 - margin.top - margin.bottom;
+  var width = 720 - margin.left - margin.right;
+  var height = 600 - margin.top - margin.bottom;
 } else if (screen.width <= 480 && screen.width > 340) {
   console.log("big phone");
   var margin = {
@@ -227,7 +227,7 @@ function draw_chart(selectedData,flag) {
   // setting sizes of interactive
   var margin = {
     top: 15,
-    right: 100,
+    right: 50,
     bottom: 40,
     left: 70
   };
@@ -235,7 +235,7 @@ function draw_chart(selectedData,flag) {
     var width = 1000 - margin.left - margin.right;
     var height = 600 - margin.top - margin.bottom;
   } else if (screen.width <= 768 && screen.width > 480) {
-    var width = 650 - margin.left - margin.right;
+    var width = 720 - margin.left - margin.right;
     var height = 600 - margin.top - margin.bottom;
   } else if (screen.width <= 480 && screen.width > 340) {
     console.log("big phone");
@@ -561,7 +561,7 @@ function draw_overlay() {
   // create SVG container for chart components
   var margin = {
     top: 15,
-    right: 100,
+    right: 80,
     bottom: 60,
     left: 100
   };
@@ -569,7 +569,7 @@ function draw_overlay() {
     var width = 1000 - margin.left - margin.right;
     var height = 600 - margin.top - margin.bottom;
   } else if (screen.width <= 768 && screen.width > 480) {
-    var width = 650 - margin.left - margin.right;
+    var width = 720 - margin.left - margin.right;
     var height = 600 - margin.top - margin.bottom;
   } else if (screen.width <= 480 && screen.width > 340) {
     console.log("big phone");
@@ -620,9 +620,18 @@ function draw_overlay() {
     .clipExtent([[-margin.left, -margin.top], [width + margin.right, height + margin.bottom]]);
 
   // Define the axes
-  var xAxisMonth = d3.svg.axis().scale(xMonth)
-      .orient("bottom")
-      .tickFormat(d3.time.format("%m/%d")); // tickFormat
+  if (screen.width <= 480) {
+    var xAxisMonth = d3.svg.axis().scale(xMonth)
+        .orient("bottom")
+        .tickFormat(d3.time.format("%m/%d"))
+        .ticks(6); // tickFormat
+  } else {
+    var xAxisMonth = d3.svg.axis().scale(xMonth)
+        .orient("bottom")
+        .tickFormat(d3.time.format("%m/%d"))
+        .ticks(8); // tickFormat
+  }
+
 
   var yAxisInflow = d3.svg.axis().scale(yInflow)
       .orient("left");
@@ -753,7 +762,11 @@ function draw_overlay() {
   } else {
     nodesOverlay.append("text")
         .attr("x", function(d) {
-          return (xMonth(d.Date)-150);
+          if (d.DateString == "2/10/17") {
+            return (xMonth(d.Date)-200);
+          } else {
+            return (xMonth(d.Date)-150);
+          }
         })
         .attr("y", function(d) {
           return yInflow(d.Flow/1000)-30;
@@ -842,17 +855,17 @@ function draw_overlay() {
         .attr("class", "x axis")
         .attr("transform", "translate(0," + height + ")")
         .call(xAxisMonth)
-      .selectAll("text")
-          .style("text-anchor", "end")
-          .attr("dx", "-.8em")
-          .attr("dy", ".15em")
-          .attr("transform", "rotate(-65)" )
+      // .selectAll("text")
+      //     .style("text-anchor", "end")
+      //     .attr("dx", "-.8em")
+      //     .attr("dy", ".15em")
+      //     .attr("transform", "rotate(-65)" )
         .append("text")
         .attr("class", "label")
         .attr("x", width)
-        .attr("y", -200)
+        .attr("y", 40)
         .style("text-anchor", "end")
-        .text("Date (by rain season)")
+        .text("2017 rain year (Oct. 1 to present)")
 
     if (screen.width <= 480) {
       svgOverlay.append("g")
@@ -1012,7 +1025,7 @@ function draw_intro() {
   // setting sizes of interactive
   var margin = {
     top: 15,
-    right: 100,
+    right: 50,
     bottom: 50,
     left: 70
   };
@@ -1020,7 +1033,7 @@ function draw_intro() {
     var width = 1000 - margin.left - margin.right;
     var height = 600 - margin.top - margin.bottom;
   } else if (screen.width <= 768 && screen.width > 480) {
-    var width = 650 - margin.left - margin.right;
+    var width = 720 - margin.left - margin.right;
     var height = 500 - margin.top - margin.bottom;
   } else if (screen.width <= 480 && screen.width > 340) {
     console.log("big phone");
