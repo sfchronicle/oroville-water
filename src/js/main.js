@@ -362,7 +362,7 @@ function draw_chart(selectedData,flag) {
         // .style("font-style","italic")
         .text(function(d) {
             if ((d.DateString == "3/20/11") && (slideData[slide_id]["flow_type"] == "Outflow")){
-                return "Snow melt requires outflow";
+                return "In 2011, snow melt requires outflow";
             } else if ((d.DateString == "2/13/17") && (slideData[slide_id]["flow_type"] == "Outflow")){
                 return "Storms cause outflow this February";
             } else if ((d.DateString == "2/9/17") && (slideData[slide_id]["flow_type"] == "Inflow")){
