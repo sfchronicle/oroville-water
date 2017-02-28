@@ -489,15 +489,15 @@ function draw_overlay() {
   var margin = {
     top: 15,
     right: 100,
-    bottom: 50,
+    bottom: 60,
     left: 100
   };
   if (screen.width > 768) {
     var width = 1000 - margin.left - margin.right;
-    var height = 500 - margin.top - margin.bottom;
+    var height = 600 - margin.top - margin.bottom;
   } else if (screen.width <= 768 && screen.width > 480) {
     var width = 650 - margin.left - margin.right;
-    var height = 500 - margin.top - margin.bottom;
+    var height = 600 - margin.top - margin.bottom;
   } else if (screen.width <= 480 && screen.width > 340) {
     console.log("big phone");
     var margin = {
@@ -692,17 +692,20 @@ function draw_overlay() {
     d3.select(".id"+d.key).classed("line-hover", true);
     focusOverlay.attr("transform", "translate(" + xMonth(d.Date) + "," + yInflow(d.Flow/1000) + ")");
     focusOverlay.select("text").text(d.DateString+": "+formatthousands(Math.round(d.Flow))+ " cfs");
-    if (screen.width <= 480) {
-      // if (d.year < 2009) {
-      //   focusOverlay.select("text").attr("x","0px");
-      //   focusOverlay.select("rect").attr("x","0px");
-      //   focusOverlay.select("rect").attr("width","80px");
-      // } else {
-        focusOverlay.select("text").attr("x","-80px");
-        focusOverlay.select("rect").attr("x","-80px");
-        focusOverlay.select("rect").attr("width","80px");
-      // }
-    }
+    // if (screen.width <= 480) {
+      if (d.DateString.split("/")[0] < 10) {
+        console.log(d.DateString.split("/")[0]);
+        console.log("this should be right side");
+        focusOverlay.select("text").attr("x","-130px");
+        focusOverlay.select("rect").attr("x","-140px");
+        // focusOverlay.select("rect").attr("width","80px");
+      } else {
+        console.log("this should be left side");
+        focusOverlay.select("text").attr("x","10px");
+        focusOverlay.select("rect").attr("x","0px");
+        // focusOverlay.select("rect").attr("width","80px");
+      }
+    // }
   }
 
   function mouseout(d) {
