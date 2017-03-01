@@ -26,6 +26,47 @@
           A wet winter brought to light problems lurking at the nation’s tallest dam.
         </div>
 
+        
+
+        
+
+        <div class="chart-top"></div>
+
+
+        <div class="snow-info" id="snow-info">Up-to-date snowpack level:<div id="snowpack-num"></div></div>
+
+        <div class="reservoir-info" id="reservoir-info">Up-to-date reservoir levels:</div>
+        <div class="legend-container active" id="legend-container-final">
+          <div class="element long"><div class="swath long swathtotal"><div class="legend-text long">Total reservoir capacity</div></div></div>
+          <div class="element long"><div class="swath long swathfilled"><div class="legend-text long">Current reservoir storage</div></div></div>
+        </div>
+
+        <div class="chart-container">
+          <div class="chart-text"></div>
+          <div class="chart-image"></div>
+          <div class="chart-info"></div>
+          <div id="chart" class="chart"></div>
+          <div class="legend-container" id="legend-container-overlay">
+          <div class="element long"><div class="swath long swathoutflow"><div class="legend-text long">2017 Outflow (kcfs)</div></div></div>
+          <div class="element long"><div class="swath long swathreservoir"><div class="legend-text long">Reservoir level (% full)</div></div></div>
+        </div>
+          <div id="reservoir-chart"></div>
+        </div>
+
+        <div class="legend-container active" id="legend-container">
+          <div class="element bold">Years: </div>
+          <div class="element"><div class="swath swath2010"><div class="legend-text">2010</div></div></div>
+          <div class="element"><div class="swath swath2011"><div class="legend-text">2011</div></div></div>
+          <div class="element"><div class="swath swath2012"><div class="legend-text">2012</div></div></div>
+          <div class="element"><div class="swath swath2013"><div class="legend-text">2013</div></div></div>
+          <div class="element"><div class="swath swath2014"><div class="legend-text">2014</div></div></div>
+          <div class="element"><div class="swath swath2015"><div class="legend-text">2015</div></div></div>
+          <div class="element"><div class="swath swath2016"><div class="legend-text">2016</div></div></div>
+          <div class="element inactive" id="element2017"><div class="swath swath2017"><div class="legend-text">2017</div></div></div>
+        </div>
+
+
+
         <div class="progress-bar">
           <ol>
             <% json.Slideshow.forEach(function(t,tdx) { %>
@@ -41,40 +82,6 @@
         <div class="controls">
           <div id="back"><i class="fa fa-caret-left"></i></div>
           <div id="forward"><i class="fa fa-caret-right"></i></div>
-        </div>
-
-        <div class="legend-container" id="legend-container-overlay">
-          <div class="element long"><div class="swath long swathoutflow"><div class="legend-text long">2017 Outflow (kcfs)</div></div></div>
-          <div class="element long"><div class="swath long swathreservoir"><div class="legend-text long">Reservoir level (% full)</div></div></div>
-        </div>
-
-        <div class="chart-top"></div>
-        <div class="snow-info" id="snow-info">Up-to-date snowpack level:<div id="snowpack-num"></div></div>
-
-        <div class="reservoir-info" id="reservoir-info">Up-to-date reservoir levels:</div>
-        <div class="legend-container active" id="legend-container-final">
-          <div class="element long"><div class="swath long swathtotal"><div class="legend-text long">Total reservoir capacity</div></div></div>
-          <div class="element long"><div class="swath long swathfilled"><div class="legend-text long">Current reservoir storage</div></div></div>
-        </div>
-
-        <div class="chart-container">
-          <div class="chart-text"></div>
-          <div class="chart-image"></div>
-          <div class="chart-info"></div>
-          <div id="chart" class="chart"></div>
-          <div id="reservoir-chart"></div>
-        </div>
-
-        <div class="legend-container active" id="legend-container">
-          <div class="element bold">Years: </div>
-          <div class="element"><div class="swath swath2010"><div class="legend-text">2010</div></div></div>
-          <div class="element"><div class="swath swath2011"><div class="legend-text">2011</div></div></div>
-          <div class="element"><div class="swath swath2012"><div class="legend-text">2012</div></div></div>
-          <div class="element"><div class="swath swath2013"><div class="legend-text">2013</div></div></div>
-          <div class="element"><div class="swath swath2014"><div class="legend-text">2014</div></div></div>
-          <div class="element"><div class="swath swath2015"><div class="legend-text">2015</div></div></div>
-          <div class="element"><div class="swath swath2016"><div class="legend-text">2016</div></div></div>
-          <div class="element inactive" id="element2017"><div class="swath swath2017"><div class="legend-text">2017</div></div></div>
         </div>
 
     </div>

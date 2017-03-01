@@ -53,7 +53,7 @@ var margin = {
   left: 70
 };
 if (screen.width > 768) {
-  var width = 1000 - margin.left - margin.right;
+  var width = 900 - margin.left - margin.right;
   var height = 600 - margin.top - margin.bottom;
 } else if (screen.width <= 768 && screen.width > 480) {
   var width = 720 - margin.left - margin.right;
@@ -196,8 +196,15 @@ function slide_lookup(id) {
     document.querySelector(".chart-image").innerHTML = "<div class='inline-image'><img src='./assets/graphics/"+slideData[id]["image"]+"'></img><img class='overlay' id='overlay' src='./assets/graphics/"+slideData[id]["overlay"]+"'></div>";
     document.querySelector(".chart-top").innerHTML = "<div class='graphic-text'>"+slideData[id]["image_text"]+"</div>";
   } else if (slideData[id]["type"] == "image") {
-    document.querySelector(".chart-image").innerHTML = "<div class='inline-image'><img src='"+slideData[id]["image"]+"'></img></div><div class='caption'>"+slideData[id]["caption"]+"<span class='byline'>  "+slideData[id]["credit"]+"</span></div>";
-    document.querySelector(".chart-top").innerHTML = "<div class='graphic-text'>"+slideData[id]["image_text"]+"</div>";
+    if (typeof(slideData[id]["image_text"]) == "undefined"){
+    document.querySelector(".chart-image").innerHTML = "<div class='inline-image'><img src='"+slideData[id]["image"]+"'></img></div><div class='caption'>"+"<span class='byline'>  "+slideData[id]["credit"]+"</span></div>";
+    } else {
+     document.querySelector(".chart-image").innerHTML = "<div class='graphic-text'>"+slideData[id]["image_text"]+"</div>"+"<div class='inline-image'><img src='"+slideData[id]["image"]+"'></img></div><div class='caption'>"+"<span class='byline'>  "+slideData[id]["credit"]+"</span></div>"; 
+    }
+    if (typeof(slideData[id]["graphic-text"]) != "undefined"){
+      document.querySelector(".chart-top").innerHTML = "<div class='graphic-text'>"+slideData[id]["image_text"]+"</div>";
+    }
+
   }
 }
 
@@ -232,7 +239,7 @@ function draw_chart(selectedData,flag) {
     left: 70
   };
   if (screen.width > 768) {
-    var width = 1000 - margin.left - margin.right;
+    var width = 900 - margin.left - margin.right;
     var height = 600 - margin.top - margin.bottom;
   } else if (screen.width <= 768 && screen.width > 480) {
     var width = 720 - margin.left - margin.right;
@@ -620,7 +627,7 @@ function draw_overlay() {
     left: 100
   };
   if (screen.width > 768) {
-    var width = 1000 - margin.left - margin.right;
+    var width = 900 - margin.left - margin.right;
     var height = 600 - margin.top - margin.bottom;
   } else if (screen.width <= 768 && screen.width > 480) {
     var width = 720 - margin.left - margin.right;
@@ -1112,7 +1119,7 @@ function draw_intro() {
     left: 70
   };
   if (screen.width > 768) {
-    var width = 1000 - margin.left - margin.right;
+    var width = 900 - margin.left - margin.right;
     var height = 600 - margin.top - margin.bottom;
   } else if (screen.width <= 768 && screen.width > 480) {
     var width = 720 - margin.left - margin.right;

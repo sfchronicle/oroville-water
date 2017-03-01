@@ -25,10 +25,6 @@
   }
 }
 
-// .controls {
-//   display: none !important;
-// }
-
 .credits {
   max-width: 1000px;
   margin: auto;
@@ -45,7 +41,8 @@
 
 .inline-image {
   position: relative;
-  max-width: 100%;
+  max-width: 850px;
+  margin:0 auto;
   width: 100%;
   // opacity: 0.5;
   .overlay {
@@ -195,10 +192,12 @@ li{
 }
 
 .chart-top {
-  font-size: 20px;
+  font-size: 17px;
   text-align: center;
   font-family: @med-graphics;
   padding-top: 30px;
+  max-width:700px;
+  margin:0 auto;
   .sub-hed {
     font-size: 18px;
     // font-style: italic;
@@ -334,6 +333,7 @@ svg {
   max-width: 900px;
   margin: auto;
   margin-bottom: 30px;
+  position:relative;
 }
 
 .voronoi {
@@ -417,11 +417,25 @@ svg {
 }
 
 .controls {
-  padding-top: 10px;
   text-align: center;
   display: block;
 }
+
+#forward{
+  position:absolute;
+  right: -30px;
+  top:60%;
+
+}
+
+#back{
+  position:absolute;
+  left: -30px;
+  top:60%;
+}
+
 #forward, #back {
+  z-index:10;
   border-radius: 7px;
   display: inline-block;
   font-size: 30px;
@@ -439,5 +453,9 @@ svg {
     color: @black;
     cursor: default;
     background: @dark-gray;
+  }
+
+  @media @chart{
+  position:static;
   }
 }
