@@ -90,6 +90,7 @@ var legend_final = document.getElementById("legend-container-final");
 var element_2017 = document.getElementById("element2017");
 var snow_text = document.getElementById("snow-info");
 var reservoir_text = document.getElementById("reservoir-info");
+var final_credits = document.getElementById("credits-container");
 
 // initialize slide
 slide_lookup(0);
@@ -146,8 +147,11 @@ function slide_lookup(id) {
   legend_final.classList.remove("active");
   reservoir_text.classList.remove("active");
   snow_text.classList.remove("active");
+  final_credits.classList.remove("active");
 
-  if (slideData[id]["type"] == "text") {
+  if (slideData[id]["type"] == "credits") {
+    final_credits.classList.add("active");
+  } else if (slideData[id]["type"] == "text") {
     document.querySelector(".chart-text").innerHTML = slideData[id]["text"];
   } else if (slideData[id]["type"] == "chart") {
     // bar chart for beginning

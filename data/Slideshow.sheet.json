@@ -1,92 +1,120 @@
 [
   {
     "slideID": 0,
-    "type": "chart",
-    "year": "setup",
-    "image_text": "After five years of drought, California was socked by one of its wettest winters in decades. The small city of Oroville saw nearly twice as much precipitation this rain year, through February, as last."
+    "type": "image",
+    "image": "/assets/photos/oroville_now.jpg"
   },
   {
     "slideID": 1,
     "type": "chart",
-    "year": "2010-2016",
-    "flow_type": "Inflow",
-    "image_text": "Very litte water poured into the Oroville dam during the drought years."
+    "background": "/assets/photos/oroville_now.jpg",
+    "year": "setup",
+    "image_text": "After five years of drought, California was socked by one of its wettest winters in decades. The small city of Oroville saw nearly twice as much precipitation this rain year, through February, as last."
   },
   {
     "slideID": 2,
+    "type": "graphic",
+    "image": "inflow.png",
+    "background": "/assets/photos/oroville_now.jpg",
+    "image_text": "Look at all the ways water flows into the reservoir."
+  },
+  {
+    "slideID": 3,
+    "type": "image",
+    "image": "http://ww2.hdnux.com/photos/57/43/16/12465037/3/1000x0.jpg",
+    "image_text": "Nothing was flowing into Oroville during the drought."
+  },
+  {
+    "slideID": 4,
+    "type": "chart",
+    "year": "2010-2016",
+    "flow_type": "Inflow",
+    "image_text": "The chart also shows how no water was inflowing during the drought."
+  },
+  {
+    "slideID": 5,
     "type": "chart",
     "year": 2017,
     "flow_type": "Inflow",
     "image_text": "Winter storms in the mountains around Oroville generated a lot of runoff, which poured into the state-run reservoir. The reservoir swelled to its highest level in years."
   },
   {
-    "slideID": 3,
+    "slideID": 6,
+    "type": "graphic",
+    "image": "outflow.png",
+    "image_text": "Look at all the ways water flows out of the reservoir."
+  },
+  {
+    "slideID": 7,
     "type": "chart",
     "year": 2017,
     "flow_type": "Outflow",
     "image_text": "With more water flowing into Lake Oroville, dam operators sent more water downstream, into the Feather River."
   },
   {
-    "slideID": 4,
+    "slideID": 8,
+    "type": "image",
+    "image": "https://hearst.merlinone.net/mx/thumbs2017/tdir16079/ax164_437b_9.jpg",
+    "image_text": "Look at all the water flowing out."
+  },
+  {
+    "slideID": 9,
     "type": "chart",
     "year": "overlay",
     "flow_type": "Outflow",
     "image_text": "As the reservoir got closer to filling, operators increased outflows, at least until the lake’s main spillway cracked on Feb. 7."
   },
   {
-    "slideID": 5,
-    "type": "graphic",
-    "image": "reservoirs_slideshow_outflow_1.png",
-    "overlay": "reservoirs_slideshow_outflow_spillway.png",
-    "image_text": "Damage to the main spillway forced dam managers to rely on other ways to release water from the lake. The other outlets, however, were problematic."
-  },
-  {
-    "slideID": 6,
-    "type": "graphic",
-    "image": "reservoirs_slideshow_outflow_1.png",
-    "overlay": "reservoirs_slideshow_outflow_powerplant.png",
-    "image_text": "The Hyatt Powerplant, which can normally release a small amount of water, was taken off line after the main spillway cracked. Chunks of concrete from the broken spillway were causing water to pool up near the power plant, threatening to damage the turbines."
-  },
-  {
-    "slideID": 7,
-    "type": "graphic",
-    "image": "reservoirs_slideshow_outflow_1.png",
-    "overlay": "reservoirs_slideshow_outflow_river.png",
-    "image_text": "A set of river outlets, which hadn’t been fully used in years because of an accident there, was also inoperable. Pooling water from the damaged spillway covered the outtake pipes."
-  },
-  {
-    "slideID": 8,
-    "type": "graphic",
-    "image": "reservoirs_slideshow_outflow_1.png",
-    "overlay": "reservoirs_slideshow_outflow_emergency.png",
-    "image_text": "The lake’s emergency spillway also failed. On Feb. 11, when lake water reached a certain height, water began pouring over the lip of the emergency chute and onto a hillside, which began to erode instead of carrying the overflow safely to the river."
-  },
-  {
-    "slideID": 9,
-    "type": "graphic",
-    "image": "reservoirs_slideshow_erosion_base.png",
-    "overlay": "reservoirs_slideshow_erosion_secondlabel.png",
-    "image_text": "Concern that the hillside would fully erode and send water uncontrollably downstream prompted the evacuation of nearly 200,000 people."
-  },
-  {
     "slideID": 10,
     "type": "graphic",
-    "image": "reservoirs_slideshow_erosion_base.png",
-    "overlay": "reservoirs_slideshow_erosion_thirdlabel.png",
-    "image_text": "Although the main spillway was damaged, dam operators increased outflows there to try to stop water from running down the emergency spillway. On the evening of Feb. 12, the lake level dropped enough so that the emergency channel was no longer needed. Construction crews immediately started working to fix the emergency spillway."
+    "image": "damage.png",
+    "image_text": "Look at how the dam was damaged."
   },
   {
     "slideID": 11,
     "type": "image",
-    "image": "http://ww2.hdnux.com/photos/57/13/07/12366309/3/1024x1024.jpg",
-    "image_text": "Evacuation orders for parts of Butte, Yuba and Sutter counties remained in effect for most of the week. Dam operators wanted to be certain they wouldn’t need to use the emergency spillway anytime soon.",
-    "caption": "Gerldeen Trammell, seen in her family's car with her daughter and grandchildren, was among several hundred thousand area residents evacuated down river from the Oroville Dam spillways after officials began to worry about an imminent collapse.",
-    "credit": "Carlos Avila Gonzalez, The Chronicle"
+    "image": "https://hearst.merlinone.net/mx/thumbs2017/tdir16839/bx083_4fad_9.jpg",
+    "image_text": "Look at a photo of how the dam was damaged."
   },
   {
     "slideID": 12,
+    "type": "graphic",
+    "image": "evacuation.png",
+    "image_text": "That means they decided to evacuate people nearby."
+  },
+  {
+    "slideID": 13,
+    "type": "image",
+    "image": "https://hearst.merlinone.net/mx/thumbs2017/tdir16839/bx106_40d8_9.jpg",
+    "image_text": "Look at a photo of the evacuated people."
+  },
+  {
+    "slideID": 14,
+    "type": "graphic",
+    "image": "reservoirs_slideshow_erosion_base.png",
+    "image_text": "Concern that the hillside would fully erode and send water uncontrollably downstream prompted the evacuation of nearly 200,000 people."
+  },
+  {
+    "slideID": 15,
+    "type": "graphic",
+    "image": "reservoirs_slideshow_erosion_base.png",
+    "image_text": "Although the main spillway was damaged, dam operators increased outflows there to try to stop water from running down the emergency spillway. On the evening of Feb. 12, the lake level dropped enough so that the emergency channel was no longer needed. Construction crews immediately started working to fix the emergency spillway.",
+    "credit": "Carlos Avila Gonzalez, The Chronicle"
+  },
+  {
+    "slideID": 16,
+    "type": "image",
+    "image": "https://hearst.merlinone.net/mx/thumbs2017/tdir16901/ax212_3508_9.jpg",
+    "image_text": "Now there are big repairs happening."
+  },
+  {
+    "slideID": 17,
     "type": "chart",
     "year": "future",
     "image_text": "While dam managers have been able to sufficiently release water from the lake, through the damaged main spillway, they worry that future runoff could test their success. Snowpack in the mountains is near record highs, and as it melts this spring, the lake’s inflow is likely to be large. Most reservoirs in California are similarly at or near capacity and are releasing large amounts of water downstream."
+  },
+  {
+    "slideID": 18,
+    "type": "credits"
   }
 ]
