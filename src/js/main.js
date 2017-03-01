@@ -571,7 +571,7 @@ function draw_chart(selectedData,flag) {
         .attr("dy", ".71em")
         .style("text-anchor", "end")
         // .style("fill","white")
-        .text("Flow at Oroville reservoir (kcfs)")
+        .text(slideData[slide_id]["flow_type"]+"(thousands of cfs)")
   } else {
     svgFlow.append("g")
         .data(flatDataFlow)
@@ -581,11 +581,11 @@ function draw_chart(selectedData,flag) {
         .attr("class", "label")
         .attr("transform", "rotate(-90)")
         .attr("y", -50)
-        .attr("x", -10)
+        .attr("x", 0)
         .attr("dy", ".71em")
         .style("text-anchor", "end")
         // .style("fill","white")
-        .text(slideData[slide_id]["flow_type"]+" (kcfs)")
+        .text(slideData[slide_id]["flow_type"]+" (thousands of cfs)")
   }
 
 }
@@ -940,7 +940,7 @@ function draw_overlay() {
           .attr("dy", ".71em")
           .style("text-anchor", "end")
           // .style("fill","white")
-          .text("Outflow at Oroville reservoir (kcfs)")
+          .text("Outflow at Oroville reservoir (thousands of cfs)")
 
       svgOverlay.append("g")
           .attr("class", "y axis")
@@ -967,7 +967,7 @@ function draw_overlay() {
           .attr("dy", ".71em")
           .style("text-anchor", "end")
           // .style("fill","white")
-          .text("Outflow at Oroville reservoir (kcfs)")
+          .text("Outflow at Oroville reservoir (thousands of cfs)")
 
       svgOverlay.append("g")
           .attr("class", "y axis")

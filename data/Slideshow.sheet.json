@@ -1,15 +1,16 @@
 [
   {
     "slideID": 0,
-    "type": "image",
-    "image": "assets/photos/oroville_now.jpg",
-    "caption":"Image taken on Feb. 28th, 2017."
+    "type": "chart",
+    "year": "setup",
+    "image_text": "After five years of drought, California was socked by one of its wettest winters in decades. The small city of Oroville saw nearly twice as much precipitation this rain year, through February, as last."
   },
   {
     "slideID": 1,
     "type": "chart",
-    "year": "setup",
-    "image_text": "After five years of drought, California was socked by one of its wettest winters in decades. The small city of Oroville saw nearly twice as much precipitation this rain year, through February, as last."
+    "year": "2010-2016",
+    "flow_type": "Inflow",
+    "image_text": "Very litte water poured into the Oroville dam during the drought years."
   },
   {
     "slideID": 2,
