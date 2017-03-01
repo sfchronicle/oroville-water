@@ -1048,8 +1048,8 @@ function draw_future() {
         .on("mouseover", function(d) {
           future_tooltip.html(`
       				<div>Reservoir: <b>${d.name}</b></div>
-              <div>Storage: <b>${Math.round(d.storage/1000)} TAF</b></div>
-              <div>Capacity: <b>${Math.round(d.capacity/1000)} TAF</b></div>
+              <div>Storage: <b>${formatthousands(Math.round(d.storage/1000))} TAF</b></div>
+              <div>Capacity: <b>${formatthousands(Math.round(d.capacity/1000))} TAF</b></div>
       		`);
         	future_tooltip.style("visibility", "visible");
         })
