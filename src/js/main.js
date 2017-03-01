@@ -199,7 +199,7 @@ function slide_lookup(id) {
     if (typeof(slideData[id]["image_text"]) == "undefined"){
     document.querySelector(".chart-image").innerHTML = "<div class='inline-image'><img src='"+slideData[id]["image"]+"'></img></div><div class='caption'>"+"<span class='byline'>  "+slideData[id]["credit"]+"</span></div>";
     } else {
-     document.querySelector(".chart-image").innerHTML = "<div class='graphic-text'>"+slideData[id]["image_text"]+"</div>"+"<div class='inline-image'><img src='"+slideData[id]["image"]+"'></img></div><div class='caption'>"+"<span class='byline'>  "+slideData[id]["credit"]+"</span></div>"; 
+     document.querySelector(".chart-image").innerHTML = "<div class='graphic-text'>"+slideData[id]["image_text"]+"</div>"+"<div class='inline-image'><img src='"+slideData[id]["image"]+"'></img></div><div class='caption'>"+"<span class='byline'>  "+slideData[id]["credit"]+"</span></div>";
     }
     if (typeof(slideData[id]["graphic-text"]) != "undefined"){
       document.querySelector(".chart-top").innerHTML = "<div class='graphic-text'>"+slideData[id]["image_text"]+"</div>";
@@ -1071,7 +1071,7 @@ function draw_future() {
         			.style("left",(d3.event.pageX-80)+"px");
         	}
         })
-        .on("mouseout", function(){return bar_tooltip.style("visibility", "hidden");});
+        .on("mouseout", function(){return future_tooltip.style("visibility", "hidden");});
 
     svgBars.append("g")
         .attr("class", "x axis")
