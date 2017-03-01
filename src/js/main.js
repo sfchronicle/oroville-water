@@ -980,6 +980,14 @@ function draw_overlay() {
 
 function draw_future() {
 
+  // show tooltip
+  var future_tooltip = d3.select("body")
+      .append("div")
+      .attr("class","future_tooltip")
+      .style("position", "absolute")
+      .style("z-index", "10")
+      .style("visibility", "hidden")
+
   d3.json("http://extras.sfgate.com/editorial/droughtwatch/reservoirs.json", function(barData){
 
     barData.data.forEach(function(d){
@@ -995,7 +1003,7 @@ function draw_future() {
         .rangeRound([height, 0]);
 
     x.domain(barData.data.map(function(d) { return d.name; }));
-    y.domain([0, 5000000]);
+    y.domain([0, 5000]);
 
     var xAxis = d3.svg.axis()
         .scale(x)
@@ -1022,9 +1030,9 @@ function draw_future() {
         .style("fill", "#696969")
         .attr("x", function(d) { return x(d.name); })
         .attr("width", x.rangeBand())
-        .attr("y", function(d) { return y(+d.capacity); })
+        .attr("y", function(d) { return y(+d.capacity/1000); })
         .attr("height", function(d) {
-          return height - y(+d.capacity);
+          return height - y(+d.capacity/1000);
         });
 
     svgBars.selectAll("bar")
@@ -1033,10 +1041,30 @@ function draw_future() {
         .style("fill", "#6790B7")
         .attr("x", function(d) { return x(d.name); })
         .attr("width", x.rangeBand())
-        .attr("y", function(d) { return y(+d.storage); })
+        .attr("y", function(d) { return y(+d.storage/1000); })
         .attr("height", function(d) {
-          return height - y(+d.storage);
-        });
+          return height - y(+d.storage/1000);
+        })
+        .on("mouseover", function(d) {
+          future_tooltip.html(`
+      				<div>Reservoir: <b>${d.name}</b></div>
+              <div>Storage: <b>${Math.round(d.storage/1000)} TAF</b></div>
+              <div>Capacity: <b>${Math.round(d.capacity/1000)} TAF</b></div>
+      		`);
+        	future_tooltip.style("visibility", "visible");
+        })
+        .on("mousemove", function(d) {
+        	if (screen.width <= 480) {
+        		return future_tooltip
+        			.style("top", (d3.event.pageY+20)+"px")
+        			.style("left",d3.event.pageX/2+20+"px");
+        	} else {
+        		return future_tooltip
+        			.style("top", (d3.event.pageY+20)+"px")
+        			.style("left",(d3.event.pageX-80)+"px");
+        	}
+        })
+        .on("mouseout", function(){return bar_tooltip.style("visibility", "hidden");});
 
     svgBars.append("g")
         .attr("class", "x axis")
@@ -1056,7 +1084,7 @@ function draw_future() {
         .attr("y", 6)
         .attr("dy", ".71em")
         .style("text-anchor", "end")
-        .text("Reservoir levels");
+        .text("Reservoir levels (TAF)");
 
   });
   d3.json("http://extras.sfgate.com/editorial/droughtwatch/snowwatercontent.json", function(snowData){
