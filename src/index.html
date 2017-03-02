@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
     <link rel="stylesheet" type="text/css" href="style.css">
 
-    <!-- <%= !json.project.embedded ? t.include("partials/_paywall.html") : t.include("partials/_embedframe.html") %> -->
+     <%= !json.project.embedded ? t.include("partials/_paywall.html") : t.include("partials/_embedframe.html") %>
 
     <%= t.include("partials/_head.html") %>
 
@@ -19,12 +19,15 @@
       <%= t.include("partials/_nav.html") %>
 
       <div class="outer">
-        <div class="hed">What happened at Lake Oroville?</div>
-        <div class="byline">By <a href="mailto:eoneill@sfchronicle.com">Emma O'Neill</a>, <a href="mailto:jblanchard@sfchronicle.com">John Blanchard</a>, and <a href="mailto:kalexander@sfchronicle.com">Kurtis Alexander</a></div>
 
-        <div class="chatter">
-          A wet winter brought to light problems lurking at the nation’s tallest dam.
+        <div class="title">
+          <div class="hed">What happened at Lake Oroville?</div>
+          <div class="byline">By <a href="mailto:eoneill@sfchronicle.com">Emma O'Neill</a>, <a href="mailto:jblanchard@sfchronicle.com">John Blanchard</a>, and <a href="mailto:kalexander@sfchronicle.com">Kurtis Alexander</a></div>
+          <div class="chatter">
+            A wet winter brought to light problems lurking at the nation’s tallest dam.
+          </div>
         </div>
+
 
         <div class="chart-top"></div>
 
@@ -38,6 +41,10 @@
           <br>Danielle Mollette-Parks  &bull; <a href="mailto:DMollette-Parks@sfchronicle.com">DMollette-Parks@sfchronicle.com</a>  &bull; <a href = "https://twitter.com/daniellemparks" target="_blank">@daniellemparks</a>
           <br>Nicole Frugé  &bull; <a href="mailto:NFruge@sfchronicle.com">nfruge@sfchronicle.com</a>  &bull; <a href = "https://twitter.com/PhotoFruge" target="_blank">@PhotoFruge</a></div>
         </div>
+
+        <div id="charts">
+      
+        <div class="chart-top"></div>
 
         <div class="snow-info" id="snow-info">Up-to-date snowpack level:<div id="snowpack-num"></div></div>
 
@@ -56,7 +63,7 @@
           <div class="legend-container" id="legend-container-overlay">
           <div class="element long"><div class="swath long swathoutflow"><div class="legend-text long">2017 Outflow (kcfs)</div></div></div>
           <div class="element long"><div class="swath long swathreservoir"><div class="legend-text long">Reservoir level (% full)</div></div></div>
-        </div>
+          </div>
           <div id="reservoir-chart"></div>
         </div>
 
@@ -71,24 +78,24 @@
           <div class="element"><div class="swath swath2016"><div class="legend-text">2016</div></div></div>
           <div class="element inactive" id="element2017"><div class="swath swath2017"><div class="legend-text">2017</div></div></div>
         </div>
+      </div>
+    </div>
 
-        <div class="progress-bar">
-          <ol>
-            <% json.Slideshow.forEach(function(t,tdx) { %>
-              <% if (tdx == 0){ %>
-                 <li class="progress active" id="progress<%=tdx%>"></li>
-              <% } else { %>
-                 <li id="progress<%=tdx%>" class="progress"></li>
-              <% } %>
-            <% }); %>
-          </ol>
-        </div>
+    <div class="controls">
+      <div id="back"><i class="fa fa-caret-left"></i></div>
+      <div id="forward"><i class="fa fa-caret-right"></i></div>
+    </div>
 
-        <div class="controls">
-          <div id="back"><i class="fa fa-caret-left"></i></div>
-          <div id="forward"><i class="fa fa-caret-right"></i></div>
-        </div>
-
+    <div class="progress-bar">
+      <ol>
+        <% json.Slideshow.forEach(function(t,tdx) { %>
+          <% if (tdx == 0){ %>
+             <li class="progress active" id="progress<%=tdx%>"></li>
+          <% } else { %>
+             <li id="progress<%=tdx%>" class="progress"></li>
+          <% } %>
+        <% }); %>
+      </ol>
     </div>
 
     <%= t.include("partials/_footer.html") %>

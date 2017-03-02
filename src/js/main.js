@@ -104,6 +104,8 @@ document.querySelector('#back').addEventListener('click', function(){
     slide_id = slide_id - 1;
     document.getElementById("progress"+slide_id).classList.add("active");
     slide_lookup(slide_id);
+    $("html, body").animate({ scrollTop: 200 }, 200);
+    return false;
   }
   console.log(slide_id);
 });
@@ -116,6 +118,8 @@ document.querySelector('#forward').addEventListener('click', function(){
     slide_id = slide_id + 1;
     document.getElementById("progress"+slide_id).classList.add("active");
     slide_lookup(slide_id);
+    $("html, body").animate({ scrollTop: 200 }, 200);
+    return false;
   }
   console.log(slide_id);
 });
@@ -1270,3 +1274,12 @@ function draw_intro() {
   }
 
 };
+
+$(window).scroll(function() {
+    if ($(window).scrollTop() > 150) {
+        $('.controls').show();
+    }
+    else {
+      $('.controls').hide();
+    }
+});
