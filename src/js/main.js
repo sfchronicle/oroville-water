@@ -398,16 +398,16 @@ function draw_chart(selectedData,flag) {
       .style("fill","#E5E5E5")
       .attr("d", areaOK);
 
-  // svgFlow.append("text")
-  //     .attr("x", function(d) {
-  //       return x(parseFullDate("07/31/2016"));
-  //     })
-  //     .attr("y", function(d) {
-  //       return y(152);
-  //     })
-  //     .attr("text-anchor", "middle")
-  //     .style("font-size", "13px")
-  //     .text("This is the dangerous zone.");
+  svgFlow.append("text")
+      .attr("x", function(d) {
+        return x(parseFullDate("07/31/2016"));
+      })
+      .attr("y", function(d) {
+        return y(152);
+      })
+      .attr("text-anchor", "middle")
+      .style("font-size", "13px")
+      .text("This is the dangerous zone.");
   }
 
   FlowNested.forEach(function(d,ddx) {
