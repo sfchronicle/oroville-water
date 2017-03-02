@@ -16,6 +16,12 @@
   }
 }
 
+.inline-image {
+  &.graphic {
+    max-width: 1000px;
+  }
+}
+
 header{
   opacity:1;
 }
@@ -87,7 +93,7 @@ header{
   }
 }
 .snow-info {
-  padding-top: 30px;
+  // padding-top: 30px;
   @media @mobile {
     padding-top: 10px;
   }
@@ -205,12 +211,25 @@ li{
   }
 }
 
+.graphic-top {
+  position: relative;
+  text-align: center;
+  margin: auto;
+  padding: 30px 0;
+  font-family: @med-graphics;
+  font-size: 20px;
+  &:empty {
+    display: none;
+  }
+}
+
 .chart-top {
-  font-size: 17px;
+  font-size: 20px;
   text-align: center;
   font-family: @med-graphics;
-  padding-top: 30px;
-  max-width:700px;
+  padding: 30px 0;
+  // max-width:700px;
+  width: 80%;
   margin:0 auto;
   .sub-hed {
     font-size: 18px;
@@ -231,23 +250,44 @@ li{
   @media @mobile {
     font-size: 16px;
   }
+  .graphic-text {
+    padding: 30px 0;
+    font-family: @block-graphics;
+    position: absolute;
+    top: 0;
+    left: 20px;
+    z-index: 98;
+    color: white;
+    font-size: 20px;
+    @media @mobile {
+      padding: 10px 0;
+      position: relative;
+      color: #333;
+    }
+    .bold {
+      font-family: @bold-graphics;
+    }
+  }
 }
 
-.graphic-text {
-  padding: 30px 0;
-  font-family: @block-graphics;
-  position: absolute;
-  top: 0;
-  left: 20px;
-  z-index: 98;
-  color: white;
-  @media @mobile {
-    padding: 10px 0;
-    position: relative;
-    color: #333;
-  }
-  .bold {
-    font-family: @bold-graphics;
+.chart-image {
+  .graphic-text {
+    padding: 30px 0;
+    font-family: @block-graphics;
+    position: absolute;
+    top: 0;
+    left: 20px;
+    z-index: 98;
+    color: white;
+    font-size: 20px;
+    @media @mobile {
+      padding: 10px 0;
+      position: relative;
+      color: #333;
+    }
+    .bold {
+      font-family: @bold-graphics;
+    }
   }
 }
 

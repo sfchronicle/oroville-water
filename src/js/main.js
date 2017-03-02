@@ -144,6 +144,7 @@ function slide_lookup(id) {
   // clear previous elements
   d3.select("#chart").select("svg").remove();
   d3.select("#reservoir-chart").select("svg").remove();
+  document.querySelector(".graphic-top").innerHTML = "";
   document.querySelector(".chart-top").innerHTML = "";
   document.querySelector(".chart-image").innerHTML = "";
   legend.classList.remove("active");
@@ -194,15 +195,9 @@ function slide_lookup(id) {
     }
     document.querySelector(".chart-top").innerHTML = slideData[id]["image_text"];
   } else if (slideData[id]["type"] == "graphic"){
-    console.log(slideData[id]["overlay"]);
-    if (typeof(slideData[id]["overlay"]) != "undefined"){
-      document.querySelector(".chart-image").innerHTML = "<div class='inline-image'><img src='./assets/graphics/"+slideData[id]["image"]+"'></img><img class='overlay' id='overlay' src='./assets/graphics/"+slideData[id]["overlay"]+"'></img></div>";
-    } else {
-      console.log("var not exist");
-      document.querySelector(".chart-image").innerHTML = "<div class='inline-image'><img src='./assets/graphics/"+slideData[id]["image"]+"'></img><img class='overlay' id='overlay'></img></div>";
-    }
-    document.querySelector(".chart-image").innerHTML = "<div class='inline-image'><img src='./assets/graphics/"+slideData[id]["image"]+"'></img><img class='overlay' id='overlay' src='./assets/graphics/"+slideData[id]["overlay"]+"'></div>";
-    document.querySelector(".chart-top").innerHTML = "<div class='graphic-text'>"+slideData[id]["image_text"]+"</div>";
+    console.log(slideData[id]["image_text"]);
+    document.querySelector(".chart-image").innerHTML = "<div class='inline-image graphic'><img src='"+slideData[id]["image"]+"'></img><img class='overlay' id='overlay'></img></div>";
+    document.querySelector(".graphic-top").innerHTML = "<div class='graphic-text'>"+slideData[id]["image_text"]+"</div>";
   } else if (slideData[id]["type"] == "image") {
     if (typeof(slideData[id]["image_text"]) == "undefined"){
     document.querySelector(".chart-image").innerHTML = "<div class='inline-image'><img src='"+slideData[id]["image"]+"'></img></div><div class='caption'>"+"<span class='byline'>  "+slideData[id]["credit"]+"</span></div>";

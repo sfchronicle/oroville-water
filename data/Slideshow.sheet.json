@@ -14,7 +14,7 @@
   {
     "slideID": 2,
     "type": "graphic",
-    "image": "inflow.png",
+    "image": "/assets/graphics/OROVILLE_INFLOW.png",
     "background": "/assets/photos/oroville_now.jpg",
     "image_text": "Look at all the ways water flows into the reservoir."
   },
@@ -41,7 +41,7 @@
   {
     "slideID": 6,
     "type": "graphic",
-    "image": "outflow.png",
+    "image": "/assets/graphics/OROVILLE_OUTFLOW.png",
     "image_text": "Look at all the ways water flows out of the reservoir."
   },
   {
@@ -67,7 +67,7 @@
   {
     "slideID": 10,
     "type": "graphic",
-    "image": "damage.png",
+    "image": "/assets/graphics/OROVILLE_DAMAGE.png",
     "image_text": "Look at how the dam was damaged."
   },
   {
