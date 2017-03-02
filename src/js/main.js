@@ -97,6 +97,10 @@ slide_lookup(0);
 
 // event listeners for the buttons
 document.querySelector('#back').addEventListener('click', function(){
+  console.log("click");
+  document.getElementById("back").classList.remove("last");
+  document.getElementById("back").classList.remove("hide");
+  document.getElementById("forward").classList.remove("hide");
   if (slide_id > 0) {
     d3.select("#chart").select("svg").remove();
     d3.select("#reservoir-chart").select("svg").remove();
@@ -104,13 +108,21 @@ document.querySelector('#back').addEventListener('click', function(){
     slide_id = slide_id - 1;
     document.getElementById("progress"+slide_id).classList.add("active");
     slide_lookup(slide_id);
-    $("html, body").animate({ scrollTop: 200 }, 200);
-    return false;
+    // $("html, body").animate({ scrollTop: 200 }, 200);
+    // return false;
+  }
+  console.log(slide_id);
+  if (slide_id == 0) {
+    document.getElementById("forward").classList.add("first");
+    document.getElementById("back").classList.add("hide");
   }
   console.log(slide_id);
 });
 
 document.querySelector('#forward').addEventListener('click', function(){
+  document.getElementById("forward").classList.remove("first");
+  document.getElementById("back").classList.remove("hide");
+  document.getElementById("forward").classList.remove("hide");
   if (slide_id < slideData.length-1) {
     d3.select("#chart").select("svg").remove();
     d3.select("#reservoir-chart").select("svg").remove();
@@ -118,8 +130,12 @@ document.querySelector('#forward').addEventListener('click', function(){
     slide_id = slide_id + 1;
     document.getElementById("progress"+slide_id).classList.add("active");
     slide_lookup(slide_id);
-    $("html, body").animate({ scrollTop: 200 }, 200);
-    return false;
+    // $("html, body").animate({ scrollTop: 200 }, 200);
+    // return false;
+  }
+  if (slide_id == slideData.length-1) {
+    document.getElementById("back").classList.add("last");
+    document.getElementById("forward").classList.add("hide");
   }
   console.log(slide_id);
 });
@@ -131,10 +147,25 @@ qsa(".progress").forEach(function(group,index) {
 
     d3.select("#chart").select("svg").remove();
     d3.select("#reservoir-chart").select("svg").remove();
+
+    document.getElementById("forward").classList.remove("first");
+    document.getElementById("back").classList.remove("last");
+    document.getElementById("back").classList.remove("hide");
+    document.getElementById("forward").classList.remove("hide");
+
     document.getElementById("progress"+slide_id).classList.remove("active");
     slide_id = index;
     document.getElementById("progress"+slide_id).classList.add("active");
     slide_lookup(slide_id);
+    console.log(slide_id);
+    if (slide_id == 0) {
+      document.getElementById("forward").classList.add("first");
+      document.getElementById("back").classList.add("hide");
+    }
+    if (slide_id == slideData.length-1) {
+      document.getElementById("back").classList.add("last");
+      document.getElementById("forward").classList.add("hide");
+    }
 
   });
 });

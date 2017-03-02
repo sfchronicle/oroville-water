@@ -132,6 +132,10 @@ li{
   }
 }
 
+#legend-container-overlay {
+  padding-top: 0 !important;
+}
+
 .legend-container {
   display: none;
   &.active {
@@ -252,7 +256,7 @@ li{
   }
   .graphic-text {
     padding: 30px 0;
-    font-family: @block-graphics;
+    font-family: @med-graphics;
     position: absolute;
     top: 0;
     left: 20px;
@@ -273,7 +277,7 @@ li{
 .chart-image {
   .graphic-text {
     padding: 30px 0;
-    font-family: @block-graphics;
+    font-family: @med-graphics;
     position: absolute;
     top: 0;
     left: 20px;
@@ -405,9 +409,6 @@ svg {
   }
 }
 
-#charts{
-
-}
 .title{
   background-color:white;
   width:100%;
@@ -508,13 +509,32 @@ svg {
   position:fixed;
   right: 1%;
   top:50%;
-
+  font-size: 14px;
+  padding: 2px 10px;
+  &.first {
+    right: 45%;
+    border-radius: 80px;
+    .fa {
+      font-size: 100px;
+      padding: 0px 20px 0 30px;
+      opacity: 0.8;
+    }
+  }
 }
 
 #back{
   position:fixed;
   left: 1%;
   top:50%;
+  &.last {
+    left: 45%;
+    border-radius: 80px;
+    .fa {
+      font-size: 100px;
+      padding: 0px 30px 0 20px;
+      opacity: 0.8;
+    }
+  }
 }
 
 #forward, #back {
@@ -531,7 +551,9 @@ svg {
     background: @dark-gray;
     color: white;
   }
-
+  &.hide {
+    display: none;
+  }
   &.selected {
     color: @black;
     cursor: default;
@@ -539,6 +561,6 @@ svg {
   }
 
   @media @chart{
-  position:static;
+    position: static;
   }
 }
