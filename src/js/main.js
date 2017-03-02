@@ -135,6 +135,8 @@ qsa(".progress").forEach(function(group,index) {
     slide_id = index;
     document.getElementById("progress"+slide_id).classList.add("active");
     slide_lookup(slide_id);
+    $("html, body").animate({ scrollTop: 200 }, 200);
+    return false;
 
   });
 });
@@ -1271,7 +1273,7 @@ function draw_intro() {
 };
 
 $(window).scroll(function() {
-    if ($(window).scrollTop() > 150) {
+    if ($(window).scrollTop() > 100) {
         $('.controls').show();
     }
     else {
