@@ -108,8 +108,7 @@ document.querySelector('#back').addEventListener('click', function(){
     slide_id = slide_id - 1;
     document.getElementById("progress"+slide_id).classList.add("active");
     slide_lookup(slide_id);
-    // $("html, body").animate({ scrollTop: 200 }, 200);
-    // return false;
+    $("html, body").animate({ scrollTop: 0 }, 200);
   }
   console.log(slide_id);
   if (slide_id == 0) {
@@ -130,7 +129,7 @@ document.querySelector('#forward').addEventListener('click', function(){
     slide_id = slide_id + 1;
     document.getElementById("progress"+slide_id).classList.add("active");
     slide_lookup(slide_id);
-    // $("html, body").animate({ scrollTop: 200 }, 200);
+    $("html, body").animate({ scrollTop: 0 }, 200);
     // return false;
   }
   if (slide_id == slideData.length-1) {
@@ -243,6 +242,8 @@ function slide_lookup(id) {
       document.querySelector(".chart-top").innerHTML = "<div class='graphic-text'>"+slideData[id]["image_text"]+"</div>";
     }
 
+  } else if (slideData[id]["type"] == "title"){
+    document.querySelector(".chart-image").innerHTML = "<div class='inline-image'><img src='" + slideData[id]["image"] + "'></img><div class='title'><div class='hed'>" + slideData[id]["hed"] + "</div><div class='byline'>" + slideData[id]["byline"] + "</div><div class='chatter'>" + slideData[id]["chatter"] + "</div></div></div>";
   }
 }
 
@@ -1305,6 +1306,7 @@ function draw_intro() {
 
 };
 
+<<<<<<< 549dbf81e977272b4a136c8bd599bbc8ce650dc5
 $(window).scroll(function() {
     if ($(window).scrollTop() > 100) {
         $('.controls').show();
