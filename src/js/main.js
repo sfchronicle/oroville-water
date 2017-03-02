@@ -34,8 +34,6 @@ function opacity_by_year(year,flag) {
   }
 }
 
-console.log("testing");
-
 // convert names to camel case
 function titleCase(str) {
   return str
@@ -1309,7 +1307,7 @@ function draw_intro() {
 };
 
 // build reservoir chart
-function draw_reservoir() {
+function draw_reservoir_old() {
   margin.left = 60;
   margin.bottom = 50;
   // create SVG container for chart components
@@ -1467,4 +1465,402 @@ function draw_reservoir() {
         // .style("fill","white")
         .text("Elevation (Feet)")
   }
+}
+
+function draw_reservoir() {
+
+  var selectedData_filter1 = waterData.filter(function(data) { return data.Year == "2017" });
+  var selectedData = selectedData_filter1.filter(function(data) { return data.type == "Outflow" });
+  var selectedReservoir = reservoirData.filter(function(data) {
+    return +data.Date.split("/")[2] == "2017"
+  });
+
+  // create new flat data structure
+  var flatDataO = []; //var flatDataOutflow = [];
+  selectedData.forEach(function(d,idx){
+    var datetemp = d.Date.split("/");
+    var datetemp2 = datetemp[0]+"/"+datetemp[1];
+    if (datetemp[0] >= 10) {
+      var datetemp3 = datetemp[0]+"/"+datetemp[1]+"/2016";
+    } else {
+      var datetemp3 = datetemp[0]+"/"+datetemp[1]+"/2017";
+    }
+    var datetemp3 = parseFullDate(datetemp3);
+    flatDataO.push(
+      {key: d.waterYear, Flow: d.Flow, DateString: d.Date, Date: datetemp3}
+    );
+  });
+
+  // show tooltip
+  var tooltip = d3.select("body")
+      .append("div")
+      .attr("class","tooltip")
+      .style("position", "absolute")
+      .style("z-index", "10")
+      .style("visibility", "hidden")
+
+  // create SVG container for chart components
+  var margin = {
+    top: 15,
+    right: 80,
+    bottom: 60,
+    left: 100
+  };
+  if (screen.width > 768) {
+    var width = 900 - margin.left - margin.right;
+    var height = 600 - margin.top - margin.bottom;
+  } else if (screen.width <= 768 && screen.width > 480) {
+    var width = 720 - margin.left - margin.right;
+    var height = 600 - margin.top - margin.bottom;
+  } else if (screen.width <= 480 && screen.width > 340) {
+    console.log("big phone");
+    var margin = {
+      top: 20,
+      right: 60,
+      bottom: 50,
+      left: 30
+    };
+    var width = 340 - margin.left - margin.right;
+    var height = 350 - margin.top - margin.bottom;
+  } else if (screen.width <= 340) {
+    console.log("mini iphone")
+    var margin = {
+      top: 20,
+      right: 60,
+      bottom: 50,
+      left: 30
+    };
+    var width = 310 - margin.left - margin.right;
+    var height = 350 - margin.top - margin.bottom;
+  }
+  console.log(margin);
+  var svgOverlay = d3.select(".chart").append("svg")
+      .attr("width", width + margin.left + margin.right)
+      .attr("height", height + margin.top + margin.bottom)
+      .append("g")
+      .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+  // x-axis scale
+  var xMonth = d3.time.scale()
+      .range([0,width]);
+
+  // y-axis scale
+  var yInflow = d3.scale.linear()
+      .range([height, 0]);
+
+  var yRightHeight = d3.scale.linear()
+      .range([height, 0]);
+
+  var voronoiLine = d3.geom.voronoi()
+    .x(function(d) {
+      return xMonth(d.Date);
+    })
+    .y(function(d) {
+      return yInflow(d.Flow/1000);
+    })
+    .clipExtent([[-margin.left, -margin.top], [width + margin.right, height + margin.bottom]]);
+
+  // Define the axes
+  if (screen.width <= 480) {
+    var xAxisMonth = d3.svg.axis().scale(xMonth)
+        .orient("bottom")
+        .tickFormat(d3.time.format("%m/%d"))
+        .ticks(6); // tickFormat
+  } else {
+    var xAxisMonth = d3.svg.axis().scale(xMonth)
+        .orient("bottom")
+        .tickFormat(d3.time.format("%m/%d"))
+        .ticks(8); // tickFormat
+  }
+
+
+  var yAxisInflow = d3.svg.axis().scale(yInflow)
+      .orient("left");
+
+  var yAxisRightHeight = d3.svg.axis().scale(yRightHeight)
+      .orient("right")
+
+  xMonth.domain([parseFullDate('01/01/2017'), parseFullDate('03/01/2017')]);
+  yInflow.domain([0,140]);
+  yRightHeight.domain([50,110]);
+
+  var areaReservoirs = d3.svg.area()
+      // .interpolate("monotone")//linear, linear-closed,step-before, step-after, basis, basis-open,basis-closed,monotone
+      .x(function(d) {
+        return xMonth(parseFullDate(d.Date));
+      })
+      .y0(height)
+      .y1(function(d) {
+        return yRightHeight(d.Height/901*100);
+      });
+
+  var line100 = [
+    {Date: '01/01/2017', Height: 901},
+    {Date: '03/01/2017', Height: 901}
+  ];
+
+  var lineReservoirs = d3.svg.line()
+      // .interpolate("monotone")//linear, linear-closed,step-before, step-after, basis, basis-open,basis-closed,monotone
+      .x(function(d) {
+        return xMonth(parseFullDate(d.Date));
+      })
+      .y(function(d) {
+        return yRightHeight(d.Height/901*100);
+      });
+
+  if (screen.width <= 480) {
+    svgOverlay.append("text")
+        .attr("x", function(d) {
+          return xMonth(parseFullDate("12/20/2016"));
+        })
+        .attr("y", function(d) {
+          return yRightHeight(102);
+        })
+        .attr("text-anchor", "middle")
+        .style("font-size", "13px")
+        .text("Oroville reservoir capacity");
+  } else {
+    svgOverlay.append("text")
+        .attr("x", function(d) {
+          return xMonth(parseFullDate("02/01/2017"));
+        })
+        .attr("y", function(d) {
+          return yRightHeight(102);
+        })
+        .attr("text-anchor", "middle")
+        .style("font-size", "14px")
+        .text("Oroville reservoir capacity");
+  }
+
+  var path100 = svgOverlay.append("path")
+    .attr("d", lineReservoirs(line100))
+    .attr("class","annotation")
+    .attr("stroke", "#696969")
+    .attr("fill", "none")
+    .style("shape-rendering","crispEdges")
+
+  // Add the filled area
+  svgOverlay.append("path")
+      .datum(selectedReservoir)
+      .attr("class", "area")
+      .style("fill","#6790B7")
+      .attr("d", areaReservoirs);
+
+  var lineFlow = d3.svg.line()
+      // .interpolate("monotone")//linear, linear-closed,step-before, step-after, basis, basis-open,basis-closed,monotone
+      .x(function(d) {
+        // return x(parseFullDate(d.Date));
+        var datetemp = d.Date.split("/");
+        if (datetemp[0] >= 10) {
+          var datetemp2 = datetemp[0]+"/"+datetemp[1]+"/2016";
+        } else {
+          var datetemp2 = datetemp[0]+"/"+datetemp[1]+"/2017";
+        }
+        // var datetemp2 = datetemp[0]+"/"+datetemp[1]+"/"+d.Year;
+        return xMonth(parseFullDate(datetemp2));
+      })
+      .y(function(d) {
+        return yInflow(d.Flow/1000);
+      });
+
+  svgOverlay.append("path")
+    .data(selectedData)
+    .attr("class", "path voronoi")
+    .style("stroke", "red")//cscale(d.key))//
+    .attr("d", lineFlow(selectedData));
+
+  var nodesOverlay = svgOverlay.selectAll(".voronoi")
+      .data(flatDataO)
+      .enter().append("g")
+      .attr("class","node");
+
+  if (screen.width <= 480) {
+    nodesOverlay.append("text")
+        .attr("x", function(d) {
+          if (d.DateString == "2/10/17") {
+            return (xMonth(d.Date)-175);
+          } else {
+            return (xMonth(d.Date)-135);
+          }
+        })
+        .attr("y", function(d) {
+          return yInflow(d.Flow/1000);
+        })
+        .attr("class","dottextslope")
+        .style("fill","black")//"#3F3F3F")
+        .style("font-size","12px")
+        .style("font-family","AntennaExtraLight")
+        // .style("font-style","italic")
+        .text(function(d) {
+            if (d.DateString == "2/6/17"){
+                return "Main spillway damaged";
+            } else if (d.DateString == "2/10/17"){
+                return "Emergency spillway put to use";
+            } else {
+                return "";
+            }
+        });
+  } else {
+    nodesOverlay.append("text")
+        .attr("x", function(d) {
+          if (d.DateString == "2/10/17") {
+            return (xMonth(d.Date)-200);
+          } else {
+            return (xMonth(d.Date)-150);
+          }
+        })
+        .attr("y", function(d) {
+          return yInflow(d.Flow/1000)-30;
+        })
+        .attr("class","dottextslope")
+        .style("fill","black")//"#3F3F3F")
+        .style("font-size","14px")
+        .style("font-family","AntennaExtraLight")
+        // .style("font-style","italic")
+        .text(function(d) {
+            if (d.DateString == "2/6/17"){
+                return "Main spillway damaged";
+            } else if (d.DateString == "2/10/17"){
+                return "Emergency spillway put in use";
+            } else {
+                return "";
+            }
+        });
+    }
+
+  var focusOverlay = svgOverlay.append("g")
+      .attr("transform", "translate(-100,-100)")
+      .attr("class", "focus");
+
+  focusOverlay.append("circle")
+      .attr("r", 3.5);
+  focusOverlay.append("rect")
+      .attr("x",-40)
+      .attr("y",-25)
+      .attr("width","140px")
+      .attr("height","20px")
+      .attr("opacity","0.5")
+      .attr("fill","white")
+      .attr("pointer-events", "none");
+  focusOverlay.append("text")
+      .attr("x", -30)
+      .attr("y", -10)
+      .attr("class","hover-text")
+      .attr("pointer-events", "none");
+
+  var voronoiLayer = svgOverlay.append("g")
+    .attr("class", "voronoi");
+
+  // if (screen.width >= 480){
+  voronoiLayer.selectAll(".voronoi")
+    .data(voronoiLine(flatDataO))
+    .enter().append("path")
+    .attr("d", function(d) {
+      if (d) {
+        return "M" + d.join("L") + "Z";
+      }
+    })
+    .datum(function(d) {
+      if (d) {
+        return d.point;
+      }
+    })
+    .on("mouseover", mouseover)
+    .on("click", mouseover)
+    .on("mouseout", mouseout);
+  // }
+
+  function mouseover(d) {
+    d3.select(".id"+d.key).classed("line-hover", true);
+    focusOverlay.attr("transform", "translate(" + xMonth(d.Date) + "," + yInflow(d.Flow/1000) + ")");
+    focusOverlay.select("text").text(d.DateString+": "+formatthousands(Math.round(d.Flow))+ " cfs");
+    // if (screen.width <= 480) {
+    if (d.DateString.split("/")[0] > 1) {
+      focusOverlay.select("text").attr("x","-130px");
+      focusOverlay.select("rect").attr("x","-140px");
+      // focusOverlay.select("rect").attr("width","80px");
+    } else {
+      focusOverlay.select("text").attr("x","10px");
+      focusOverlay.select("rect").attr("x","0px");
+      // focusOverlay.select("rect").attr("width","80px");
+    }
+  }
+
+  function mouseout(d) {
+    d3.select(".id"+d.key).classed("line-hover", false);
+    focusOverlay.attr("transform", "translate(-100,-100)");
+  }
+
+  // if (screen.width <= 480) {
+    svgOverlay.append("g")
+        .attr("class", "x axis")
+        .attr("transform", "translate(0," + height + ")")
+        .call(xAxisMonth)
+      // .selectAll("text")
+      //     .style("text-anchor", "end")
+      //     .attr("dx", "-.8em")
+      //     .attr("dy", ".15em")
+      //     .attr("transform", "rotate(-65)" )
+        .append("text")
+        .attr("class", "label")
+        .attr("x", width)
+        .attr("y", 40)
+        .style("text-anchor", "end")
+        .text("2017 rain year (Oct. 1 to present)")
+
+    if (screen.width <= 480) {
+      svgOverlay.append("g")
+          .attr("class", "y axis")
+          .call(yAxisInflow)
+          .append("text")
+          .attr("class", "label")
+          .attr("transform", "rotate(-90)")
+          .attr("y", 10)
+          .attr("x", 0)
+          .attr("dy", ".71em")
+          .style("text-anchor", "end")
+          // .style("fill","white")
+          .text("Outflow (thousands of cfs)")
+
+      svgOverlay.append("g")
+          .attr("class", "y axis")
+          .attr("transform", "translate(" + width + " ,0)")
+          .call(yAxisRightHeight)
+          .append("text")
+          .attr("class", "label")
+          .attr("transform", "rotate(-90)")
+          .attr("y", 40)
+          .attr("x", 0)
+          .attr("dy", ".71em")
+          .style("text-anchor", "end")
+          // .style("fill","white")
+          .text("Reservoir level (% full)")
+    } else {
+      svgOverlay.append("g")
+          .attr("class", "y axis")
+          .call(yAxisInflow)
+          .append("text")
+          .attr("class", "label")
+          .attr("transform", "rotate(-90)")
+          .attr("y", -55)
+          .attr("x", 0)
+          .attr("dy", ".71em")
+          .style("text-anchor", "end")
+          // .style("fill","white")
+          .text("Outflow (thousands of cfs)")
+
+      svgOverlay.append("g")
+          .attr("class", "y axis")
+          .attr("transform", "translate(" + width + " ,0)")
+          .call(yAxisRightHeight)
+          .append("text")
+          .attr("class", "label")
+          .attr("transform", "rotate(-90)")
+          .attr("y", 45)
+          .attr("x", 0)
+          .attr("dy", ".71em")
+          .style("text-anchor", "end")
+          // .style("fill","white")
+          .text("Reservoir level (% full)")
+    }
 }
