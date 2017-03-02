@@ -86,7 +86,7 @@ var slide_id = 0;
 // tracking if we want to show the legend and which elements
 var legend = document.getElementById("legend-container");
 var legend_overlay = document.getElementById("legend-container-overlay");
-var legend_final = document.getElementById("legend-container-final");
+// var legend_final = document.getElementById("legend-container-final");
 var element_2017 = document.getElementById("element2017");
 var snow_text = document.getElementById("snow-info");
 var reservoir_text = document.getElementById("reservoir-info");
@@ -181,7 +181,7 @@ function slide_lookup(id) {
   document.querySelector(".chart-image").innerHTML = "";
   legend.classList.remove("active");
   legend_overlay.classList.remove("active");
-  legend_final.classList.remove("active");
+  // legend_final.classList.remove("active");
   reservoir_text.classList.remove("active");
   snow_text.classList.remove("active");
   final_credits.classList.remove("active");
@@ -204,7 +204,7 @@ function slide_lookup(id) {
     } else {
       if (slideData[id]["year"] == "future") {
         draw_future();
-        legend_final.classList.add("active");
+        // legend_final.classList.add("active");
         reservoir_text.classList.add("active");
         snow_text.classList.add("active");
       } else if ((slideData[id]["year"]).length > 4) {
@@ -243,7 +243,9 @@ function slide_lookup(id) {
     }
 
   } else if (slideData[id]["type"] == "title"){
-    document.querySelector(".chart-image").innerHTML = "<div class='inline-image'><img src='" + slideData[id]["image"] + "'></img><div class='title'><div class='hed'>" + slideData[id]["hed"] + "</div><div class='byline'>" + slideData[id]["byline"] + "</div><div class='chatter'>" + slideData[id]["chatter"] + "</div></div></div>";
+    document.querySelector(".chart-image").innerHTML = "<div class='inline-image'><img src='" + slideData[id]["image"] + "'></img><div class='title'><div class='hed'>" + slideData[id]["hed"] + "</div><div class='byline'>" + slideData[id]["byline"] + "</div></div></div>";
+  } else if (slideData[id]["type"] == "second_title"){
+    document.querySelector(".chart-image").innerHTML = "<div class='inline-image'><img src='" + slideData[id]["image"] + "'></img><div class='chatter'>" + slideData[id]["chatter"] + "</div></div>";
   }
 }
 
@@ -1035,102 +1037,103 @@ function draw_future() {
       .style("visibility", "hidden")
 
   d3.json("http://extras.sfgate.com/editorial/droughtwatch/reservoirs.json", function(barData){
+    document.querySelector("#oroville-num").innerHTML = "<span class='bold'>"+Math.round(barData.data[0]["storage"]/barData.data[0]["capacity"]*1000)/10+"</span><span class='unbold'> percent full</span>";
 
-    barData.data.forEach(function(d){
-      d.name = titleCase(d.name);
-    });
-
-    // x-axis scale
-    var x = d3.scale.ordinal()
-        .rangeRoundBands([0, width], 0.2);
-
-    // y-axis scale
-    var y = d3.scale.linear()
-        .rangeRound([height, 0]);
-
-    x.domain(barData.data.map(function(d) { return d.name; }));
-    y.domain([0, 5000]);
-
-    var xAxis = d3.svg.axis()
-        .scale(x)
-        .orient("bottom");
-
-    // use y-axis scale to set y-axis
-  	var yAxis = d3.svg.axis()
-  			.scale(y)
-  			.orient("left")
-  			.tickFormat(d3.format(".2s"));
-
-    // create SVG container for chart components
-    margin.bottom = 150;
-  	var svgBars = d3.select("#chart").append("svg")
-  			.attr("width", width + margin.left + margin.right)
-  			.attr("height", height + margin.top + margin.bottom)
-  			.append("g")
-  			.attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-
-
-    svgBars.selectAll("bar")
-        .data(barData.data)
-      .enter().append("rect")
-        .style("fill", "#696969")
-        .attr("x", function(d) { return x(d.name); })
-        .attr("width", x.rangeBand())
-        .attr("y", function(d) { return y(+d.capacity/1000); })
-        .attr("height", function(d) {
-          return height - y(+d.capacity/1000);
-        });
-
-    svgBars.selectAll("bar")
-        .data(barData.data)
-      .enter().append("rect")
-        .style("fill", "#6790B7")
-        .attr("x", function(d) { return x(d.name); })
-        .attr("width", x.rangeBand())
-        .attr("y", function(d) { return y(+d.storage/1000); })
-        .attr("height", function(d) {
-          return height - y(+d.storage/1000);
-        })
-        .on("mouseover", function(d) {
-          future_tooltip.html(`
-      				<div>Reservoir: <b>${d.name}</b></div>
-              <div>Storage: <b>${formatthousands(Math.round(d.storage/1000))} TAF</b></div>
-              <div>Capacity: <b>${formatthousands(Math.round(d.capacity/1000))} TAF</b></div>
-      		`);
-        	future_tooltip.style("visibility", "visible");
-        })
-        .on("mousemove", function(d) {
-        	if (screen.width <= 480) {
-        		return future_tooltip
-        			.style("top", (d3.event.pageY+20)+"px")
-        			.style("left",d3.event.pageX/2+20+"px");
-        	} else {
-        		return future_tooltip
-        			.style("top", (d3.event.pageY+20)+"px")
-        			.style("left",(d3.event.pageX-80)+"px");
-        	}
-        })
-        .on("mouseout", function(){return future_tooltip.style("visibility", "hidden");});
-
-    svgBars.append("g")
-        .attr("class", "x axis")
-        .attr("transform", "translate(0," + height + ")")
-        .call(xAxis)
-      .selectAll("text")
-        .style("text-anchor", "end")
-        .attr("dx", "-.8em")
-        .attr("dy", "-.55em")
-        .attr("transform", "rotate(-65)" );
-
-    svgBars.append("g")
-        .attr("class", "y axis")
-        .call(yAxis)
-      .append("text")
-        .attr("transform", "rotate(-90)")
-        .attr("y", 6)
-        .attr("dy", ".71em")
-        .style("text-anchor", "end")
-        .text("Reservoir levels (TAF)");
+    // barData.data.forEach(function(d){
+    //   d.name = titleCase(d.name);
+    // });
+    //
+    // // x-axis scale
+    // var x = d3.scale.ordinal()
+    //     .rangeRoundBands([0, width], 0.2);
+    //
+    // // y-axis scale
+    // var y = d3.scale.linear()
+    //     .rangeRound([height, 0]);
+    //
+    // x.domain(barData.data.map(function(d) { return d.name; }));
+    // y.domain([0, 5000]);
+    //
+    // var xAxis = d3.svg.axis()
+    //     .scale(x)
+    //     .orient("bottom");
+    //
+    // // use y-axis scale to set y-axis
+  	// var yAxis = d3.svg.axis()
+  	// 		.scale(y)
+  	// 		.orient("left")
+  	// 		.tickFormat(d3.format(".2s"));
+    //
+    // // create SVG container for chart components
+    // margin.bottom = 150;
+  	// var svgBars = d3.select("#chart").append("svg")
+  	// 		.attr("width", width + margin.left + margin.right)
+  	// 		.attr("height", height + margin.top + margin.bottom)
+  	// 		.append("g")
+  	// 		.attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+    //
+    //
+    // svgBars.selectAll("bar")
+    //     .data(barData.data)
+    //   .enter().append("rect")
+    //     .style("fill", "#696969")
+    //     .attr("x", function(d) { return x(d.name); })
+    //     .attr("width", x.rangeBand())
+    //     .attr("y", function(d) { return y(+d.capacity/1000); })
+    //     .attr("height", function(d) {
+    //       return height - y(+d.capacity/1000);
+    //     });
+    //
+    // svgBars.selectAll("bar")
+    //     .data(barData.data)
+    //   .enter().append("rect")
+    //     .style("fill", "#6790B7")
+    //     .attr("x", function(d) { return x(d.name); })
+    //     .attr("width", x.rangeBand())
+    //     .attr("y", function(d) { return y(+d.storage/1000); })
+    //     .attr("height", function(d) {
+    //       return height - y(+d.storage/1000);
+    //     })
+    //     .on("mouseover", function(d) {
+    //       future_tooltip.html(`
+    //   				<div>Reservoir: <b>${d.name}</b></div>
+    //           <div>Storage: <b>${formatthousands(Math.round(d.storage/1000))} TAF</b></div>
+    //           <div>Capacity: <b>${formatthousands(Math.round(d.capacity/1000))} TAF</b></div>
+    //   		`);
+    //     	future_tooltip.style("visibility", "visible");
+    //     })
+    //     .on("mousemove", function(d) {
+    //     	if (screen.width <= 480) {
+    //     		return future_tooltip
+    //     			.style("top", (d3.event.pageY+20)+"px")
+    //     			.style("left",d3.event.pageX/2+20+"px");
+    //     	} else {
+    //     		return future_tooltip
+    //     			.style("top", (d3.event.pageY+20)+"px")
+    //     			.style("left",(d3.event.pageX-80)+"px");
+    //     	}
+    //     })
+    //     .on("mouseout", function(){return future_tooltip.style("visibility", "hidden");});
+    //
+    // svgBars.append("g")
+    //     .attr("class", "x axis")
+    //     .attr("transform", "translate(0," + height + ")")
+    //     .call(xAxis)
+    //   .selectAll("text")
+    //     .style("text-anchor", "end")
+    //     .attr("dx", "-.8em")
+    //     .attr("dy", "-.55em")
+    //     .attr("transform", "rotate(-65)" );
+    //
+    // svgBars.append("g")
+    //     .attr("class", "y axis")
+    //     .call(yAxis)
+    //   .append("text")
+    //     .attr("transform", "rotate(-90)")
+    //     .attr("y", 6)
+    //     .attr("dy", ".71em")
+    //     .style("text-anchor", "end")
+    //     .text("Reservoir levels (TAF)");
 
   });
   d3.json("http://extras.sfgate.com/editorial/droughtwatch/snowwatercontent.json", function(snowData){

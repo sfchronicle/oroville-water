@@ -89,7 +89,7 @@ header{
     padding-top: 10px;
   }
 }
-.snow-info {
+.snow-info, .reservoir-info {
   // padding-top: 30px;
   @media @mobile {
     padding-top: 10px;
@@ -97,6 +97,7 @@ header{
   .bold {
     font-size: 30px;
     font-family: @bold-graphics;
+    color: darken(@blue,10%);
   }
   .unbold {
     font-family: @block-graphics;
@@ -430,11 +431,12 @@ svg {
 .title{
 position: absolute;
     top: 0;
-    color: white;
+    // color: white;
     padding-top: 10%;
   width:100%;
   max-width:none;
   padding-bottom:20px;
+  color: black;
 }
 
 .voronoi {
@@ -512,12 +514,14 @@ position: absolute;
   text-align: center;
   font-style: normal;
   font-size: 14px;
+  color: black;
   @media @mobile {
     width: 90%;
     margin: auto;
   }
   a {
-    color: @dark-gray;
+    // color: black !important;
+    // color: white;
     text-decoration: underline;
   }
 }
