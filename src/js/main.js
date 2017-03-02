@@ -397,16 +397,16 @@ function draw_chart(selectedData,flag) {
       .style("fill","#E5E5E5")
       .attr("d", areaOK);
 
-  svgFlow.append("text")
-      .attr("x", function(d) {
-        return x(parseFullDate("07/31/2016"));
-      })
-      .attr("y", function(d) {
-        return y(152);
-      })
-      .attr("text-anchor", "middle")
-      .style("font-size", "13px")
-      .text("This is the dangerous zone.");
+  // svgFlow.append("text")
+  //     .attr("x", function(d) {
+  //       return x(parseFullDate("07/31/2016"));
+  //     })
+  //     .attr("y", function(d) {
+  //       return y(152);
+  //     })
+  //     .attr("text-anchor", "middle")
+  //     .style("font-size", "13px")
+  //     .text("This is the dangerous zone.");
   }
 
   FlowNested.forEach(function(d,ddx) {
@@ -978,7 +978,7 @@ function draw_overlay() {
           .attr("dy", ".71em")
           .style("text-anchor", "end")
           // .style("fill","white")
-          .text("Outflow at Oroville reservoir (thousands of cfs)")
+          .text("Outflow (thousands of cfs)")
 
       svgOverlay.append("g")
           .attr("class", "y axis")
@@ -1005,7 +1005,7 @@ function draw_overlay() {
           .attr("dy", ".71em")
           .style("text-anchor", "end")
           // .style("fill","white")
-          .text("Outflow at Oroville reservoir (thousands of cfs)")
+          .text("Outflow (thousands of cfs)")
 
       svgOverlay.append("g")
           .attr("class", "y axis")
@@ -1394,7 +1394,7 @@ function draw_reservoir() {
   if (screen.width <= 480) {
     svgReservoir.append("text")
         .attr("x", function(d) {
-          return xR(parseFullDate("12/22/2016"));
+          return xR(parseFullDate("01/10/2017"));
         })
         .attr("y", function(d) {
           return yR(915);
