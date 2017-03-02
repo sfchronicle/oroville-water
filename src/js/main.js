@@ -34,6 +34,8 @@ function opacity_by_year(year,flag) {
   }
 }
 
+console.log("testing");
+
 // convert names to camel case
 function titleCase(str) {
   return str
