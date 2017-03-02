@@ -724,7 +724,7 @@ function draw_overlay() {
 
   var line100 = [
     {Date: '10/01/2016', Height: 901},
-    {Date: '02/22/2017', Height: 901}
+    {Date: '03/01/2017', Height: 901}
   ];
 
   var lineReservoirs = d3.svg.line()
