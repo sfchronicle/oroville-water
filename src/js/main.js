@@ -236,7 +236,7 @@ function slide_lookup(id) {
     if (typeof(slideData[id]["image_text"]) == "undefined"){
     document.querySelector(".chart-image").innerHTML = "<div class='inline-image'><img src='"+slideData[id]["image"]+"'></img></div><div class='caption'>"+"<span class='byline'>  "+slideData[id]["credit"]+"</span></div>";
     } else {
-     document.querySelector(".chart-image").innerHTML = "<div class='graphic-text'>"+slideData[id]["image_text"]+"</div>"+"<div class='inline-image'><img src='"+slideData[id]["image"]+"'></img></div><div class='caption'>"+"<span class='byline'>  "+slideData[id]["credit"]+"</span></div>";
+     document.querySelector(".chart-image").innerHTML = "<div class='graphic-text'>"+slideData[id]["image_text"]+"</div>"+"<div class='inline-image'><img src='"+slideData[id]["image"]+"'></img></div><div class='caption'>"+"<span>  "+slideData[id]["credit"]+"</span></div>";
     }
     if (typeof(slideData[id]["graphic-text"]) != "undefined"){
       document.querySelector(".chart-top").innerHTML = "<div class='graphic-text'>"+slideData[id]["image_text"]+"</div>";
