@@ -1306,7 +1306,6 @@ function draw_intro() {
 
 };
 
-
 // build reservoir chart
 function draw_reservoir() {
   margin.left = 60;
