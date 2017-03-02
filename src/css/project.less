@@ -225,6 +225,14 @@ li{
   &:empty {
     display: none;
   }
+  @media @mobile {
+    width: 90%;
+    // padding: 10px 0;
+    position: relative;
+    color: #333;
+    text-align: center;
+    font-size: 16px;
+  }
 }
 
 .chart-top {
@@ -252,6 +260,8 @@ li{
     font-size: 17px;
   }
   @media @mobile {
+    padding: 0;
+    width: 90%;
     font-size: 16px;
   }
   .graphic-text {
@@ -264,9 +274,12 @@ li{
     color: white;
     font-size: 20px;
     @media @mobile {
-      padding: 10px 0;
+      width: 90%;
+      // padding: 10px 0;
       position: relative;
       color: #333;
+      text-align: center;
+      font-size: 16px;
     }
     .bold {
       font-family: @bold-graphics;
@@ -285,7 +298,11 @@ li{
     color: white;
     font-size: 20px;
     @media @mobile {
-      padding: 10px 0;
+      width: 90%;
+      font-size: 16px;
+      text-align: center;
+      font-family: @med-graphics;
+      // padding: 10px 0;
       position: relative;
       color: #333;
     }
