@@ -243,7 +243,7 @@ function slide_lookup(id) {
     }
 
   } else if (slideData[id]["type"] == "title"){
-    document.querySelector(".chart-image").innerHTML = "<div class='inline-image'><img src='" + slideData[id]["image"] + "'></img><div class='title'><div class='hed'>" + slideData[id]["hed"] + "</div><div class='byline'>" + slideData[id]["byline"] + "</div></div></div>";
+    document.querySelector(".chart-image").innerHTML = "<div class='inline-image'><img src='" + slideData[id]["image"] + "'></img><div class='title'><div class='hed'>" + slideData[id]["hed"] + "</div><div class='byline'>" + slideData[id]["byline"] + "</div><div class='chatter'>" + slideData[id]["chatter"] + "</div></div></div>";
   } else if (slideData[id]["type"] == "second_title"){
     document.querySelector(".chart-image").innerHTML = "<div class='inline-image'><img src='" + slideData[id]["image"] + "'></img><div class='chatter'>" + slideData[id]["chatter"] + "</div></div>";
   }

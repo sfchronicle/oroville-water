@@ -2,16 +2,17 @@
   {
     "slideID": 0,
     "type": "title",
-    "image": "/assets/photos/oroville_now.jpg",
+    "image": "/assets/photos/oroville_now_bg.jpg",
     "credit": "California Department of Water Resources",
     "hed": "What happened at Lake Oroville?",
-    "byline": "By Emma O'Neill, John Blanchard, and Kurtis Alexander"
+    "byline": "By Emma O'Neill, John Blanchard, and Kurtis Alexander",
+    "chatter": "A wet winter brought to light problems at the nation’s tallest dam, which controls water delivered across the state. As storms raged in early February, dam operators released heavy flows down the Feather River, but a crisis began when a crater opened on the main spillway. Days later, water poured over an emergency spillway – essentially a hillside – that had never been used. The erosion of the hillside prompted the evacuation of nearly 200,000 people downstream."
+  
   },
   {
     "slideID": 1,
     "type": "second_title",
-    "image": "/assets/photos/oroville_now_bg.jpg",
-    "chatter": "A wet winter brought to light problems at the nation’s tallest dam, which controls water delivered across the state. As storms raged in early February, dam operators released heavy flows down the Feather River, but a crisis began when a crater opened on the main spillway. Days later, water poured over an emergency spillway – essentially a hillside – that had never been used. The erosion of the hillside prompted the evacuation of nearly 200,000 people downstream."
+    "image": "/assets/photos/oroville_now.jpg"
   },
   {
     "slideID": 2,
