@@ -195,6 +195,8 @@ function slide_lookup(id) {
     // bar chart for beginning
     if (slideData[id]["year"] == "setup") {
       draw_intro();
+    } else if (slideData[id]["year"] == "reservoir") {
+      draw_reservoir();
     // special chart with 2 y-axes
    } else if (slideData[id]["year"] == "overlay") {
       legend_overlay.classList.add("active");
@@ -1311,3 +1313,164 @@ $(window).scroll(function() {
       $('.controls').hide();
     }
 });
+
+// build reservoir chart
+function draw_reservoir() {
+  margin.left = 60;
+  margin.bottom = 50;
+  // create SVG container for chart components
+  var svgReservoir = d3.select("#reservoir-chart").append("svg")
+      .attr("width", width + margin.left + margin.right)
+      .attr("height", height + margin.top + margin.bottom)
+      .append("g")
+      .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+  reservoirData.forEach(function(d) {
+      d.Storage = +d.Storage;
+  });
+
+  // x-axis scale
+  var xR = d3.time.scale()
+      .range([0,width]);
+
+  // y-axis scale
+  var yR = d3.scale.linear()
+      .range([height, 0]);
+
+  xR.domain([parseFullDate('10/01/2016'), parseFullDate('03/01/2017')]);
+  yR.domain([0,1000]);
+
+  // Define the axes
+  var xAxisR = d3.svg.axis().scale(xR)
+      .orient("bottom")
+      .tickFormat(d3.time.format("%m/%d")); // tickFormat
+
+  var yAxisR = d3.svg.axis().scale(yR)
+      .orient("left");
+
+  var line901 = [
+    {Date: '10/01/2016', Height: 901},
+    {Date: '03/01/2017', Height: 901}
+  ];
+  //
+  var lineReservoirs = d3.svg.line()
+      // .interpolate("monotone")//linear, linear-closed,step-before, step-after, basis, basis-open,basis-closed,monotone
+      .x(function(d) {
+        return xR(parseFullDate(d.Date));
+      })
+      .y(function(d) {
+        return yR(d.Height);
+      });
+
+  var areaReservoirs = d3.svg.area()
+      // .interpolate("monotone")//linear, linear-closed,step-before, step-after, basis, basis-open,basis-closed,monotone
+      .x(function(d) {
+        return xR(parseFullDate(d.Date));
+      })
+      .y0(height)
+      .y1(function(d) {
+        return yR(d.Height);
+      });
+
+  // Add the filled area
+  svgReservoir.append("path")
+      .datum(reservoirData)
+      .attr("class", "area")
+      .style("fill","#6790B7")
+      .attr("d", areaReservoirs);
+
+  // svgReservoir.append("path")
+  //   .attr("class", "line")
+  //   .style("stroke","green")
+  //   .attr("d", lineReservoirs(reservoirData));
+
+  var path901 = svgReservoir.append("path")
+    .attr("d", lineReservoirs(line901))
+    .attr("class","annotation")
+    .attr("stroke", "#696969")
+    .attr("fill", "none")
+    .style("shape-rendering","crispEdges")
+
+  if (screen.width <= 480) {
+    svgReservoir.append("text")
+        .attr("x", function(d) {
+          return xR(parseFullDate("12/22/2016"));
+        })
+        .attr("y", function(d) {
+          return yR(915);
+        })
+        .attr("text-anchor", "middle")
+        .style("font-size", "13px")
+        .text("Oroville reservoir capacity");
+  } else {
+    svgReservoir.append("text")
+        .attr("x", function(d) {
+          return xR(parseFullDate("02/01/2017"));
+        })
+        .attr("y", function(d) {
+          return yR(915);
+        })
+        .attr("text-anchor", "middle")
+        .style("font-size", "14px")
+        .text("Oroville reservoir capacity");
+  }
+
+  // if (screen.width <= 480) {
+    svgReservoir.append("g")
+        .attr("class", "x axis")
+        .attr("transform", "translate(0," + height + ")")
+        .call(xAxisR)
+      // .selectAll("text")
+      //     .style("text-anchor", "end")
+      //     .attr("dx", "-.8em")
+      //     .attr("dy", ".15em")
+      //     .attr("transform", "rotate(-65)" )
+        .append("text")
+        .attr("class", "label")
+        .attr("x", width)
+        .attr("y", 35)
+        .style("text-anchor", "end")
+        .text("2017 rain year (10/01 to present)")
+  // } else {
+  //   svgReservoir.append("g")
+  //       .attr("class", "x axis")
+  //       .attr("transform", "translate(0," + height + ")")
+  //       .call(xAxisR)
+  //       .append("text")
+  //       .attr("class", "label")
+  //       .attr("x", width)
+  //       .attr("y", 40)
+  //       .style("text-anchor", "end")
+  //       .text("Month");
+  // }
+
+  if (screen.width <= 480) {
+    svgReservoir.append("g")
+        .data(reservoirData)
+        .attr("class", "y axis")
+        .call(yAxisR)
+        .append("text")
+        .attr("class", "label")
+        .attr("transform", "rotate(-90)")
+        .attr("y", 10)
+        .attr("x", 0)
+        .attr("dy", ".71em")
+        .style("text-anchor", "end")
+        // .style("fill","white")
+        .text("Elevation (Feet)")
+  } else {
+    svgReservoir.append("g")
+        .data(reservoirData)
+        .attr("class", "y axis")
+        .call(yAxisR)
+        .append("text")
+        .attr("class", "label")
+        .attr("transform", "rotate(-90)")
+        .attr("y", -70)
+        .attr("x", 0)
+        .attr("dy", ".71em")
+        .style("text-anchor", "end")
+        // .style("fill","white")
+        .text("Elevation (Feet)")
+  }
+}
