@@ -166,6 +166,8 @@ qsa(".progress").forEach(function(group,index) {
       document.getElementById("back").classList.add("last");
       document.getElementById("forward").classList.add("hide");
     }
+    // $("html, body").animate({ scrollTop: 200 }, 200);
+    // return false;
 
   });
 });
@@ -1302,7 +1304,7 @@ function draw_intro() {
 };
 
 $(window).scroll(function() {
-    if ($(window).scrollTop() > 150) {
+    if ($(window).scrollTop() > 100) {
         $('.controls').show();
     }
     else {
