@@ -442,7 +442,7 @@ function draw_chart(selectedData,flag) {
           if(slideData[slide_id]["flow_type"] == "Inflow") {
             return (x(d.Date)+20);
           } else {
-            return (x(d.Date)-50);
+            return (x(d.Date)-10);
           }
         })
         .attr("y", function(d) {
@@ -704,7 +704,7 @@ function draw_overlay() {
   var yAxisRightHeight = d3.svg.axis().scale(yRightHeight)
       .orient("right")
 
-  xMonth.domain([parseFullDate('10/01/2016'), parseFullDate('02/22/2017')]);
+  xMonth.domain([parseFullDate('10/01/2016'), parseFullDate('03/01/2017')]);
   yInflow.domain([0,140]);
   yRightHeight.domain([50,110]);
 

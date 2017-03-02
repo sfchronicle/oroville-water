@@ -1,5 +1,85 @@
 [
   {
+    "Date": "3/1/17",
+    "Month": 3,
+    "Day": 1,
+    "YearShort": 17,
+    "Flow": 0,
+    "type": "Outflow",
+    "Year": 2017,
+    "waterYear": 2017
+  },
+  {
+    "Date": "2/28/17",
+    "Month": 2,
+    "Day": 28,
+    "YearShort": 17,
+    "Flow": 0,
+    "type": "Outflow",
+    "Year": 2017,
+    "waterYear": 2017
+  },
+  {
+    "Date": "2/27/17",
+    "Month": 2,
+    "Day": 27,
+    "YearShort": 17,
+    "Flow": 23541,
+    "type": "Outflow",
+    "Year": 2017,
+    "waterYear": 2017
+  },
+  {
+    "Date": "2/26/17",
+    "Month": 2,
+    "Day": 26,
+    "YearShort": 17,
+    "Flow": 50000,
+    "type": "Outflow",
+    "Year": 2017,
+    "waterYear": 2017
+  },
+  {
+    "Date": "2/25/17",
+    "Month": 2,
+    "Day": 25,
+    "YearShort": 17,
+    "Flow": 50000,
+    "type": "Outflow",
+    "Year": 2017,
+    "waterYear": 2017
+  },
+  {
+    "Date": "2/24/17",
+    "Month": 2,
+    "Day": 24,
+    "YearShort": 17,
+    "Flow": 50000,
+    "type": "Outflow",
+    "Year": 2017,
+    "waterYear": 2017
+  },
+  {
+    "Date": "2/23/17",
+    "Month": 2,
+    "Day": 23,
+    "YearShort": 17,
+    "Flow": 55416,
+    "type": "Outflow",
+    "Year": 2017,
+    "waterYear": 2017
+  },
+  {
+    "Date": "2/22/17",
+    "Month": 2,
+    "Day": 22,
+    "YearShort": 17,
+    "Flow": 59999,
+    "type": "Outflow",
+    "Year": 2017,
+    "waterYear": 2017
+  },
+  {
     "Date": "2/21/17",
     "Month": 2,
     "Day": 21,
@@ -26088,6 +26168,86 @@
     "type": "Outflow",
     "Year": 2010,
     "waterYear": 2010
+  },
+  {
+    "Date": "3/1/17",
+    "Month": 3,
+    "Day": 1,
+    "YearShort": 17,
+    "Flow": 19700,
+    "type": "Inflow",
+    "Year": 2017,
+    "waterYear": 2017
+  },
+  {
+    "Date": "2/28/17",
+    "Month": 2,
+    "Day": 28,
+    "YearShort": 17,
+    "Flow": 19700,
+    "type": "Inflow",
+    "Year": 2017,
+    "waterYear": 2017
+  },
+  {
+    "Date": "2/27/17",
+    "Month": 2,
+    "Day": 27,
+    "YearShort": 17,
+    "Flow": 19884,
+    "type": "Inflow",
+    "Year": 2017,
+    "waterYear": 2017
+  },
+  {
+    "Date": "2/26/17",
+    "Month": 2,
+    "Day": 26,
+    "YearShort": 17,
+    "Flow": 22843,
+    "type": "Inflow",
+    "Year": 2017,
+    "waterYear": 2017
+  },
+  {
+    "Date": "2/25/17",
+    "Month": 2,
+    "Day": 25,
+    "YearShort": 17,
+    "Flow": 26893,
+    "type": "Inflow",
+    "Year": 2017,
+    "waterYear": 2017
+  },
+  {
+    "Date": "2/24/17",
+    "Month": 2,
+    "Day": 24,
+    "YearShort": 17,
+    "Flow": 32259,
+    "type": "Inflow",
+    "Year": 2017,
+    "waterYear": 2017
+  },
+  {
+    "Date": "2/23/17",
+    "Month": 2,
+    "Day": 23,
+    "YearShort": 17,
+    "Flow": 41276,
+    "type": "Inflow",
+    "Year": 2017,
+    "waterYear": 2017
+  },
+  {
+    "Date": "2/22/17",
+    "Month": 2,
+    "Day": 22,
+    "YearShort": 17,
+    "Flow": 55568,
+    "type": "Inflow",
+    "Year": 2017,
+    "waterYear": 2017
   },
   {
     "Date": "2/21/17",
