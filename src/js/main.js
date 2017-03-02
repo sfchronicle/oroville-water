@@ -1306,15 +1306,6 @@ function draw_intro() {
 
 };
 
-<<<<<<< 549dbf81e977272b4a136c8bd599bbc8ce650dc5
-$(window).scroll(function() {
-    if ($(window).scrollTop() > 100) {
-        $('.controls').show();
-    }
-    else {
-      $('.controls').hide();
-    }
-});
 
 // build reservoir chart
 function draw_reservoir() {
